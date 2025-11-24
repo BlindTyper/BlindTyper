@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package game;
+
+option go_package = ".;gamepb";
+
+service GameService {
+  rpc RpcTestFunc(GameTestRequest) returns (GameTestResponse);
+}
+
+message UserObject {
+    string JWT = 1;
+    string UID = 2;
+}
+message GameTestRequest {
+    UserObject UserObject = 1;
+}
+message GameTestResponse {
+    string message = 1;
+}

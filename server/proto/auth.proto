@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = ".;authpb";
+
+// gRPC-сервис для работы с аутентификацией и JWT
+service AuthService {
+  // Middleware
+  rpc IsAuth(IsAuthRequest) returns (IsAuthResponse);
+  rpc JWTisValid(JWTisValidRequest) returns (JWTisValidResponse);
+}
+
+// middleware
+message IsAuthRequest {
+  string JWT = 1;
+  string username = 2;
+}
+message IsAuthResponse { bool status = 1; }
+
+message JWTisValidRequest {
+  string JWT = 1;
+  string username = 2;
+}
+message JWTisValidResponse { bool status = 1; }

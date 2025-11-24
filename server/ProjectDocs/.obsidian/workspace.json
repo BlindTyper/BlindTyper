@@ -1,0 +1,195 @@
+{
+  "main": {
+    "id": "a0744d367ea6285e",
+    "type": "split",
+    "children": [
+      {
+        "id": "962390b452e12cae",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "926c06f2f8ee8c29",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "bedorev_horneioi/shedule/SE-TECH/Медиавики.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Медиавики"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "c6779b174f415a16",
+    "type": "split",
+    "children": [
+      {
+        "id": "7d9711ee3009457c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b74a9d7773a9ac06",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "2e738780c8b4281b",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "a6b150ed866621ab",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "right": {
+    "id": "ab9a76cbb9add0a0",
+    "type": "split",
+    "children": [
+      {
+        "id": "79ff51d9514c52b5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "627b07b98d2d7bf2",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "822b458766510dd6",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "548f6825c8b67962",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "a59d5d340230ee82",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "926c06f2f8ee8c29",
+  "lastOpenFiles": [
+    "bedorev_horneioi/shedule/SE-TECH/final FT-3.md",
+    "bedorev_horneioi/shedule/SE-TECH/Спецификация требований 1.md",
+    "bedorev_horneioi/shedule/SE-TECH/Architecture-plan.md",
+    "bedorev_horneioi/shedule/SE-TECH/Спецификация требований.md",
+    "bedorev_horneioi/shedule/SE-TECH/Медиавики.md",
+    "ВысокоуровневаяАрхитектура2 2.png",
+    "ВысокоуровневаяАрхитектура2 1.png",
+    "ВысокоуровневаяАрхитектура2.png",
+    "Предметная область схем.png",
+    "02.10.25 бд.md",
+    "бвп.md",
+    "bedorev_horneioi/shedule/SE-TECH/Основная страница проекта.md",
+    "03.10.25 Киберимунка.md",
+    "bedorev_horneioi/ФТ/СвязьМеждуКомпонентамиСервера.drawio",
+    "bedorev_horneioi/ФТ/СвязьМеждуОбектами2.1.drawio",
+    "bedorev_horneioi/ФТ",
+    "bedorev_horneioi/Новая папка",
+    "bedorev_horneioi/shedule/SE-TECH/План проекта.md",
+    "toDoList.md",
+    "bedorev_horneioi/shedule/SE-TECH",
+    "bedorev_horneioi/shedule",
+    "Untitled.base"
+  ]
+}

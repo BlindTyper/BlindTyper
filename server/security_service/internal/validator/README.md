@@ -1,0 +1,1 @@
+# Validator provides data validating from request gotten from Gateway

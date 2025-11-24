@@ -1,0 +1,5 @@
+gitlab/
+*.log
+*.tmp
+.gitlab-ci.yml
+.runner_system_id

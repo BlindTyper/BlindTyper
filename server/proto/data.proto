@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package data;
+
+option go_package = ".;datapb";
+
+// Contracts
+service DataService {
+  rpc RpcDataLogin(DataLoginRequest) returns (DataLoginResponse);
+
+  rpc RpcDataRegister(DataRegisterRequest) returns (DataRegisterResponse);
+
+  rpc RpcDataProfileDelete(DataProfileDeleteRequest)
+      returns (DataProfileDeleteResponse);
+
+  rpc RpcDataProfilePasswordUpdate(DataProfilePasswordUpdateRequest)
+      returns (DataProfilePasswordUpdateResponse);
+
+  rpc RpcDataProfileNameUpdate(DataProfileNameUpdateRequest)
+      returns (DataProfileNameUpdateResponse);
+
+  rpc RpcDataProfileImageUpdate(DataProfileImageUpdateRequest)
+      returns (DataProfileImageUpdateResponse);
+
+  rpc RpcDataProfileEmailUpdate(DataProfileEmailUpdateRequest)
+      returns (DataProfileEmailUpdateResponse);
+}
+
+// Services will ask for CRUD actions with database.
+
+// Create
+message DataRegisterRequest {
+  string username = 1;
+  string password = 2;
+  string password_repeat = 3;
+  string email = 4;
+}
+message DataRegisterResponse { string message = 1; }
+
+// Read
+message DataLoginRequest {
+  string username = 1;
+  string email = 2;
+  string password = 3;
+}
+message DataLoginResponse { bool success = 1; }
+
+// Update
+message DataProfilePasswordUpdateRequest {
+  string password = 1;
+  string password_repeat = 2;
+}
+message DataProfilePasswordUpdateResponse { string message = 1; }
+
+message DataProfileNameUpdateRequest { string username = 1; }
+message DataProfileNameUpdateResponse { string message = 1; }
+
+message DataProfileImageUpdateRequest { string image = 1; }
+message DataProfileImageUpdateResponse { string message = 1; }
+
+// Delete
+message DataProfileDeleteRequest {
+  string username = 1;
+  string password = 2; // additional login check.
+}
+message DataProfileDeleteResponse { string message = 1; }
+
+message DataProfileImageDeleteRequest { string image = 1; }
+message DataProfileImageDeleteResponse { string message = 1; }
+
+message DataProfileEmailUpdateRequest { string email = 1; }
+message DataProfileEmailUpdateResponse { string message = 1; }

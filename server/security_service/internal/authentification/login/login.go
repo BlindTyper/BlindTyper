@@ -7,7 +7,7 @@ import (
 	"io"
 	"log"
 	"net/http"
-	jwtgenerator "security_service/internal/JWTgenerator"
+	jwtgenerator "security_service/internal/JWT/JWTgenerator"
 	"security_service/internal/rpc/client"
 	//"gateway/pkg/connParser/httpparser" remote procedure call to the db_service
 )

@@ -1,4 +1,4 @@
-package grpcdataclient
+package grpcsecurityclient
 
 import (
 	"context"

@@ -24,6 +24,12 @@ services:
     networks: 
       - app-net
       - db-net
+  game:
+    build: ./game_service
+    # ports: ["8083:8083"]
+    networks: ["app-net"]
+    depends_on:
+    - auth
   nginx:
     image: nginx:alpine
     restart: unless-stopped

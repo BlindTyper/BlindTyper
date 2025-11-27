@@ -7,12 +7,7 @@ import (
 	"strings"
 )
 
-type UserInfo struct {
-	JWT string
-	UID string
-}
-
-func RouteRequest(user UserInfo, ctx context.Context, wrt http.ResponseWriter, req *http.Request) {
+func RouteRequest(user, JWT string, ctx context.Context, wrt http.ResponseWriter, req *http.Request) {
 	log.Println("Router got Request. . .")
 
 	path := strings.TrimPrefix(req.URL.Path, "/game/")

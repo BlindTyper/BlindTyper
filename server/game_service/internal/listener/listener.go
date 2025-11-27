@@ -31,6 +31,7 @@ func (listener *GameServiceListener) ServeHTTP(wrt http.ResponseWriter, req *htt
 	var body GameServiceListener
 
 	if err := json.NewDecoder(req.Body).Decode(&body); err != nil {
+		fmt.Println("Decode Error")
 		http.Error(wrt, "Invalid JSON", http.StatusBadRequest)
 		return
 	}
@@ -44,7 +45,7 @@ func (listener *GameServiceListener) ServeHTTP(wrt http.ResponseWriter, req *htt
 	defer req.Body.Close()
 
 	authClient := AuthClient.Get()
-	success, err := authClient.RpcIsAuth(
+	success, err := authClient.IsAuth(
 		context.Background(),
 		body.JWT,
 		body.Username,
@@ -53,7 +54,7 @@ func (listener *GameServiceListener) ServeHTTP(wrt http.ResponseWriter, req *htt
 		http.Error(wrt, fmt.Sprintf(`{"status": "failed", "message":"%v"}`, err), http.StatusInternalServerError)
 		return
 	}
-	if !success {
+	if success {
 		router.RouteRequest(listener.Username, listener.JWT, req.Context(), wrt, req)
 	} else {
 		http.Error(wrt, fmt.Sprintln(`{"status": "failed", "message": "Not Authed"}`), http.StatusNetworkAuthenticationRequired)

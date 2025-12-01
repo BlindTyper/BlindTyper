@@ -4,9 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"game_service/internal/contextkeys"
 	"game_service/internal/router"
 	AuthClient "game_service/internal/rpc/client/securitygrpcclient"
-	"io"
+
 	"log"
 	"net/http"
 )
@@ -20,26 +21,21 @@ func ConnHandler() {
 }
 
 type GameServiceListener struct {
-	JWT      string `json:"JWT"`      // Access token
-	Username string `json:"Username"` // Unique ID
+	JWT       string `json:"JWT"`       // Access token
+	Username  string `json:"Username"`  // Unique ID
+	AvatarB64 string `json:"AvatarB64"` // pfp
 }
 
 func (listener *GameServiceListener) ServeHTTP(wrt http.ResponseWriter, req *http.Request) {
 	/* TODO
 	Wrap listener into the middleware HandlerFunc
 	*/
+
 	var body GameServiceListener
 
 	if err := json.NewDecoder(req.Body).Decode(&body); err != nil {
-		fmt.Println("Decode Error")
+		log.Println("Decode Error")
 		http.Error(wrt, "Invalid JSON", http.StatusBadRequest)
-		return
-	}
-	defer req.Body.Close()
-
-	_, err := io.ReadAll(req.Body)
-	if err != nil {
-		http.Error(wrt, "cannot read body", http.StatusBadRequest)
 		return
 	}
 	defer req.Body.Close()
@@ -55,7 +51,12 @@ func (listener *GameServiceListener) ServeHTTP(wrt http.ResponseWriter, req *htt
 		return
 	}
 	if success {
-		router.RouteRequest(listener.Username, listener.JWT, req.Context(), wrt, req)
+		ctx := context.WithValue(req.Context(), contextkeys.UserKey, body.Username)
+		ctx = context.WithValue(ctx, contextkeys.ImgKey, body.AvatarB64)
+		req = req.WithContext(ctx)
+
+		log.Printf("heh. %s", ctx)
+		router.RouteRequest(ctx, wrt, req)
 	} else {
 		http.Error(wrt, fmt.Sprintln(`{"status": "failed", "message": "Not Authed"}`), http.StatusNetworkAuthenticationRequired)
 		return

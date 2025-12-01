@@ -24,13 +24,12 @@ type GameServiceListener struct {
 	JWT       string `json:"JWT"`       // Access token
 	Username  string `json:"Username"`  // Unique ID
 	AvatarB64 string `json:"AvatarB64"` // pfp
+	Password  string `json:"Password"`  // Password
+	Email     string `json:"Email"`     // Email
+	Nickname  string `json:"Nickname"`
 }
 
 func (listener *GameServiceListener) ServeHTTP(wrt http.ResponseWriter, req *http.Request) {
-	/* TODO
-	Wrap listener into the middleware HandlerFunc
-	*/
-
 	var body GameServiceListener
 
 	if err := json.NewDecoder(req.Body).Decode(&body); err != nil {
@@ -53,9 +52,12 @@ func (listener *GameServiceListener) ServeHTTP(wrt http.ResponseWriter, req *htt
 	if success {
 		ctx := context.WithValue(req.Context(), contextkeys.UserKey, body.Username)
 		ctx = context.WithValue(ctx, contextkeys.ImgKey, body.AvatarB64)
+		ctx = context.WithValue(ctx, contextkeys.NicknameKey, body.Nickname)
+		ctx = context.WithValue(ctx, contextkeys.PasswordKey, body.Password)
+		ctx = context.WithValue(ctx, contextkeys.EmailKey, body.Email)
+
 		req = req.WithContext(ctx)
 
-		log.Printf("heh. %s", ctx)
 		router.RouteRequest(ctx, wrt, req)
 	} else {
 		http.Error(wrt, fmt.Sprintln(`{"status": "failed", "message": "Not Authed"}`), http.StatusNetworkAuthenticationRequired)

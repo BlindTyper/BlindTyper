@@ -33,6 +33,7 @@ func ChangePassword(profile *ProfileObject) (bool, error) {
 	return true, nil
 }
 func (profile *ProfileObject) ChangePasswordRequest(req *http.Request, wrt http.ResponseWriter) (bool, error) {
+	// gRPC request with UID search in users -> change password in Users
 	return ChangePassword(profile)
 }
 
@@ -41,6 +42,7 @@ func ChangeEmail(profile *ProfileObject) (bool, error) {
 	return true, nil
 }
 func (profile *ProfileObject) ChangeEmailRequest(req *http.Request, wrt http.ResponseWriter) (bool, error) {
+	// gRPC request with UID search in users -> change password in Users
 	return ChangeEmail(profile)
 }
 

@@ -29,7 +29,7 @@ func (profile *ProfileObject) ChangeImageRequest(req *http.Request, wrt http.Res
 }
 
 func ChangePassword(profile *ProfileObject) (bool, error) {
-	log.Println("Image Changed")
+	// log.Println("Image Changed")
 	return true, nil
 }
 func (profile *ProfileObject) ChangePasswordRequest(req *http.Request, wrt http.ResponseWriter) (bool, error) {
@@ -37,7 +37,7 @@ func (profile *ProfileObject) ChangePasswordRequest(req *http.Request, wrt http.
 }
 
 func ChangeEmail(profile *ProfileObject) (bool, error) {
-	log.Println("Image Changed")
+	// log.Println("Image Changed")
 	return true, nil
 }
 func (profile *ProfileObject) ChangeEmailRequest(req *http.Request, wrt http.ResponseWriter) (bool, error) {
@@ -45,7 +45,7 @@ func (profile *ProfileObject) ChangeEmailRequest(req *http.Request, wrt http.Res
 }
 
 func ChangeNickname(profile *ProfileObject) (bool, error) {
-	log.Println("Image Changed")
+	// log.Println("Image Changed")
 	return true, nil
 }
 func (profile *ProfileObject) ChangeNicknameRequest(req *http.Request, wrt http.ResponseWriter) (bool, error) {

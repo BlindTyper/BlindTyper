@@ -31,7 +31,7 @@ func RouteRequest(user, JWT string, ctx context.Context, wrt http.ResponseWriter
 			TODO
 			decode JSON and get required method
 		*/
-		UserHander(path_parts[1:], req, wrt)
+		UserHander(path_parts[1:], req, wrt, ctx)
 
 		log.Println("User Handler")
 	default:
@@ -60,7 +60,19 @@ func UserHander(parts []string, req *http.Request, wrt http.ResponseWriter, ctx 
 			*/
 			switch command_type {
 			case "email":
-				edit_profile.ChangeEmail(req, wrt, ctx)
+				/* TODO */
+				Profile := edit_profile.ProfileObject{
+					Nickname:  "Test",
+					Email:     "Test@mail.ru",
+					Password:  "test",
+					ImagePath: "img...",
+				}
+				/*
+					Object Function.
+					Fill the object from the Request before using.
+				*/
+				Profile.ChangeEmailRequest(req, wrt)
+				log.Println("Email changed")
 			case "password":
 			case "nickname":
 			case "image":
@@ -70,8 +82,6 @@ func UserHander(parts []string, req *http.Request, wrt http.ResponseWriter, ctx 
 		} else {
 			log.Println("Edit request without id")
 		}
-
-		log.Println("Edit request -> edit Handler")
 	default:
 		log.Println("Unknown Request")
 	}

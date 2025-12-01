@@ -13,17 +13,10 @@ import (
 	"os"
 )
 
-/*
-TODO
-gRPC request to the data_service
-*/
-
 func ChangeImage(req *http.Request, wrt http.ResponseWriter, ctx context.Context) {
 	// Получаем username и avatarB64 из контекста
 	usernameVal := ctx.Value(contextkeys.UserKey)
 	avatarVal := ctx.Value(contextkeys.ImgKey)
-
-	log.Println(usernameVal, avatarVal)
 
 	if usernameVal == nil || avatarVal == nil {
 		http.Error(wrt, "missing username or avatar in context", http.StatusBadRequest)
@@ -73,17 +66,38 @@ func ChangeImage(req *http.Request, wrt http.ResponseWriter, ctx context.Context
 	wrt.Write([]byte(`{"success":true}`))
 }
 
-func ChangeEmail(req *http.Request, wrt http.ResponseWriter) {
+func ChangeEmail(req *http.Request, wrt http.ResponseWriter, ctx context.Context) {
 	// TODO: read JSON, validate, call gRPC to update email in data_service
+	usernameVal := ctx.Value(contextkeys.UserKey)
+	emailVal := ctx.Value(contextkeys.EmailKey)
 
+	if usernameVal == nil || emailVal == nil {
+		http.Error(wrt, "missing username or email in context.", http.StatusBadRequest)
+		return
+	}
+	/* TODO
+	gRPC request to dataservice to change email in user table via username key.
+	*/
 }
 
-func ChangePassword(req *http.Request, wrt http.ResponseWriter) {
+func ChangePassword(req *http.Request, wrt http.ResponseWriter, ctx context.Context) {
 	// TODO
+	usernameVal := ctx.Value(contextkeys.UserKey)
+	passwordVal := ctx.Value(contextkeys.PasswordKey)
 
+	if usernameVal == nil || passwordVal == nil {
+		http.Error(wrt, "missing username or password in context.", http.StatusBadRequest)
+		return
+	}
 }
 
-func ChangeNickname(req *http.Request, wrt http.ResponseWriter) {
+func ChangeNickname(req *http.Request, wrt http.ResponseWriter, ctx context.Context) {
 	// TODO
+	usernameVal := ctx.Value(contextkeys.UserKey)
+	nicknameVal := ctx.Value(contextkeys.NicknameKey)
 
+	if usernameVal == nil || nicknameVal == nil {
+		http.Error(wrt, "missing username or nickname in context.", http.StatusBadRequest)
+		return
+	}
 }

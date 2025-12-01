@@ -29,10 +29,6 @@ func RouteRequest(ctx context.Context, wrt http.ResponseWriter, req *http.Reques
 		*/
 
 	case "user":
-		/*
-			TODO
-			decode JSON and get required method
-		*/
 		UserHander(path_parts[1:], req, wrt, ctx)
 
 	default:
@@ -58,13 +54,13 @@ func UserHander(parts []string, req *http.Request, wrt http.ResponseWriter, ctx 
 	case "edit":
 		editFuncs := map[string]func(*http.Request, http.ResponseWriter){
 			"email": func(r *http.Request, w http.ResponseWriter) {
-				edit_profile.ChangeEmail(r, w)
+				edit_profile.ChangeEmail(r, w, ctx)
 			},
 			"password": func(r *http.Request, w http.ResponseWriter) {
-				edit_profile.ChangePassword(r, w)
+				edit_profile.ChangePassword(r, w, ctx)
 			},
 			"nickname": func(r *http.Request, w http.ResponseWriter) {
-				edit_profile.ChangeNickname(r, w)
+				edit_profile.ChangeNickname(r, w, ctx)
 			},
 			"image": func(r *http.Request, w http.ResponseWriter) {
 				edit_profile.ChangeImage(r, w, ctx)

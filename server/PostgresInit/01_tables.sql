@@ -14,4 +14,16 @@ CREATE TABLE profiles (
     nickname VARCHAR(50),
     rank INT DEFAULT 0,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    image_path VARCHAR(255),
+    achievements JSONB DEFAULT '{}'::JSONB
+
+    -- Achievements example. Add new via Client Request and signature check.
+    -- {
+    --   "first_login": true,
+    --   "high_score": 1500,
+    --   "badges": ["beginner", "shooter"]
+    --   +"new_achievement": /Value in any format./ -> game_service/internal/users_provider/system...
+    -- }
 );
+
+

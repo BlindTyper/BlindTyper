@@ -50,6 +50,10 @@ func UserHander(parts []string, req *http.Request, wrt http.ResponseWriter, ctx 
 
 	switch parts[0] {
 	case "system":
+		/*
+			TODO
+			System Adjustments to user's access rights. Lobby Owner prerogative.
+		*/
 		log.Println("System Request -> edit Handler")
 	case "edit":
 		if len(parts) > 1 {
@@ -85,7 +89,7 @@ func UserHander(parts []string, req *http.Request, wrt http.ResponseWriter, ctx 
 					Object Function.
 					Fill the object from the Request before using.
 				*/
-				Profile.ChangeEmailRequest(req, wrt)
+				Profile.ChangePasswordRequest(req, wrt)
 				log.Println("Email changed")
 			case "nickname":
 				/* TODO */
@@ -99,7 +103,7 @@ func UserHander(parts []string, req *http.Request, wrt http.ResponseWriter, ctx 
 					Object Function.
 					Fill the object from the Request before using.
 				*/
-				Profile.ChangeEmailRequest(req, wrt)
+				Profile.ChangeNicknameRequest(req, wrt)
 				log.Println("Email changed")
 			case "image":
 				/* TODO */
@@ -113,7 +117,7 @@ func UserHander(parts []string, req *http.Request, wrt http.ResponseWriter, ctx 
 					Object Function.
 					Fill the object from the Request before using.
 				*/
-				Profile.ChangeEmailRequest(req, wrt)
+				Profile.ChangeImageRequest(req, wrt)
 				log.Println("Email changed")
 			default:
 				log.Println("Unknown Parameter to edit.")

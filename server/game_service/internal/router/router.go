@@ -74,8 +74,47 @@ func UserHander(parts []string, req *http.Request, wrt http.ResponseWriter, ctx 
 				Profile.ChangeEmailRequest(req, wrt)
 				log.Println("Email changed")
 			case "password":
+				/* TODO */
+				Profile := edit_profile.ProfileObject{
+					Nickname:  "Test",
+					Email:     "Test@mail.ru",
+					Password:  "test",
+					ImagePath: "img...",
+				}
+				/*
+					Object Function.
+					Fill the object from the Request before using.
+				*/
+				Profile.ChangeEmailRequest(req, wrt)
+				log.Println("Email changed")
 			case "nickname":
+				/* TODO */
+				Profile := edit_profile.ProfileObject{
+					Nickname:  "Test",
+					Email:     "Test@mail.ru",
+					Password:  "test",
+					ImagePath: "img...",
+				}
+				/*
+					Object Function.
+					Fill the object from the Request before using.
+				*/
+				Profile.ChangeEmailRequest(req, wrt)
+				log.Println("Email changed")
 			case "image":
+				/* TODO */
+				Profile := edit_profile.ProfileObject{
+					Nickname:  "Test",
+					Email:     "Test@mail.ru",
+					Password:  "test",
+					ImagePath: "img...",
+				}
+				/*
+					Object Function.
+					Fill the object from the Request before using.
+				*/
+				Profile.ChangeEmailRequest(req, wrt)
+				log.Println("Email changed")
 			default:
 				log.Println("Unknown Parameter to edit.")
 			}

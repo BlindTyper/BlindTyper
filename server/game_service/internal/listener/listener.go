@@ -34,13 +34,13 @@ func (listener *GameServiceListener) ServeHTTP(wrt http.ResponseWriter, req *htt
 
 	if err := json.NewDecoder(req.Body).Decode(&body); err != nil {
 		log.Println("Decode Error")
-		http.Error(wrt, "Invalid JSON", http.StatusBadRequest)
+		http.Error(wrt, "Invalid JSON | game_service/internal/listener", http.StatusBadRequest)
 		return
 	}
 	defer req.Body.Close()
 
 	authClient := AuthClient.Get()
-	success, err := authClient.IsAuth(
+	isAuth, err := authClient.IsAuth(
 		context.Background(),
 		body.JWT,
 		body.Username,
@@ -49,7 +49,7 @@ func (listener *GameServiceListener) ServeHTTP(wrt http.ResponseWriter, req *htt
 		http.Error(wrt, fmt.Sprintf(`{"status": "failed", "message":"%v"}`, err), http.StatusInternalServerError)
 		return
 	}
-	if success {
+	if isAuth {
 		ctx := context.WithValue(req.Context(), contextkeys.UserKey, body.Username)
 		ctx = context.WithValue(ctx, contextkeys.ImgKey, body.AvatarB64)
 		ctx = context.WithValue(ctx, contextkeys.NicknameKey, body.Nickname)

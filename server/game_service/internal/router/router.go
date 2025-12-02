@@ -74,6 +74,16 @@ func UserHander(parts []string, req *http.Request, wrt http.ResponseWriter, ctx 
 
 		command_type := parts[1]
 		if f, ok := editFuncs[command_type]; ok {
+			auth := true
+			/*
+				TODO
+				auth check
+
+				gRPC call to Auth service
+			*/
+			if !auth {
+				http.Error(wrt, "Non Auth", http.StatusUnauthorized)
+			}
 			f(req, wrt)
 		} else {
 			log.Println("Unknown Parameter to edit.")

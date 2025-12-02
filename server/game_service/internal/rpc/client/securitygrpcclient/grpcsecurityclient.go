@@ -51,7 +51,7 @@ func (d *AuthServiceClient) Close() {
 	}
 }
 
-// RpcLogin - проверка логина и пароля в базе данных
+// isauth
 func (auth *AuthServiceClient) IsAuth(ctx context.Context, JWT, username string) (bool, error) {
 	// Добавляем таймаут к контексту
 	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
@@ -73,7 +73,6 @@ func (auth *AuthServiceClient) IsAuth(ctx context.Context, JWT, username string)
 	return resp.Status, nil
 }
 
-// RpcDataRegister - регистрация нового пользователя в базе данных
 func (d *AuthServiceClient) JWTisValid(ctx context.Context, JWT, username string) (bool, error) {
 	// Добавляем таймаут к контексту
 	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)

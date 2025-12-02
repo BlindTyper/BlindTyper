@@ -11,6 +11,8 @@ import (
 New JWT will be given to the source client on base of his username. ( username + secretword in $env)
 */
 func GenerateJWT(Username string) (answer string, err error) { // return type is JWT. string?
+	// TODO
+	// Move secret Word to $ENV
 	hmacSampleSecret := []byte("SecretWordExample" + Username)
 
 	/*
@@ -19,7 +21,7 @@ func GenerateJWT(Username string) (answer string, err error) { // return type is
 	claims := &jwt.RegisteredClaims{
 		ExpiresAt: jwt.NewNumericDate(time.Now().Add(168 * time.Hour)),
 		Issuer:    "Auth-Service",
-		Subject:   "Username",
+		Subject:   Username,
 		IssuedAt:  jwt.NewNumericDate(time.Now()),
 		// JWT ID -> to Redis.
 	}
@@ -32,9 +34,4 @@ func GenerateJWT(Username string) (answer string, err error) { // return type is
 
 	log.Println("JWT generated")
 	return signedToken, nil
-}
-
-func ValidateJWT(source string) bool {
-	// if given JWT matches internal value -> true
-	return true
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>WS Test</title>
+</head>
+<body>
+<h1>WebSocket Test</h1>
+<div id="log"></div>
+<input id="msg" placeholder="Type a message">
+<button onclick="sendMsg()">Send</button>
+
+<script>
+const logDiv = document.getElementById("log");
+function log(msg) {
+    const p = document.createElement("p");
+    p.textContent = msg;
+    logDiv.appendChild(p);
+}
+
+// подключение к серверу
+let ws = new WebSocket("ws://localhost:8089/ws");
+
+ws.onopen = () => log("✅ Connected to server");
+ws.onmessage = (msg) => log("📨 " + msg.data);
+ws.onclose = () => log("❌ Disconnected");
+ws.onerror = (err) => log("⚠️ Error: " + err);
+
+// отправка сообщений
+function sendMsg() {
+    const input = document.getElementById("msg");
+    if(ws.readyState === WebSocket.OPEN) {
+        ws.send(input.value);
+        input.value = "";
+    }
+}
+</script>
+</body>
+</html>

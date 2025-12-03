@@ -72,24 +72,3 @@ func (auth *AuthServiceClient) IsAuth(ctx context.Context, JWT, username string)
 	log.Printf("Auth IsAuth response for user %s: %v", username, resp.Status)
 	return resp.Status, nil
 }
-
-func (d *AuthServiceClient) JWTisValid(ctx context.Context, JWT, username string) (bool, error) {
-	// Добавляем таймаут к контексту
-	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
-	defer cancel()
-
-	// Создаем gRPC запрос
-	req := &authpb.JWTisValidRequest{
-		JWT:      JWT,
-		Username: username,
-	}
-
-	// Вызываем gRPC метод
-	resp, err := d.client.JWTisValid(ctx, req)
-	if err != nil {
-		return false, fmt.Errorf("gRPC auth JWTisValid failed: %v", err)
-	}
-
-	log.Printf("Auth JWTisValid response for user %s: %v", username, resp.Status)
-	return resp.Status, nil
-}

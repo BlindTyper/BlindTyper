@@ -37,24 +37,10 @@ func (s *AuthServer) IsAuth(ctx context.Context, req *authpb.IsAuthRequest) (*au
 		Username: req.GetUsername(),
 	}
 
-	status, error := Profile.SendValidateJWTRequest()
-	if error != nil {
-		return nil, error
-	}
-
-	return &authpb.IsAuthResponse{Status: status}, nil
-}
-
-func (s *AuthServer) ValidateJWT(ctx context.Context, req *authpb.JWTisValidRequest) (*authpb.JWTisValidResponse, error) {
-	Profile := &jwtvalidator.ProfileObject{
-		JWT:      req.GetJWT(),
-		Username: req.GetUsername(),
-	}
-
 	status, error := Profile.SendIsAuthRequest()
 	if error != nil {
 		return nil, error
 	}
 
-	return &authpb.JWTisValidResponse{Status: status}, nil
+	return &authpb.IsAuthResponse{Status: status}, nil
 }

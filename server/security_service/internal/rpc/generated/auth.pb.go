@@ -118,102 +118,6 @@ func (x *IsAuthResponse) GetStatus() bool {
 	return false
 }
 
-type JWTisValidRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	JWT           string                 `protobuf:"bytes,1,opt,name=JWT,proto3" json:"JWT,omitempty"`
-	Username      string                 `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *JWTisValidRequest) Reset() {
-	*x = JWTisValidRequest{}
-	mi := &file_proto_auth_proto_msgTypes[2]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *JWTisValidRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*JWTisValidRequest) ProtoMessage() {}
-
-func (x *JWTisValidRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_auth_proto_msgTypes[2]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use JWTisValidRequest.ProtoReflect.Descriptor instead.
-func (*JWTisValidRequest) Descriptor() ([]byte, []int) {
-	return file_proto_auth_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *JWTisValidRequest) GetJWT() string {
-	if x != nil {
-		return x.JWT
-	}
-	return ""
-}
-
-func (x *JWTisValidRequest) GetUsername() string {
-	if x != nil {
-		return x.Username
-	}
-	return ""
-}
-
-type JWTisValidResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Status        bool                   `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *JWTisValidResponse) Reset() {
-	*x = JWTisValidResponse{}
-	mi := &file_proto_auth_proto_msgTypes[3]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *JWTisValidResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*JWTisValidResponse) ProtoMessage() {}
-
-func (x *JWTisValidResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_auth_proto_msgTypes[3]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use JWTisValidResponse.ProtoReflect.Descriptor instead.
-func (*JWTisValidResponse) Descriptor() ([]byte, []int) {
-	return file_proto_auth_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *JWTisValidResponse) GetStatus() bool {
-	if x != nil {
-		return x.Status
-	}
-	return false
-}
-
 var File_proto_auth_proto protoreflect.FileDescriptor
 
 const file_proto_auth_proto_rawDesc = "" +
@@ -223,16 +127,9 @@ const file_proto_auth_proto_rawDesc = "" +
 	"\x03JWT\x18\x01 \x01(\tR\x03JWT\x12\x1a\n" +
 	"\busername\x18\x02 \x01(\tR\busername\"(\n" +
 	"\x0eIsAuthResponse\x12\x16\n" +
-	"\x06status\x18\x01 \x01(\bR\x06status\"A\n" +
-	"\x11JWTisValidRequest\x12\x10\n" +
-	"\x03JWT\x18\x01 \x01(\tR\x03JWT\x12\x1a\n" +
-	"\busername\x18\x02 \x01(\tR\busername\",\n" +
-	"\x12JWTisValidResponse\x12\x16\n" +
-	"\x06status\x18\x01 \x01(\bR\x06status2\x83\x01\n" +
+	"\x06status\x18\x01 \x01(\bR\x06status2B\n" +
 	"\vAuthService\x123\n" +
-	"\x06IsAuth\x12\x13.auth.IsAuthRequest\x1a\x14.auth.IsAuthResponse\x12?\n" +
-	"\n" +
-	"JWTisValid\x12\x17.auth.JWTisValidRequest\x1a\x18.auth.JWTisValidResponseB\n" +
+	"\x06IsAuth\x12\x13.auth.IsAuthRequest\x1a\x14.auth.IsAuthResponseB\n" +
 	"Z\b.;authpbb\x06proto3"
 
 var (
@@ -247,20 +144,16 @@ func file_proto_auth_proto_rawDescGZIP() []byte {
 	return file_proto_auth_proto_rawDescData
 }
 
-var file_proto_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_proto_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_proto_auth_proto_goTypes = []any{
-	(*IsAuthRequest)(nil),      // 0: auth.IsAuthRequest
-	(*IsAuthResponse)(nil),     // 1: auth.IsAuthResponse
-	(*JWTisValidRequest)(nil),  // 2: auth.JWTisValidRequest
-	(*JWTisValidResponse)(nil), // 3: auth.JWTisValidResponse
+	(*IsAuthRequest)(nil),  // 0: auth.IsAuthRequest
+	(*IsAuthResponse)(nil), // 1: auth.IsAuthResponse
 }
 var file_proto_auth_proto_depIdxs = []int32{
 	0, // 0: auth.AuthService.IsAuth:input_type -> auth.IsAuthRequest
-	2, // 1: auth.AuthService.JWTisValid:input_type -> auth.JWTisValidRequest
-	1, // 2: auth.AuthService.IsAuth:output_type -> auth.IsAuthResponse
-	3, // 3: auth.AuthService.JWTisValid:output_type -> auth.JWTisValidResponse
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
+	1, // 1: auth.AuthService.IsAuth:output_type -> auth.IsAuthResponse
+	1, // [1:2] is the sub-list for method output_type
+	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -277,7 +170,7 @@ func file_proto_auth_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_auth_proto_rawDesc), len(file_proto_auth_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

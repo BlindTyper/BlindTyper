@@ -1,41 +1,9 @@
 # настройка сборки и сети для каждого сервиса(модуля).
+# TODO -> добавить health-check и добавить переподключение при инициализации сервисов к gRPC серверам.
 
 version: '3.8'
 services:
-  gateway:
-    build: ./gateway
-    # ports: ["8080:8080"]
-    networks: ["app-net"]
-
-  auth:
-    build: ./security_service
-    # ports: ["8081:8081"]
-    networks: ["app-net"]
-
-  data:
-    build: ./db_service
-    depends_on: 
-    - postgres
-    # ports: ["8082:8082"]
-    environment:
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - DB_USER=postgres
-      - DB_PASSWORD=example
-      - DB_NAME=mydb
-    networks: 
-      - app-net
-      - db-net
-
-  game:
-    build: ./game_service
-    # ports: ["8083:8083"]
-    networks: ["app-net"]
-    depends_on:
-    - auth
-    volumes:
-      - /opt/blindtyper/static:/var/www/blindtyper/static:rw
-
+# nginx.
   nginx:
     image: nginx:alpine
     restart: unless-stopped
@@ -47,7 +15,47 @@ services:
       - /opt/blindtyper/static:/var/www/blindtyper/static:rw
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     networks: ["app-net"]
-    
+
+# services.
+  gateway:
+    build: ./gateway
+    restart: unless-stopped
+    networks: ["app-net"]
+  
+  auth:
+    build: ./security_service
+    restart: unless-stopped
+    depends_on: 
+    - redis
+    networks: 
+    - app-net
+    - auth-net
+
+  data:
+    build: ./db_service
+    restart: unless-stopped
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=example
+      - DB_NAME=mydb
+    depends_on: 
+    - postgres      
+    networks: 
+      - app-net
+      - db-net
+
+  game:
+    build: ./game_service
+    restart: unless-stopped
+    depends_on:
+    - auth
+    volumes:
+      - /opt/blindtyper/static:/var/www/blindtyper/static:rw
+    networks: ["app-net"]
+  
+# databases.
   postgres:
     image: postgres:alpine
     restart: unless-stopped
@@ -60,11 +68,25 @@ services:
       - ./PostgresInit:/docker-entrypoint-initdb.d
     networks: ["db-net"]
 
+  redis:
+    image: redis:7.2
+    container_name: redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    networks:
+      - auth-net
+
+# networks.
 networks:
   app-net:
     driver: bridge
   db-net:
     driver: bridge
+  auth-net:
+    driver: bridge
 
 volumes:
   pgdata:
+  redis_data:

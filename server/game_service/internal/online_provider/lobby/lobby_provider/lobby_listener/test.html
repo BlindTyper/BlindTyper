@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>WS Test</title>
+  <style>
+    body { font-family: sans-serif; }
+    #log { max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 5px; margin-bottom: 10px; }
+    p { margin: 0.2em 0; }
+    .msg { color: blue; }
+    .action { color: green; }
+    .progress { color: orange; }
+  </style>
+</head>
+<body>
+<h1>ОТП Владимир ONLY</h1>
+<div id="log"></div>
+<input id="msg" placeholder="Type a message">
+<button onclick="sendMsg()">Send</button>
+
+<script>
+const logDiv = document.getElementById("log");
+
+// функция логирования с разными стилями
+function log(msg, type = 'msg') {
+    const p = document.createElement("p");
+    p.textContent = msg;
+    if(type === 'msg') p.className = 'msg';
+    if(type === 'action') p.className = 'action';
+    if(type === 'progress') p.className = 'progress';
+    logDiv.appendChild(p);
+    logDiv.scrollTop = logDiv.scrollHeight;
+}
+
+// подключение к серверу
+let ws = new WebSocket("ws://localhost:8089/ws");
+
+ws.onopen = () => log("✅ Connected to server");
+
+ws.onmessage = (event) => {
+    try {
+        const data = JSON.parse(event.data);
+
+        if (data.players && Array.isArray(data.players)) {
+            // системные сообщения
+            if (data.message) {
+                log(`📝 ${data.message}`, 'msg');
+            }
+
+            // действия и прогресс игроков
+            data.players.forEach(p => {
+                if (p.action !== undefined) {
+                    log(`🎮 ${p.name} action: ${p.action}`, 'action');
+                } else if (p.progress !== undefined) {
+                    log(`🏁 ${p.name} progress: ${p.progress}`, 'progress');
+                }
+            });
+
+        } else {
+            log(JSON.stringify(data), 'msg');
+        }
+
+    } catch (e) {
+        // если это не JSON — выводим как есть
+        log(event.data, 'msg');
+    }
+};
+
+ws.onclose = () => log("❌ Disconnected");
+ws.onerror = (err) => log("⚠️ Error: " + err);
+
+// отправка сообщений
+function sendMsg() {
+    const input = document.getElementById("msg");
+    if(ws.readyState === WebSocket.OPEN) {
+        // проверка: если начинается с "/", считаем как action, иначе как msg
+        const val = input.value.trim();
+        if (!val) return;
+
+        if(val.startsWith("/")) {
+            // отправка действия как JSON
+            ws.send(JSON.stringify({action: val.slice(1)}));
+        } else {
+            // обычный чат
+            ws.send(val);
+        }
+
+        input.value = "";
+    }
+}
+</script>
+</body>
+</html>

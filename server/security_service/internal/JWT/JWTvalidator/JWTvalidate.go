@@ -2,6 +2,7 @@ package jwtvalidator
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
 	redisclient "security_service/internal/redis/client"
@@ -53,6 +54,17 @@ func ValidateJWT(profile ProfileObject) (bool, error) {
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if !ok || claims["jti"] == nil {
 		return false, fmt.Errorf("jti claim missing")
+	}
+
+	log.Println(claims)
+
+	UsernameRaw, ok := claims["sub"]
+	if !ok || UsernameRaw == nil {
+		return false, errors.New("username not present in JWT")
+	}
+	UsernameRaw, ok = UsernameRaw.(string)
+	if !ok {
+		return false, errors.New("username is not a string")
 	}
 
 	if claims["sub"].(string) != profile.Username {

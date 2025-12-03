@@ -22,15 +22,9 @@ func RouteRequest(ctx context.Context, wrt http.ResponseWriter, req *http.Reques
 	switch path_parts[0] {
 	case "online":
 		log.Println("online-request...")
-		/*
-		 chat
-		 lobby
-		 result
-		*/
-
+		OnlineHandler(path_parts[1:], req, wrt, ctx)
 	case "user":
 		UserHander(path_parts[1:], req, wrt, ctx)
-
 	default:
 		log.Printf("path: %s", path)
 		http.NotFound(wrt, req)
@@ -56,15 +50,15 @@ func UserHander(parts []string, req *http.Request, wrt http.ResponseWriter, ctx 
 			"email": func(r *http.Request, w http.ResponseWriter) {
 				edit_profile.ChangeEmail(r, w, ctx)
 			},
-			"password": func(r *http.Request, w http.ResponseWriter) {
-				edit_profile.ChangePassword(r, w, ctx)
-			},
-			"nickname": func(r *http.Request, w http.ResponseWriter) {
-				edit_profile.ChangeNickname(r, w, ctx)
-			},
-			"image": func(r *http.Request, w http.ResponseWriter) {
-				edit_profile.ChangeImage(r, w, ctx)
-			},
+			// "password": func(r *http.Request, w http.ResponseWriter) {
+			// 	edit_profile.ChangePassword(r, w, ctx)
+			// },
+			// "nickname": func(r *http.Request, w http.ResponseWriter) {
+			// 	edit_profile.ChangeNickname(r, w, ctx)
+			// },
+			// "image": func(r *http.Request, w http.ResponseWriter) {
+			// 	edit_profile.ChangeImage(r, w, ctx)
+			// },
 		}
 
 		if len(parts) < 2 {
@@ -90,5 +84,45 @@ func UserHander(parts []string, req *http.Request, wrt http.ResponseWriter, ctx 
 		}
 	default:
 		log.Println("Unknown Request")
+	}
+}
+
+type OnlineGame struct {
+}
+
+func OnlineHandler(parts []string, req *http.Request, wrt http.ResponseWriter, ctx context.Context) {
+	if len(parts) == 0 {
+		http.NotFound(wrt, req)
+		return
+	}
+
+	switch parts[0] {
+	case "system":
+		// owner || system commands.
+	case "user":
+		// join || actions like chat or sync progress.
+		userFuncs := map[string]func(*http.Request, http.ResponseWriter){
+			"create": func(req *http.Request, wrt http.ResponseWriter) {
+				log.Println("ONLINE/USER/CREATE ACTION!!")
+
+				// 1. проверка JWT / авторизация
+				// 2. генерируем уникальный порт для лобби
+				// 3. создаём структуру Lobby, сохраняем в Redis
+				// 4. запускаем WS сервер на этом порту
+				// 5. возвращаем клиенту JSON {lobbyID, port}
+			},
+		}
+
+		if len(parts) < 2 {
+			http.Error(wrt, "no user action specified", http.StatusBadRequest)
+			return
+		}
+
+		action := parts[1]
+		if f, ok := userFuncs[action]; ok {
+			f(req, wrt)
+		} else {
+			http.Error(wrt, "unknown action", http.StatusBadRequest)
+		}
 	}
 }

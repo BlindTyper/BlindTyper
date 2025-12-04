@@ -1,0 +1,1 @@
+![til](https://github.com/BlindTyper/BlindTyper/blob/08ab8d3083d80f9a1f6ba6742bc292457822e2b0/client/2025-12-04_02-55-21.gif)

@@ -9,7 +9,6 @@ import (
 
 func main() {
 	log.Println("game_controller started.")
-	go lobbyserver.WSServerInit()
 	/*
 		TODO
 		start grpc client
@@ -24,11 +23,11 @@ func main() {
 	if err := grpcsecurityclient.Init("auth:50052"); err != nil {
 		log.Fatalf("Failed to init gRPC client: %v", err)
 	}
-
+	defer grpcsecurityclient.Get().Close()
 	/* TODO
 	make restart connection function.
 	*/
-	defer grpcsecurityclient.Get().Close()
 
+	go lobbyserver.ConnHandler()
 	listener.ConnHandler()
 }

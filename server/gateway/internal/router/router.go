@@ -16,11 +16,10 @@ TODO
 this package has to provide middleware check for the approving internal commands. not the other ones.
 */
 var routes = map[string]string{
-	"/auth/":   "http://auth:8081/",  // no need to middleware
-	"/data/":   "http://data:8082/",  // no access. only internal services to reroute.
-	"/game/":   "http://game:8083/",  // TODO middleware
-	"/admin/":  "http://admin:8084/", // TODO middleware
-	"/online/": "http://game:9000/",
+	"/auth/":  "http://auth:8081/",  // no need to middleware
+	"/data/":  "http://data:8082/",  // no access. only internal services to reroute.
+	"/game/":  "http://game:8083/",  // TODO middleware
+	"/admin/": "http://admin:8084/", // TODO middleware
 }
 
 func RouteRequest(Logger *log.Logger, ctx context.Context,
@@ -66,6 +65,7 @@ func RouteRequest(Logger *log.Logger, ctx context.Context,
 			default:
 				ProxyRequest(req, wrt, target)
 				return
+
 			}
 		}
 	}

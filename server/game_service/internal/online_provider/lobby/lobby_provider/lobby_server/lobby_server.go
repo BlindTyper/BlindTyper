@@ -1,80 +1,62 @@
 package lobbyserver
 
 import (
-	"context"
-	"encoding/json"
-	"fmt"
-	AuthClient "game_service/internal/rpc/client/securitygrpcclient"
 	"log"
 	"net/http"
 
 	"github.com/gorilla/websocket"
 )
 
-type GameServiceListener struct {
-	JWT       string `json:"JWT"`      // Access token
-	Username  string `json:"Username"` // Unique ID
-	Parameter struct {
-		Cmd1 string `json:"cmd1"`
-		Cmd2 string `json:"cmd2"`
-		Cmd3 string `json:"cmd3"`
-	} `json:"parameter"`
-}
-
-func WSServerInit() {
-	mux := http.NewServeMux()
-	listener := &GameServiceListener{}
-	mux.Handle("/ws", listener) // wsHandler апгрейдит соединение
-	log.Println("WebSocket server listening on :9000")
-	http.ListenAndServe("0.0.0.0:9000", mux)
+type WSAuth struct {
+	JWT      string `json:"JWT"`
+	Username string `json:"Username"`
 }
 
 var upgrader = websocket.Upgrader{
-	CheckOrigin: func(r *http.Request) bool { return true }, // разрешаем все источники для теста
+	CheckOrigin: func(r *http.Request) bool { return true },
 }
 
-func (listener *GameServiceListener) ServeHTTP(wrt http.ResponseWriter, req *http.Request) {
-	var body GameServiceListener
+func ConnHandler() {
+	mux := http.NewServeMux()
+	mux.HandleFunc("/ws", wsHandler)
 
-	if err := json.NewDecoder(req.Body).Decode(&body); err != nil {
-		log.Println("Decode Error")
-		http.Error(wrt, "Invalid JSON | game_service/internal/online_provider/lobby/listener"+err.Error(), http.StatusBadRequest)
-		return
+	log.Println("WS listening on :9000")
+
+	if err := http.ListenAndServe("0.0.0.0:9000", mux); err != nil {
+		log.Fatalf("WS server failed: %v", err)
 	}
-	defer req.Body.Close()
+}
 
-	authClient := AuthClient.Get()
-	isAuth, err := authClient.IsAuth(
-		context.Background(),
-		body.JWT,
-		body.Username,
-	)
+func wsHandler(w http.ResponseWriter, r *http.Request) {
+	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
-		http.Error(wrt, fmt.Sprintf(`{"status": "failed", "message":"%v"}`, err), http.StatusInternalServerError)
-		return
-	}
-	if !isAuth {
-		http.Error(wrt, "Unauthorized", http.StatusUnauthorized)
-		return
-	}
-
-	conn, err := upgrader.Upgrade(wrt, req, nil)
-	if err != nil {
-		log.Println("WS Upgrade error:", err)
+		log.Println("Upgrade error:", err)
 		return
 	}
 	defer conn.Close()
 
+	// читаем первый JSON-сообщение (JWT + Username)
+	var auth WSAuth
+	if err := conn.ReadJSON(&auth); err != nil {
+		log.Println("Failed to read auth JSON:", err)
+		conn.WriteMessage(websocket.CloseMessage,
+			websocket.FormatCloseMessage(websocket.ClosePolicyViolation, "auth required"))
+		return
+	}
+
+	log.Println("First message from client:", auth)
+
+	// TODO: здесь проверка auth через gRPC
+
 	for {
 		var msg map[string]interface{}
 		if err := conn.ReadJSON(&msg); err != nil {
-			log.Println("read error, ", err)
+			log.Println("Read error:", err)
 			break
 		}
-		log.Println("received:", msg)
-
+		log.Println("Received:", msg)
 		if err := conn.WriteJSON(msg); err != nil {
-			log.Println("Write error: ", err)
+			log.Println("Write error:", err)
 			break
 		}
 	}

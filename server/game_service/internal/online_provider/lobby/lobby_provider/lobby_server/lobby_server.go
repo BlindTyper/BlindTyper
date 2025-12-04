@@ -1,8 +1,11 @@
 package lobbyserver
 
 import (
+	"context"
 	"log"
 	"net/http"
+
+	authclient "game_service/internal/rpc/client/securitygrpcclient"
 
 	"github.com/gorilla/websocket"
 )
@@ -36,17 +39,38 @@ func wsHandler(w http.ResponseWriter, r *http.Request) {
 	defer conn.Close()
 
 	// читаем первый JSON-сообщение (JWT + Username)
-	var auth WSAuth
-	if err := conn.ReadJSON(&auth); err != nil {
+	var authJSON WSAuth
+	if err := conn.ReadJSON(&authJSON); err != nil {
 		log.Println("Failed to read auth JSON:", err)
 		conn.WriteMessage(websocket.CloseMessage,
 			websocket.FormatCloseMessage(websocket.ClosePolicyViolation, "auth required"))
 		return
 	}
 
-	log.Println("First message from client:", auth)
+	log.Println("First message from client:", authJSON)
 
-	// TODO: здесь проверка auth через gRPC
+	authClient := authclient.Get()
+	isAuth, err := authClient.IsAuth(
+		context.Background(),
+		authJSON.JWT,
+		authJSON.Username,
+	)
+	if err != nil {
+		log.Println("auth error accured:", err)
+		return
+	}
+
+	/* TODO: здесь проверка auth через gRPC
+
+	-> далее создать лобби к которому могут подключаться РАЗНЫЕ пользователи. handle "User already in game" error.
+	*/
+	log.Println(isAuth)
+
+	if !isAuth {
+		log.Println("Inocorrect Auth data")
+		conn.WriteMessage(websocket.CloseMessage,
+			websocket.FormatCloseMessage(websocket.ClosePolicyViolation, "auth required"))
+	}
 
 	for {
 		var msg map[string]interface{}

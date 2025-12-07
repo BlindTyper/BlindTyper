@@ -3,3 +3,7 @@ gitlab/
 *.tmp
 .gitlab-ci.yml
 .runner_system_id
+.vscode
+.idea
+client/obj/*
+client/bin/*

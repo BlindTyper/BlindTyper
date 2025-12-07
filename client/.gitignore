@@ -2,3 +2,5 @@ obj/*
 bin/*
 .vscode
 .idea
+inc/*.gch
+inc/*.pch

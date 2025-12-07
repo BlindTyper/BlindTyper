@@ -1,16 +1,45 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_ENTITYMANAGER_HPP
-#define BLINDTYPER_ENTITYMANAGER_HPP
+*/
+
+#ifndef ENTITY_MANAGER_TYPE_HEADER
+#define ENTITY_MANAGER_TYPE_HEADER
+
+#include "Main.hpp"
+
+#include <unordered_map>
+
+#include "Manager.hpp"
+
+#include "Letter.hpp"
+#include "Floor.hpp"
+#include "Player.hpp"
+#include "Background.hpp"
+//#include "GameMode.hpp"
+
 namespace tppo{
-    struct EntityManager{
-        unordered_map<size_t, Letter> Letters;
-        unordered_map<size_t, Floor> Floors;
-        unordered_map<size_t, Player> Players;
-        unordered_map<size_t, Background> Backgrounds;
-        unordered_map<size_t, GameMode> GameModes;
+    class EntityManager : Manager{
+        
+    protected:
+        //
+        std::unordered_map<size_t, Letter> Letters;
+        
+        //
+        std::unordered_map<size_t, Floor> Floors;
+        
+        //
+        std::unordered_map<size_t, Player> Players;
+        
+        //
+        std::unordered_map<size_t, Background> Backgrounds;
+        
+        //
+        //std::unordered_map<size_t, GameMode> GameModes;
+        
+    public:
+        EntityManager() {}
+        ~EntityManager() {}
+        
     };
 }
-#endif //BLINDTYPER_ENTITYMANAGER_HPP
+#endif //ENTITY_MANAGER_TYPE_HEADER

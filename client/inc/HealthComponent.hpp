@@ -1,12 +1,23 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_HEALTHCOMPONENT_HPP
-#define BLINDTYPER_HEALTHCOMPONENT_HPP
+*/
+
+#ifndef HEALTH_COMPONENT_TYPE_HEADER
+#define HEALTH_COMPONENT_TYPE_HEADER
+
+#include "Rect.hpp"
+
+#include "Component.hpp"
+
 namespace tppo{
-    struct HealthComponent{
-        long long health;
+    class HealthComponent : Component {
+        
+    protected:
+        //
+        int64_t body;
+        
+    public:
+        
     };
 }
-#endif //BLINDTYPER_HEALTHCOMPONENT_HPP
+#endif //HEALTH_COMPONENT_TYPE_HEADER

@@ -1,13 +1,22 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_MOVEMENTCOMPONENT_HPP
-#define BLINDTYPER_MOVEMENTCOMPONENT_HPP
+*/
+
+#ifndef MOVEMENT_COMPONENT_TYPE_HEADER
+#define MOVEMENT_COMPONENT_TYPE_HEADER
+
+#include "Component.hpp"
+
 namespace tppo{
-    struct MovementComponent{
+    class MovementComponent : Component {
+    
+    protected:
         Vec3i velocity;
         Vec3i acceleration;
+        
+    public:
+        
     };
 }
-#endif //BLINDTYPER_MOVEMENTCOMPONENT_HPP
+
+#endif //MOVEMENT_COMPONENT_TYPE_HEADER

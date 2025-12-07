@@ -1,13 +1,23 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_BODYCOMPONENT_HPP
-#define BLINDTYPER_BODYCOMPONENT_HPP
-#include "Vec3i.hpp"
+*/
+
+#ifndef BODY_COMPONENT_TYPE_HEADER
+#define BODY_COMPONENT_TYPE_HEADER
+
+#include "Rect.hpp"
+
+#include "Component.hpp"
+
 namespace tppo{
-    struct BodyComponent {
+    class BodyComponent : Component {
+        
+    protected:
+        //
         Rect body;
+        
+    public:
+        
     };
 }
-#endif //BLINDTYPER_BODYCOMPONENT_HPP
+#endif //BODY_COMPONENT_TYPE_HEADER

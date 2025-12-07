@@ -1,8 +1,19 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_PLAYER_HPP
-#define BLINDTYPER_PLAYER_HPP
+*/
 
-#endif //BLINDTYPER_PLAYER_HPP
+#ifndef PLAYER_TYPE_HEADER
+#define PLAYER_TYPE_HEADER
+
+#include "Entity.hpp"
+
+namespace tppo{
+    class Player : Entity {
+        
+    protected:
+        
+    public:
+        
+    };
+}
+#endif //PLAYER_TYPE_HEADER

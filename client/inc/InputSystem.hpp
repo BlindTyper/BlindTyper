@@ -1,8 +1,21 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_INPUTSYSTEM_HPP
-#define BLINDTYPER_INPUTSYSTEM_HPP
+*/
 
-#endif //BLINDTYPER_INPUTSYSTEM_HPP
+#ifndef INPUT_SYSTEM_TYPE_HEADER
+#define INPUT_SYSTEM_TYPE_HEADER
+
+#include "System.hpp"
+
+namespace tppo {
+    class InputSystem : System {
+        
+    protected:
+        
+        
+    public:
+        
+    };
+}
+
+#endif //INPUT_SYSTEM_TYPE_HEADER

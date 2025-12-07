@@ -1,13 +1,25 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_APPLICATIONSETTINGSCOMPONENT_HPP
-#define BLINDTYPER_APPLICATIONSETTINGSCOMPONENT_HPP
+*/
+
+#ifndef APPLICATION_SETTINGS_COMPONENT_TYPE_HEADER
+#define APPLICATION_SETTINGS_COMPONENT_TYPE_HEADER
+
+#include "Component.hpp"
+
 namespace tppo{
-    struct ApplicationSettingsComponent{
+    class ApplicationSettingsComponent : Component {
+        
+    protected:
+        //
         bool isUpdated;
+        
+        //
         bool isFullscreen;
+        
+    public:
+        
     };
 }
-#endif //BLINDTYPER_APPLICATIONSETTINGSCOMPONENT_HPP
+
+#endif //APPLICATION_SETTINGS_COMPONENT_TYPE_HEADER

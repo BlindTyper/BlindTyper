@@ -1,0 +1,8 @@
+//
+// Created by anna_ on 07.12.2025.
+//
+
+#ifndef BLINDTYPER_DAMAGESYSTEM_HPP
+#define BLINDTYPER_DAMAGESYSTEM_HPP
+
+#endif //BLINDTYPER_DAMAGESYSTEM_HPP

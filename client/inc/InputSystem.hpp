@@ -1,0 +1,8 @@
+//
+// Created by anna_ on 07.12.2025.
+//
+
+#ifndef BLINDTYPER_INPUTSYSTEM_HPP
+#define BLINDTYPER_INPUTSYSTEM_HPP
+
+#endif //BLINDTYPER_INPUTSYSTEM_HPP

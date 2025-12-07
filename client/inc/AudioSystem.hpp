@@ -1,0 +1,8 @@
+//
+// Created by anna_ on 07.12.2025.
+//
+
+#ifndef BLINDTYPER_AUDIOSYSTEM_HPP
+#define BLINDTYPER_AUDIOSYSTEM_HPP
+
+#endif //BLINDTYPER_AUDIOSYSTEM_HPP

@@ -1,8 +1,21 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_MOVEMENTSYSTEM_HPP
-#define BLINDTYPER_MOVEMENTSYSTEM_HPP
+*/
 
-#endif //BLINDTYPER_MOVEMENTSYSTEM_HPP
+#ifndef MOVEMENT_SYSTEM_TYPE_HEADER
+#define MOVEMENT_SYSTEM_TYPE_HEADER
+
+#include "System.hpp"
+
+namespace tppo {
+    class MovementSystem : System {
+        
+    protected:
+        
+        
+    public:
+        
+    };
+}
+
+#endif //MOVEMENT_SYSTEM_TYPE_HEADER

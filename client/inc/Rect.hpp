@@ -9,6 +9,6 @@ namespace tppo{
     struct Rect { ;
         Vec3i position;
         long double w,h;
-    }
+    };
 }
 #endif //BLINDTYPER_RECT_HPP

@@ -1,8 +1,21 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_DAMAGESYSTEM_HPP
-#define BLINDTYPER_DAMAGESYSTEM_HPP
+*/
 
-#endif //BLINDTYPER_DAMAGESYSTEM_HPP
+#ifndef DAMAGE_SYSTEM_TYPE_HEADER
+#define DAMAGE_SYSTEM_TYPE_HEADER
+
+#include "System.hpp"
+
+namespace tppo {
+    class DamageSystem : System {
+        
+    protected:
+        
+        
+    public:
+        
+    };
+}
+
+#endif //DAMAGE_SYSTEM_TYPE_HEADER

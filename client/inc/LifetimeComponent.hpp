@@ -1,14 +1,23 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_LIFETIMECOMPONENT_HPP
-#define BLINDTYPER_LIFETIMECOMPONENT_HPP
+*/
+
+#ifndef LIFETIME_COMPONENT_TYPE_HEADER
+#define LIFETIME_COMPONENT_TYPE_HEADER
+
+#include "Component.hpp"
+
 namespace tppo{
-    struct LifetimeComponent{
+    class LifetimeComponent : Component {
+        
+    protected:
         bool isAlive;
         time_t creationTime;
         time_t texpirationTime;
+        
+    public:
+        
     };
 }
-#endif //BLINDTYPER_LIFETIMECOMPONENT_HPP
+
+#endif //LIFETIME_COMPONENT_TYPE_HEADER

@@ -1,18 +1,50 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_SYSTEMMANAGER_HPP
-#define BLINDTYPER_SYSTEMMANAGER_HPP
+*/
+
+#ifndef SYSTEM_MANAGER_TYPE_HEADER
+#define SYSTEM_MANAGER_TYPE_HEADER
+
+#include "Main.hpp"
+
+#include "Manager.hpp"
+#include "InputSystem.hpp"
+#include "VisualSystem.hpp"
+//#include "HealthSystem.hpp"
+#include "MovementSystem.hpp"
+#include "LifetimeSystem.hpp"
+#include "CollisionSystem.hpp"
+#include "AudioSystem.hpp"
+
 namespace tppo{
-    struct SystemManager{
+    class SystemManager : Manager {
+        
+    protected:
+        //
         InputSystem inputSystem;
+        
+        //
         VisualSystem visualSystem;
-        HealthSystem healthSystem;
+        
+        //
+        //HealthSystem healthSystem;
+        
+        //
         MovementSystem movementSystem;
+        
+        //
         LifetimeSystem lifetimeSystem;
+        
+        //
         CollisionSystem collisionSystem;
+        
+        //
         AudioSystem audioSystem;
+        
+    public:
+        SystemManager() {}
+        ~SystemManager() {}
+        
     };
 }
-#endif //BLINDTYPER_SYSTEMMANAGER_HPP
+#endif //SYSTEM_MANAGER_TYPE_HEADER

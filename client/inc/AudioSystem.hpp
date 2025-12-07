@@ -1,8 +1,21 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_AUDIOSYSTEM_HPP
-#define BLINDTYPER_AUDIOSYSTEM_HPP
+*/
 
-#endif //BLINDTYPER_AUDIOSYSTEM_HPP
+#ifndef AUDIO_SYSTEM_TYPE_HEADER
+#define AUDIO_SYSTEM_TYPE_HEADER
+
+#include "System.hpp"
+
+namespace tppo {
+    class AudioSystem : System {
+        
+    protected:
+        
+        
+    public:
+        
+    };
+}
+
+#endif //AUDIO_SYSTEM_TYPE_HEADER

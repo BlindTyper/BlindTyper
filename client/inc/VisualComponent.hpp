@@ -1,12 +1,24 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_VISUALCOMPONENT_HPP
-#define BLINDTYPER_VISUALCOMPONENT_HPP
+*/
+
+#ifndef VISUAL_COMPONENT_TYPE_HEADER
+#define VISUAL_COMPONENT_TYPE_HEADER
+
 #include "Vec3i.hpp"
+
+#include "Component.hpp"
+
 namespace tppo{
-    sf::Texture &texture;
-    sf::Sprite sprite;
+    class VisualComponent : Component {
+
+    protected:
+        sf::Texture &texture;
+        sf::Sprite sprite;
+        
+    public:
+        
+    };
 }
-#endif //BLINDTYPER_VISUALCOMPONENT_HPP
+
+#endif //VISUAL_COMPONENT_TYPE_HEADER

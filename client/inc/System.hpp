@@ -1,8 +1,19 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_SYSTEM_HPP
-#define BLINDTYPER_SYSTEM_HPP
+*/
 
-#endif //BLINDTYPER_SYSTEM_HPP
+#ifndef SYSTEM_TYPE_HEADER
+#define SYSTEM_TYPE_HEADER
+
+namespace tppo {
+    class System {
+        
+    protected:
+        
+        
+    public:
+        
+    };
+}
+
+#endif //SYSTEM_TYPE_HEADER

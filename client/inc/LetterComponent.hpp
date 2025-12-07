@@ -1,12 +1,21 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_LETTERCOMPONENT_HPP
-#define BLINDTYPER_LETTERCOMPONENT_HPP
+*/
+
+#ifndef LETTER_COMPONENT_TYPE_HEADER
+#define LETTER_COMPONENT_TYPE_HEADER
+
+#include "Component.hpp"
+
 namespace tppo{
-    struct LetterComponent{
+    class LetterComponent : Component {
+        
+    protected:
         char letter;
+        
+    public:
+        
     };
 }
-#endif //BLINDTYPER_LETTERCOMPONENT_HPP
+
+#endif //LETTER_COMPONENT_TYPE_HEADER

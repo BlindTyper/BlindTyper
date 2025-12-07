@@ -8,13 +8,13 @@ ifeq ($(OS),Windows_NT)
 	CXXDEPFLAGS = -I"E:/mingw64/SFML/include"
 	LDDEPFLAGS  = -L"E:/mingw64/SFML/bin" -L"E:/mingw64/SFML/lib"
 	LDFLAGS     = $(LDDEPFLAGS) -lsfml-window -lsfml-graphics -lsfml-system -lopengl32 -lgdi32 -lwinmm -mwindows -lfreetypeL
-
-
+	GCHS        = main.pch
 else
 	TARGET      = blind_typer
 	CXXDEPFLAGS =
 	LDDEPFLAGS  =
 	LDFLAGS     = $(LDDEPFLAGS) -lsfml-window -lsfml-graphics -lsfml-system -lGL
+	GCHS        = main.gch
 endif
 
 # Директории
@@ -36,33 +36,16 @@ CXXFLAGS  = -I$(INC_DIR) $(CXXDEPFLAGS) -Wall -Wextra -std=c++17
 SRCS      = $(shell find $(SRC_DIR) -name "*.cpp")
 # Преобразуем пути .cpp в пути .obj
 OBJS      = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.obj,$(SRCS))
-
-# ============================================================================
-# Основные цели
-# ============================================================================
-
-# Основная цель - сборка исполняемого файла
-$(BIN_DIR)/$(TARGET): $(OBJS)
-	@mkdir -p $(BIN_DIR)
-	$(CXX) -o $@ $^ $(LDFLAGS)
-	@echo "Сборка завершена: $(BIN_DIR)/$(TARGET)"
-
-# Правило для компиляции .cpp в .obj
-$(OBJ_DIR)/%.obj: $(SRC_DIR)/%.cpp
-	@mkdir -p $(dir $@)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-	@echo "Скомпилирован: $<"
+PCHS      = main.hpp
 
 # ============================================================================
 # Вспомогательные цели
 # ============================================================================
 
-all: win
-
-all: $(BIN_DIR)/$(TARGET)
+all: $(INC_DIR)/$(GCHS) $(BIN_DIR)/$(TARGET)
 
 clean:
-	rm -rf $(OBJ_DIR)/* $(BIN_DIR)/$(TARGET)
+	rm -rf $(OBJ_DIR)/* $(BIN_DIR)/$(TARGET) $(INC_DIR)/$(GCHS)
 	@echo "Очистка завершена"
 
 rebuild: clean all
@@ -84,6 +67,29 @@ check:
 	@echo "Количество .cpp файлов: $(words $(SRCS))"
 	@echo "Список файлов:"
 	@$(foreach src,$(SRCS),echo "  $(src)";)
+
+
+# ============================================================================
+# Основные цели
+# ============================================================================
+
+# Основная цель - сборка исполняемого файла
+$(BIN_DIR)/$(TARGET): $(OBJS)
+	@mkdir -p $(BIN_DIR)
+	$(CXX) -o $@ $^ $(LDFLAGS)
+	@echo "Сборка завершена: $(BIN_DIR)/$(TARGET)"
+
+# Правило для компиляции main.hpp
+$(INC_DIR)/$(GCHS): $(INC_DIR)/$(PCHS)
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+	@echo "Скомпилирован: $<"
+
+# Правило для компиляции .cpp в .obj
+$(OBJ_DIR)/%.obj: $(SRC_DIR)/%.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+	@echo "Скомпилирован: $<"
 
 .PHONY: all clean rebuild run debug release check
 

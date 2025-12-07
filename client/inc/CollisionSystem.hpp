@@ -1,8 +1,21 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_COLLISIONSYSTEM_HPP
-#define BLINDTYPER_COLLISIONSYSTEM_HPP
+*/
 
-#endif //BLINDTYPER_COLLISIONSYSTEM_HPP
+#ifndef COLLISION_SYSTEM_TYPE_HEADER
+#define COLLISION_SYSTEM_TYPE_HEADER
+
+#include "System.hpp"
+
+namespace tppo {
+    class CollisionSystem : System {
+        
+    protected:
+        
+        
+    public:
+        
+    };
+}
+
+#endif //COLLISION_SYSTEM_TYPE_HEADER

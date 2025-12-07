@@ -1,13 +1,24 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_BACKGROUND_HPP
-#define BLINDTYPER_BACKGROUND_HPP
-namespace tppo{
-    struct Background{
+*/
+
+#ifndef BACKGROUND_TYPE_HEADER
+#define BACKGROUND_TYPE_HEADER
+
+#include "Entity.hpp"
+
+#include "VisualComponent.hpp"
+#include "SoundComponent.hpp"
+
+namespace tppo {
+    class Background : Entity {
+        
+    protected:
         VisualComponent visual;
         SoundComponent sound;
+        
+    public:
+        
     };
 }
-#endif //BLINDTYPER_BACKGROUND_HPP
+#endif //BACKGROUND_TYPE_HEADER

@@ -1,19 +1,57 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_COMPONENTMANAGER_HPP
-#define BLINDTYPER_COMPONENTMANAGER_HPP
+*/
+
+#ifndef COMPONENT_MANAGER_TYPE_HEADER
+#define COMPONENT_MANAGER_TYPE_HEADER
+
+#include "Main.hpp"
+
+#include <unordered_map>
+
+#include "Manager.hpp"
+
+#include "VisualComponent.hpp"
+#include "TransformComponent.hpp"
+#include "BodyComponent.hpp"
+#include "HealthComponent.hpp"
+#include "LifetimeComponent.hpp"
+#include "SoundComponent.hpp"
+#include "MovementComponent.hpp"
+#include "LetterComponent.hpp"
+
 namespace tppo{
-    struct ComponentManager{
-        unordered_map<size_t, TranformComponent> transformComponents;
-        unordered_map<size_t, VisualComponent> visualComponents;
-        unordered_map<size_t, BodyComponent> bodyComponents;
-        unordered_map<size_t, SoundComponent> soundComponents;
-        unordered_map<size_t, LifetimeComponent> lifetimeComponents;
-        unordered_map<size_t, HealthComponent> healthComponents;
-        unordered_map<size_t, MovementComponent> movementComponents;
-        unordered_map<size_t, LetterComponent> letterComponents;
+    class ComponentManager : Manager {
+        
+    protected:
+        //
+        std::unordered_map<size_t, TransformComponent> transformComponents;
+        
+        //
+        std::unordered_map<size_t, VisualComponent> visualComponents;
+        
+        //
+        std::unordered_map<size_t, BodyComponent> bodyComponents;
+        
+        //
+        std::unordered_map<size_t, SoundComponent> soundComponents;
+        
+        //
+        std::unordered_map<size_t, LifetimeComponent> lifetimeComponents;
+        
+        //
+        std::unordered_map<size_t, HealthComponent> healthComponents;
+        
+        //
+        std::unordered_map<size_t, MovementComponent> movementComponents;
+        
+        //
+        std::unordered_map<size_t, LetterComponent> letterComponents;
+        
+    public:
+        ComponentManager() {}
+        ~ComponentManager() {}
+        
     };
 }
-#endif //BLINDTYPER_COMPONENTMANAGER_HPP
+#endif //COMPONENT_MANAGER_TYPE_HEADER

@@ -2,16 +2,31 @@
 // Created by anna_ on 07.12.2025.
 //
 
-#ifndef BLINDTYPER_FLOOR_HPP
-#define BLINDTYPER_FLOOR_HPP
+#ifndef FLOOR_TYPE_HEADER
+#define FLOOR_TYPE_HEADER
+
+#include "Entity.hpp"
+
+#include "VisualComponent.hpp"
+#include "TransformComponent.hpp"
+#include "BodyComponent.hpp"
+#include "HealthComponent.hpp"
+#include "LifetimeComponent.hpp"
+#include "SoundComponent.hpp"
+
 namespace tppo{
-    struct Floor{
+    class Floor{
+    
+    protected:
         VisualComponent visual;
         TransformComponent transform;
         BodyComponent body;
-        Health movement;
+        HealthComponent movement;
         LifetimeComponent lifetime;
         SoundComponent sound;
+        
+    public:
+        
     };
 }
-#endif //BLINDTYPER_FLOOR_HPP
+#endif //FLOOR_TYPE_HEADER

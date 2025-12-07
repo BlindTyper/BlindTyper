@@ -1,8 +1,21 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_VISUALSYSTEM_HPP
-#define BLINDTYPER_VISUALSYSTEM_HPP
+*/
 
-#endif //BLINDTYPER_VISUALSYSTEM_HPP
+#ifndef VISUAL_SYSTEM_TYPE_HEADER
+#define VISUAL_SYSTEM_TYPE_HEADER
+
+#include "System.hpp"
+
+namespace tppo {
+    class VisualSystem : System {
+        
+    protected:
+        
+        
+    public:
+        
+    };
+}
+
+#endif //VISUAL_SYSTEM_TYPE_HEADER

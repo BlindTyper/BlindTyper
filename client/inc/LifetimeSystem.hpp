@@ -1,8 +1,21 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_LIFETIMESYSTEM_HPP
-#define BLINDTYPER_LIFETIMESYSTEM_HPP
+*/
 
-#endif //BLINDTYPER_LIFETIMESYSTEM_HPP
+#ifndef LIFETIME_SYSTEM_TYPE_HEADER
+#define LIFETIME_SYSTEM_TYPE_HEADER
+
+#include "System.hpp"
+
+namespace tppo {
+    class LifetimeSystem : System {
+        
+    protected:
+        
+        
+    public:
+        
+    };
+}
+
+#endif //LIFETIME_SYSTEM_TYPE_HEADER

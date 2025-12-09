@@ -5,6 +5,8 @@
 #ifndef LETTER_TYPE_HEADER
 #define LETTER_TYPE_HEADER
 
+#include <memory>
+
 #include "Entity.hpp"
 
 #include "VisualComponent.hpp"
@@ -15,15 +17,26 @@
 #include "SoundComponent.hpp"
 
 namespace tppo{
-    class Letter{
+    class Letter : Entity {
         
     protected:
-        VisualComponent visual;
-        TransformComponent transform;
-        BodyComponent body;
-        MovementComponent movement;
-        LifetimeComponent lifetime;
-        SoundComponent sound;
+        //
+        std::shared_ptr<VisualComponent> visual;
+        
+        //
+        std::shared_ptr<TransformComponent> transform;
+        
+        //
+        std::shared_ptr<BodyComponent> body;
+        
+        //
+        std::shared_ptr<MovementComponent> movement;
+        
+        //
+        std::shared_ptr<LifetimeComponent> lifetime;
+        
+        //
+        std::shared_ptr<SoundComponent> sound;
         
     public:
         

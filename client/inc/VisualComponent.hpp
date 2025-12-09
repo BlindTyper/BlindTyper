@@ -5,11 +5,11 @@
 #ifndef VISUAL_COMPONENT_TYPE_HEADER
 #define VISUAL_COMPONENT_TYPE_HEADER
 
-#include "Vec3i.hpp"
+#include "Main.hpp"
 
 #include "Component.hpp"
 
-namespace tppo{
+namespace tppo {
     class VisualComponent : Component {
 
     protected:
@@ -17,8 +17,9 @@ namespace tppo{
         sf::Sprite sprite;
         
     public:
-        
+        //
+        VisualComponent(uint64_t ownerId, sf::Texture &texture);
     };
 }
 
-#endif //VISUAL_COMPONENT_TYPE_HEADER
+#endif //VISUAL_COMPONENT_TYPE_HEADER   

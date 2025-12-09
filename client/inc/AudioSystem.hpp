@@ -14,6 +14,14 @@ namespace tppo {
         
         
     public:
+        //
+        AudioSystem(ComponentManager &componentManager, EntityManager &entityManager);
+        
+        //
+        ~AudioSystem();
+    
+        //
+        void Init();
         
     };
 }

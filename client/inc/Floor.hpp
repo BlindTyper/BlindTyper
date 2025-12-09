@@ -5,6 +5,8 @@
 #ifndef FLOOR_TYPE_HEADER
 #define FLOOR_TYPE_HEADER
 
+#include <memory>
+
 #include "Entity.hpp"
 
 #include "VisualComponent.hpp"
@@ -18,12 +20,12 @@ namespace tppo{
     class Floor{
     
     protected:
-        VisualComponent visual;
-        TransformComponent transform;
-        BodyComponent body;
-        HealthComponent movement;
-        LifetimeComponent lifetime;
-        SoundComponent sound;
+        VisualComponent *visual;
+        TransformComponent *transform;
+        BodyComponent *body;
+        HealthComponent *movement;
+        LifetimeComponent *lifetime;
+        SoundComponent *sound;
         
     public:
         

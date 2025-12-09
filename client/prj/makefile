@@ -8,13 +8,13 @@ ifeq ($(OS),Windows_NT)
 	CXXDEPFLAGS = -I"E:/mingw64/SFML/include"
 	LDDEPFLAGS  = -L"E:/mingw64/SFML/bin" -L"E:/mingw64/SFML/lib"
 	LDFLAGS     = $(LDDEPFLAGS) -lsfml-window -lsfml-graphics -lsfml-system -lopengl32 -lgdi32 -lwinmm -mwindows -lfreetypeL
-	GCHS        = main.pch
+	GCHS        = Main.pch
 else
 	TARGET      = blind_typer
 	CXXDEPFLAGS =
 	LDDEPFLAGS  =
 	LDFLAGS     = $(LDDEPFLAGS) -lsfml-window -lsfml-graphics -lsfml-system -lGL
-	GCHS        = main.gch
+	GCHS        = Main.gch
 endif
 
 # Директории
@@ -35,8 +35,8 @@ CXXFLAGS  = -I$(INC_DIR) $(CXXDEPFLAGS) -Wall -Wextra -std=c++17
 # Рекурсивный поиск всех .cpp файлов
 SRCS      = $(shell find $(SRC_DIR) -name "*.cpp")
 # Преобразуем пути .cpp в пути .obj
-OBJS      = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.obj,$(SRCS))
-PCHS      = main.hpp
+OBJS      = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRCS))
+PCHS      = Main.hpp
 
 # ============================================================================
 # Вспомогательные цели
@@ -56,10 +56,10 @@ run: all
 
 # Отладка с цветными сообщениями
 debug: CXXFLAGS += -g -DDEBUG -fdiagnostics-color=always
-debug: clean all
+debug: all
 
-release: CXXFLAGS += -O3 -DNDEBUG
-release: clean all
+release: CXXFLAGS += -O3
+release: all
 
 # Проверка исходного кода
 check:
@@ -86,7 +86,7 @@ $(INC_DIR)/$(GCHS): $(INC_DIR)/$(PCHS)
 	@echo "Скомпилирован: $<"
 
 # Правило для компиляции .cpp в .obj
-$(OBJ_DIR)/%.obj: $(SRC_DIR)/%.cpp
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 	@echo "Скомпилирован: $<"

@@ -10,7 +10,7 @@
 #include "Manager.hpp"
 #include "InputSystem.hpp"
 #include "VisualSystem.hpp"
-//#include "HealthSystem.hpp"
+#include "DamageSystem.hpp"
 #include "MovementSystem.hpp"
 #include "LifetimeSystem.hpp"
 #include "CollisionSystem.hpp"
@@ -27,7 +27,7 @@ namespace tppo{
         VisualSystem visualSystem;
         
         //
-        //HealthSystem healthSystem;
+        DamageSystem damageSystem;
         
         //
         MovementSystem movementSystem;
@@ -42,8 +42,14 @@ namespace tppo{
         AudioSystem audioSystem;
         
     public:
-        SystemManager() {}
-        ~SystemManager() {}
+        //
+        SystemManager(ComponentManager &componentManager, EntityManager &entityManager);
+        
+        //
+        ~SystemManager();
+        
+        //
+        void Init();
         
     };
 }

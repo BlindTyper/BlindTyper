@@ -1,8 +1,0 @@
-//
-// Created by anna_ on 07.12.2025.
-//
-
-#ifndef BLINDTYPER_GAMEMODE_HPP
-#define BLINDTYPER_GAMEMODE_HPP
-
-#endif //BLINDTYPER_GAMEMODE_HPP

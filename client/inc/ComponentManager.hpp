@@ -7,10 +7,14 @@
 
 #include "Main.hpp"
 
+#include <iostream>
+#include <memory>
+#include <stdexcept>
 #include <unordered_map>
 
 #include "Manager.hpp"
 
+#include "VisualResourcesComponent.hpp"
 #include "VisualComponent.hpp"
 #include "TransformComponent.hpp"
 #include "BodyComponent.hpp"
@@ -25,10 +29,13 @@ namespace tppo{
         
     protected:
         //
-        std::unordered_map<size_t, TransformComponent> transformComponents;
+        std::shared_ptr<VisualResourcesComponent> visualResourcesComponent;
         
         //
         std::unordered_map<size_t, VisualComponent> visualComponents;
+        
+        //
+        std::unordered_map<size_t, TransformComponent> transformComponents;
         
         //
         std::unordered_map<size_t, BodyComponent> bodyComponents;
@@ -49,8 +56,23 @@ namespace tppo{
         std::unordered_map<size_t, LetterComponent> letterComponents;
         
     public:
-        ComponentManager() {}
-        ~ComponentManager() {}
+        //
+        ComponentManager();
+        
+        //
+        ~ComponentManager();
+        
+        //
+        void Init();
+        
+        //
+        std::shared_ptr<VisualResourcesComponent> &GetVisualResourcesComponent();
+        
+        //
+        std::unordered_map<size_t, VisualComponent> &GetVisualComponents();
+        
+        //
+        VisualComponent &GetVisualComponent(uint64_t id);
         
     };
 }

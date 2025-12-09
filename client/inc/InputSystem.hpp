@@ -14,6 +14,14 @@ namespace tppo {
         
         
     public:
+        //
+        InputSystem(ComponentManager &componentManager, EntityManager &entityManager);
+        
+        //
+        ~InputSystem();
+    
+        //
+        void Init();
         
     };
 }

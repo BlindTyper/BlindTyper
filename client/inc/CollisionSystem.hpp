@@ -14,6 +14,14 @@ namespace tppo {
         
         
     public:
+        //
+        CollisionSystem(ComponentManager &componentManager, EntityManager &entityManager);
+        
+        //
+        ~CollisionSystem();
+    
+        //
+        void Init();
         
     };
 }

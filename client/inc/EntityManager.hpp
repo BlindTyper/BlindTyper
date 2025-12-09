@@ -7,10 +7,14 @@
 
 #include "Main.hpp"
 
+#include <cstdint>
 #include <unordered_map>
 
 #include "Manager.hpp"
+#include "ComponentManager.hpp"
 
+#include "Entity.hpp"
+#include "SystemResources.hpp"
 #include "Letter.hpp"
 #include "Floor.hpp"
 #include "Player.hpp"
@@ -22,23 +26,38 @@ namespace tppo{
         
     protected:
         //
-        std::unordered_map<size_t, Letter> Letters;
+        ComponentManager &componentManager;
+    
+        //
+        std::shared_ptr<SystemResources> systemResources;
         
         //
-        std::unordered_map<size_t, Floor> Floors;
+        std::unordered_map<uint64_t, Letter> letters;
         
         //
-        std::unordered_map<size_t, Player> Players;
+        std::unordered_map<uint64_t, Floor> floors;
         
         //
-        std::unordered_map<size_t, Background> Backgrounds;
+        std::unordered_map<uint64_t, Player> players;
         
         //
-        //std::unordered_map<size_t, GameMode> GameModes;
+        std::unordered_map<uint64_t, Background> backgrounds;
+        
+        //
+        //std::unordered_map<uint64_t, GameMode> GameModes;
         
     public:
-        EntityManager() {}
-        ~EntityManager() {}
+        //
+        EntityManager(ComponentManager &componentManager);
+        
+        //
+        ~EntityManager();
+        
+        //
+        void Init();
+        
+        //
+        SystemResources &GetSystemResources();
         
     };
 }

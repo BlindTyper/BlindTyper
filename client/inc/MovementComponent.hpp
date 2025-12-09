@@ -11,8 +11,8 @@ namespace tppo{
     class MovementComponent : Component {
     
     protected:
-        Vec3i velocity;
-        Vec3i acceleration;
+        Vec3d velocity;
+        Vec3d acceleration;
         
     public:
         

@@ -32,10 +32,10 @@ namespace tppo{
         
     protected:
         //
-        EntityManager entityManager;
+        ComponentManager componentManager;
         
         //
-        ComponentManager componentManager;
+        EntityManager entityManager;
         
         //
         SystemManager systemManager;
@@ -47,25 +47,13 @@ namespace tppo{
         sf::RenderWindow window;
         
         //
-        ImFontConfig font_cfg;
-        
-        //
         ImGuiWindowFlags window_flags;
-        
-        //
-        sf::Texture backgroundImage;
-        
-        //
-        sf::Sprite imageBackground;
         
         //
         bool p_open;
         
         //
         sf::Clock deltaClock;
-        
-        //
-        ImGuiIO *io;
         
     public:
         //
@@ -81,10 +69,10 @@ namespace tppo{
         void Run();
         
         //
-        void showMainMenu(ImFontAtlas *Fonts, const ImGuiViewport* viewport);
+        void showMainMenu(ImFontAtlas *Fonts, const ImGuiViewport* viewport, sf::Sprite &imageBackground);
         
         //
-        void showCampaignMenu(ImFontAtlas *Fonts, const ImGuiViewport* viewport);
+        void showCampaignMenu(ImFontAtlas *Fonts, const ImGuiViewport* viewport, sf::Sprite &imageBackground);
         
     };
 }

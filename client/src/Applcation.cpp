@@ -7,15 +7,14 @@
 namespace tppo {
     //
     Application::Application()
-        : currentScreen(mainMenu) 
-        , window(sf::VideoMode({1920, 1080}), L"Blind Typer", sf::State::Fullscreen) 
-        , font_cfg()
+        : componentManager()
+        , entityManager(componentManager) 
+        , systemManager(componentManager, entityManager) 
+        , currentScreen(mainMenu) 
+        , window(sf::VideoMode({1920, 1080}), L"Blind Typer"/*, sf::State::Fullscreen*/)
         , window_flags(0)
-        , backgroundImage("../data/backgroundMainMenu.png")
-        , imageBackground(backgroundImage)
         , p_open(false)
-        , deltaClock()
-        , io() {
+        , deltaClock() {
         Init();
     }
     
@@ -26,34 +25,21 @@ namespace tppo {
     
     //
     void Application::Init() {
-        window.setFramerateLimit(60);
-        window.setVerticalSyncEnabled(true);
-        
+        // Запуск графики
         ImGui::CreateContext();
         ImGui::StyleColorsDark();
         (void) ImGui::SFML::Init(window, false);
         
-        static const ImWchar CyrillicRanges[] = {
-            0x0010, 0x04FF,
-            0x0500, 0x052F,
-            0x2DE0, 0x2DFF,
-            0xA640, 0xA69F,
-            0,
-        };
-        io = &ImGui::GetIO();
-        font_cfg.GlyphRanges = CyrillicRanges;
+        systemManager.Init();
+        window.setFramerateLimit(60);
+        window.setVerticalSyncEnabled(true);
+        
+        
+        
+        
         
     // Fonts style
-        io->Fonts->Clear();
-        // io.Fonts->AddFontDefault();
-        io->Fonts->AddFontFromFileTTF("../data/arial.ttf", 24.0f, &font_cfg);
-        io->Fonts->AddFontFromFileTTF("../data/arial.ttf", 80.0f, &font_cfg);
-        io->Fonts->AddFontFromFileTTF("../data/arial.ttf", 120.0f, &font_cfg);
-        io->Fonts->AddFontFromFileTTF("../data/arial.ttf", 64.0f, &font_cfg);
-        io->Fonts->AddFontFromFileTTF("../data/arial.ttf", 48.0f, &font_cfg);
-        io->Fonts->AddFontFromFileTTF("../data/arial.ttf", 32.0f, &font_cfg);
-        io->Fonts->AddFontFromFileTTF("../data/arial.ttf", 16.0f, &font_cfg);
-        (void) ImGui::SFML::UpdateFontTexture();
+        
 
     // window flags
         window_flags |= ImGuiWindowFlags_NoBackground;
@@ -62,14 +48,15 @@ namespace tppo {
         window_flags |= ImGuiWindowFlags_NoNav;
         window_flags |= ImGuiWindowFlags_NoScrollbar;
         window_flags |= ImGuiWindowFlags_NoResize;
-        
-        auto windowSize = window.getSize();
-        imageBackground.setPosition({0, 0});
-        imageBackground.setScale({0.697f, 0.703f});
     }
     
     //
     void Application::Run() {
+        ImGuiIO* io = &ImGui::GetIO();
+        sf::Sprite imageBackground(entityManager.GetSystemResources().GetVisualResources().GetTexture("../data/mainMenuBackground.png"));
+        
+        imageBackground.setPosition({0, 0});
+        imageBackground.setScale({0.697f, 0.703f});
         while (window.isOpen()) {
             while (const auto event = window.pollEvent()) {
                 ImGui::SFML::ProcessEvent(window, *event);
@@ -93,11 +80,11 @@ namespace tppo {
 
             switch (currentScreen) {
                 case mainMenu: {
-                    showMainMenu(io->Fonts, viewport);
+                    showMainMenu(io->Fonts, viewport, imageBackground);
                     break;
                 }
                 case campaignMenu: {
-                    showCampaignMenu(io->Fonts, viewport);
+                    showCampaignMenu(io->Fonts, viewport, imageBackground);
                     break;
                 }
                 case endlessModeMenu: {}
@@ -128,19 +115,18 @@ namespace tppo {
         ImGui::SFML::Shutdown();
     }
     
-    void Application::showMainMenu(ImFontAtlas *Fonts, const ImGuiViewport* viewport) {
+    void Application::showMainMenu(ImFontAtlas *Fonts, const ImGuiViewport* viewport, sf::Sprite &imageBackground) {
         ImVec2 next_pos = viewport->WorkSize;
         ImVec2 next_scale = viewport->WorkSize;
         ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 3.0f);
         ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, std::min(next_scale.y / 3.0f, next_scale.x / 3.0f));
         ImGui::PushFont(Fonts->Fonts[1]);
-        sf::Texture backgroundImage("../data/backgroundMainMenu.png");
-        sf::Sprite imageBackground(backgroundImage);
+        //sf::Sprite imageBackground(entityManager.GetSystemResources().GetVisualResources().GetTexture("../data/mainMenuBackground.png"));
         imageBackground.setPosition({0, 0});
         imageBackground.setScale({0.697f, 0.703f});
-        ImTextureID my_tex_id = backgroundImage.getNativeHandle();
-        float my_tex_w = (float)Fonts->TexWidth;
-        float my_tex_h = (float)Fonts->TexHeight;
+//        ImTextureID my_tex_id = backgroundImage.getNativeHandle();
+//        float my_tex_w = (float)Fonts->TexWidth;
+//        float my_tex_h = (float)Fonts->TexHeight;
         
         ImGui::PushFont(Fonts->Fonts[2]);
         ImVec2 size = ImGui::CalcTextSize("Blind Typer");
@@ -198,18 +184,17 @@ namespace tppo {
 
     }
 
-    void Application::showCampaignMenu(ImFontAtlas *Fonts, const ImGuiViewport* viewport) {
+    void Application::showCampaignMenu(ImFontAtlas *Fonts, const ImGuiViewport* viewport, sf::Sprite &imageBackground) {
         ImVec2 next_pos = viewport->WorkSize;
         ImVec2 next_scale = viewport->WorkSize;
         ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 3.0f);
         ImGui::PushFont(Fonts->Fonts[1]);
-        sf::Texture backgroundImage("../data/backgroundMainMenu.png");
-        sf::Sprite imageBackground(backgroundImage);
+        //sf::Sprite imageBackground(entityManager.GetSystemResources().GetVisualResources().GetTexture("../data/mainMenuBackground.png"));
         imageBackground.setPosition({0, 0});
         imageBackground.setScale({0.697f, 0.703f});
-        ImTextureID my_tex_id = backgroundImage.getNativeHandle();
-        float my_tex_w = (float)Fonts->TexWidth;
-        float my_tex_h = (float)Fonts->TexHeight;
+//        ImTextureID my_tex_id = backgroundImage.getNativeHandle();
+//        float my_tex_w = (float)Fonts->TexWidth;
+//        float my_tex_h = (float)Fonts->TexHeight;
 
         ImGui::PushFont(Fonts->Fonts[2]);
         ImVec2 size = ImGui::CalcTextSize("Кампания");

@@ -14,6 +14,14 @@ namespace tppo {
         
         
     public:
+        //
+        MovementSystem(ComponentManager &componentManager, EntityManager &entityManager);
+        
+        //
+        ~MovementSystem();
+    
+        //
+        void Init();
         
     };
 }

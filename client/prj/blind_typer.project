@@ -2,7 +2,11 @@
 <CodeLite_Project Name="blind_typer" Version="11000" InternalType="Console">
   <VirtualDirectory Name="Engine">
     <VirtualDirectory Name="Managers">
-      <VirtualDirectory Name="src"/>
+      <VirtualDirectory Name="src">
+        <File Name="../src/ComponentManager.cpp"/>
+        <File Name="../src/EntityManager.cpp"/>
+        <File Name="../src/SystemManager.cpp"/>
+      </VirtualDirectory>
       <VirtualDirectory Name="inc">
         <File Name="../inc/ComponentManager.hpp"/>
         <File Name="../inc/EntityManager.hpp"/>
@@ -11,8 +15,13 @@
       </VirtualDirectory>
     </VirtualDirectory>
     <VirtualDirectory Name="Entities">
-      <VirtualDirectory Name="src"/>
+      <VirtualDirectory Name="src">
+        <File Name="../src/SystemResources.cpp"/>
+        <File Name="../src/Entity.cpp"/>
+      </VirtualDirectory>
       <VirtualDirectory Name="inc">
+        <File Name="../inc/AppState.hpp"/>
+        <File Name="../inc/SystemResources.hpp"/>
         <File Name="../inc/Background.hpp"/>
         <File Name="../inc/Entity.hpp"/>
         <File Name="../inc/Floor.hpp"/>
@@ -21,8 +30,18 @@
       </VirtualDirectory>
     </VirtualDirectory>
     <VirtualDirectory Name="Systems">
-      <VirtualDirectory Name="src"/>
+      <VirtualDirectory Name="src">
+        <File Name="../src/MovementSystem.cpp"/>
+        <File Name="../src/LifetimeSystem.cpp"/>
+        <File Name="../src/DamageSystem.cpp"/>
+        <File Name="../src/CollisionSystem.cpp"/>
+        <File Name="../src/AudioSystem.cpp"/>
+        <File Name="../src/InputSystem.cpp"/>
+        <File Name="../src/System.cpp"/>
+        <File Name="../src/VisualSystem.cpp"/>
+      </VirtualDirectory>
       <VirtualDirectory Name="inc">
+        <File Name="../inc/StateSystem.hpp"/>
         <File Name="../inc/System.hpp"/>
         <File Name="../inc/AudioSystem.hpp"/>
         <File Name="../inc/CollisionSystem.hpp"/>
@@ -34,8 +53,15 @@
       </VirtualDirectory>
     </VirtualDirectory>
     <VirtualDirectory Name="Components">
-      <VirtualDirectory Name="src"/>
+      <VirtualDirectory Name="src">
+        <File Name="../src/WindowComponent.cpp"/>
+        <File Name="../src/VisualComponent.cpp"/>
+        <File Name="../src/VisualResourcesComponent.cpp"/>
+        <File Name="../src/Component.cpp"/>
+      </VirtualDirectory>
       <VirtualDirectory Name="inc">
+        <File Name="../inc/WindowComponent.hpp"/>
+        <File Name="../inc/VisualResourcesComponent.hpp"/>
         <File Name="../inc/TransformComponent.hpp"/>
         <File Name="../inc/SoundComponent.hpp"/>
         <File Name="../inc/Component.hpp"/>
@@ -50,7 +76,7 @@
     <VirtualDirectory Name="Utils">
       <VirtualDirectory Name="src"/>
       <VirtualDirectory Name="inc">
-        <File Name="../inc/Vec3i.hpp"/>
+        <File Name="../inc/Vec3d.hpp"/>
         <File Name="../inc/Rect.hpp"/>
       </VirtualDirectory>
     </VirtualDirectory>
@@ -83,7 +109,7 @@
       </Compiler>
       <Linker Options="" Required="yes"/>
       <ResourceCompiler Options="" Required="no"/>
-      <General OutputFile="$(ProjectName)" IntermediateDirectory="" Command="$(WorkspacePath)/build-$(WorkspaceConfiguration)/bin/$(OutputFile)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(WorkspacePath)/build-$(WorkspaceConfiguration)/lib" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <General OutputFile="$(ProjectName)" IntermediateDirectory="../obj" Command="../bin/$(OutputFile)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="." PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
       <BuildSystem Name="CodeLite Makefile Generator"/>
       <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[]]>
@@ -98,7 +124,7 @@
       <CustomBuild Enabled="yes">
         <RebuildCommand>make rebuild</RebuildCommand>
         <CleanCommand>make clean</CleanCommand>
-        <BuildCommand>make</BuildCommand>
+        <BuildCommand>make debug</BuildCommand>
         <PreprocessFileCommand/>
         <SingleFileCommand/>
         <MakefileGenerationCommand/>

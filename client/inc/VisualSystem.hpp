@@ -7,6 +7,12 @@
 
 #include "System.hpp"
 
+#include <string>
+#include <vector>
+
+#include <ComponentManager.hpp>
+#include <EntityManager.hpp>
+
 namespace tppo {
     class VisualSystem : System {
         
@@ -14,7 +20,17 @@ namespace tppo {
         
         
     public:
+        //
+        VisualSystem(ComponentManager &componentManager, EntityManager &entityManager);
         
+        //
+        ~VisualSystem();
+        
+        //
+        void Init();
+        
+        //
+        void Update();
     };
 }
 

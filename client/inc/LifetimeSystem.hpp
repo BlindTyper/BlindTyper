@@ -14,6 +14,14 @@ namespace tppo {
         
         
     public:
+        //
+        LifetimeSystem(ComponentManager &componentManager, EntityManager &entityManager);
+        
+        //
+        ~LifetimeSystem();
+    
+        //
+        void Init();
         
     };
 }

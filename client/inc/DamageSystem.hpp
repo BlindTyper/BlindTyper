@@ -14,6 +14,14 @@ namespace tppo {
         
         
     public:
+        //
+        DamageSystem(ComponentManager &componentManager, EntityManager &entityManager);
+        
+        //
+        ~DamageSystem();
+    
+        //
+        void Init();
         
     };
 }

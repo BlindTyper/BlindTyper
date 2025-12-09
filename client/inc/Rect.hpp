@@ -1,14 +1,20 @@
-//
-// Created by anna_ on 07.12.2025.
-//
+/*
 
-#ifndef BLINDTYPER_RECT_HPP
-#define BLINDTYPER_RECT_HPP
-#include <Vec3i.hpp>
+*/
+
+#ifndef RECT_TYPE_HEADER
+#define RECT_TYPE_HEADER
+
+#include <Vec3d.hpp>
+
 namespace tppo{
-    struct Rect { ;
-        Vec3i position;
-        long double w,h;
+    class Rect {
+ 
+    public:
+        Vec3d position;
+        Vec3d size;
+        
     };
 }
-#endif //BLINDTYPER_RECT_HPP
+
+#endif //RECT_TYPE_HEADER

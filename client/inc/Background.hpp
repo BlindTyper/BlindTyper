@@ -5,6 +5,8 @@
 #ifndef BACKGROUND_TYPE_HEADER
 #define BACKGROUND_TYPE_HEADER
 
+#include <memory>
+
 #include "Entity.hpp"
 
 #include "VisualComponent.hpp"
@@ -14,8 +16,8 @@ namespace tppo {
     class Background : Entity {
         
     protected:
-        VisualComponent visual;
-        SoundComponent sound;
+        VisualComponent *visual;
+        SoundComponent *sound;
         
     public:
         

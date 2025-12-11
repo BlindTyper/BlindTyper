@@ -19,8 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AuthService_IsAuth_FullMethodName     = "/auth.AuthService/IsAuth"
-	AuthService_JWTisValid_FullMethodName = "/auth.AuthService/JWTisValid"
+	AuthService_IsAuth_FullMethodName = "/auth.AuthService/IsAuth"
 )
 
 // AuthServiceClient is the client API for AuthService service.
@@ -31,7 +30,6 @@ const (
 type AuthServiceClient interface {
 	// Middleware
 	IsAuth(ctx context.Context, in *IsAuthRequest, opts ...grpc.CallOption) (*IsAuthResponse, error)
-	JWTisValid(ctx context.Context, in *JWTisValidRequest, opts ...grpc.CallOption) (*JWTisValidResponse, error)
 }
 
 type authServiceClient struct {
@@ -52,16 +50,6 @@ func (c *authServiceClient) IsAuth(ctx context.Context, in *IsAuthRequest, opts 
 	return out, nil
 }
 
-func (c *authServiceClient) JWTisValid(ctx context.Context, in *JWTisValidRequest, opts ...grpc.CallOption) (*JWTisValidResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(JWTisValidResponse)
-	err := c.cc.Invoke(ctx, AuthService_JWTisValid_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // AuthServiceServer is the server API for AuthService service.
 // All implementations must embed UnimplementedAuthServiceServer
 // for forward compatibility.
@@ -70,7 +58,6 @@ func (c *authServiceClient) JWTisValid(ctx context.Context, in *JWTisValidReques
 type AuthServiceServer interface {
 	// Middleware
 	IsAuth(context.Context, *IsAuthRequest) (*IsAuthResponse, error)
-	JWTisValid(context.Context, *JWTisValidRequest) (*JWTisValidResponse, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }
 
@@ -83,9 +70,6 @@ type UnimplementedAuthServiceServer struct{}
 
 func (UnimplementedAuthServiceServer) IsAuth(context.Context, *IsAuthRequest) (*IsAuthResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method IsAuth not implemented")
-}
-func (UnimplementedAuthServiceServer) JWTisValid(context.Context, *JWTisValidRequest) (*JWTisValidResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method JWTisValid not implemented")
 }
 func (UnimplementedAuthServiceServer) mustEmbedUnimplementedAuthServiceServer() {}
 func (UnimplementedAuthServiceServer) testEmbeddedByValue()                     {}
@@ -126,24 +110,6 @@ func _AuthService_IsAuth_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthService_JWTisValid_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(JWTisValidRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServiceServer).JWTisValid(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthService_JWTisValid_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).JWTisValid(ctx, req.(*JWTisValidRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // AuthService_ServiceDesc is the grpc.ServiceDesc for AuthService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -154,10 +120,6 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "IsAuth",
 			Handler:    _AuthService_IsAuth_Handler,
-		},
-		{
-			MethodName: "JWTisValid",
-			Handler:    _AuthService_JWTisValid_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

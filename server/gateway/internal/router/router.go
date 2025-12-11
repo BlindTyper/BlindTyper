@@ -40,27 +40,23 @@ func RouteRequest(Logger *log.Logger, ctx context.Context,
 				*/
 
 				err := ProxyRequest(req, wrt, target)
-
-				errMsg := err.Error()
-				fmt.Println(errMsg)
 				if err != nil {
-					http.Error(wrt, errMsg, 400)
+					// http.Error(wrt, err.Error(), 400)
 					return
 				}
-
+				return
 			case "/game/":
 				/*
 					TODO
 					local middleware wrap with grpc reqs to the sec_srvc
 				*/
-
+				fmt.Println("router /game/")
 				err := ProxyRequest(req, wrt, target)
-				errMsg := err.Error()
-				fmt.Println(errMsg)
 				if err != nil {
-					http.Error(wrt, errMsg, 400)
+					// http.Error(wrt, err.Error(), 400)
 					return
 				}
+				return
 
 			case "/data/":
 				/* refuse connection. only internal calls allowed. */
@@ -69,6 +65,7 @@ func RouteRequest(Logger *log.Logger, ctx context.Context,
 			default:
 				ProxyRequest(req, wrt, target)
 				return
+
 			}
 		}
 	}
@@ -77,7 +74,6 @@ func RouteRequest(Logger *log.Logger, ctx context.Context,
 }
 
 func ProxyRequest(r *http.Request, w http.ResponseWriter, target string) (error error) {
-	/* Sending POST request to auth_service server */
 
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
@@ -99,10 +95,9 @@ func ProxyRequest(r *http.Request, w http.ResponseWriter, target string) (error 
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
-
 	if err != nil {
 		errMsg := err.Error()
-		fmt.Println(errMsg)
+		log.Println(errMsg)
 		return status.Errorf(http.StatusBadGateway, "%s", errMsg)
 	}
 

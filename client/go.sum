@@ -1,0 +1,6 @@
+github.com/go-on/wrap v0.0.0-20180815192933-d1ac8ae9b5e2 h1:j/VeKjGI9sDoTxFZBEvoVPHa1UOiELJLcrg4zxwtQMo=
+github.com/go-on/wrap v0.0.0-20180815192933-d1ac8ae9b5e2/go.mod h1:44iXyI9gYqkLpd1IgONysG3iTNET2A1wxkDx84ZVr6U=
+github.com/go-on/wrap-contrib v2.7.1+incompatible h1:A6qs600tcFS1NdMRLzq7X369dCq/enOdN6YXwGIXsYI=
+github.com/go-on/wrap-contrib v2.7.1+incompatible/go.mod h1:bWxySjFLS4TWVzrh5TZICYSYX/NC1jEY5jP0fyx0KbU=
+github.com/gorilla/websocket v1.5.3 h1:saDtZ6Pbx/0u+bgYQ3q96pZgCzfhKXGPqt7kZ72aNNg=
+github.com/gorilla/websocket v1.5.3/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=

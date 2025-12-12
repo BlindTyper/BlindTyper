@@ -31,21 +31,7 @@ func RunGRPCserver() {
 	}
 }
 
-func (s *AuthServer) RpcIsAuth(ctx context.Context, req *authpb.IsAuthRequest) (*authpb.IsAuthResponse, error) {
-	Profile := &jwtvalidator.ProfileObject{
-		JWT:      req.GetJWT(),
-		Username: req.GetUsername(),
-	}
-
-	status, error := Profile.SendValidateJWTRequest()
-	if error != nil {
-		return nil, error
-	}
-
-	return &authpb.IsAuthResponse{Status: status}, nil
-}
-
-func (s *AuthServer) RpcValidateJWT(ctx context.Context, req *authpb.JWTisValidRequest) (*authpb.JWTisValidResponse, error) {
+func (s *AuthServer) IsAuth(ctx context.Context, req *authpb.IsAuthRequest) (*authpb.IsAuthResponse, error) {
 	Profile := &jwtvalidator.ProfileObject{
 		JWT:      req.GetJWT(),
 		Username: req.GetUsername(),
@@ -56,5 +42,5 @@ func (s *AuthServer) RpcValidateJWT(ctx context.Context, req *authpb.JWTisValidR
 		return nil, error
 	}
 
-	return &authpb.JWTisValidResponse{Status: status}, nil
+	return &authpb.IsAuthResponse{Status: status}, nil
 }

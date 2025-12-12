@@ -20,4 +20,9 @@ namespace tppo {
     void InputSystem::Init() {
         
     }
+    
+    //
+    void InputSystem::Update() {
+        
+    }
 }

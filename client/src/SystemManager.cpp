@@ -7,7 +7,10 @@
 namespace tppo {
     //
     SystemManager::SystemManager(ComponentManager &componentManager, EntityManager &entityManager)
-        : inputSystem(componentManager, entityManager)
+        : isRunning(1)
+        , componentManager(componentManager)
+        , entityManager(entityManager)
+        , inputSystem(componentManager, entityManager)
         , visualSystem(componentManager, entityManager)
         , damageSystem(componentManager, entityManager)
         , movementSystem(componentManager, entityManager)
@@ -22,9 +25,23 @@ namespace tppo {
     SystemManager::~SystemManager() {
         
     }
+        
+    //
+    bool SystemManager::IsRunning() {
+        auto &window = entityManager.GetSystemResources().GetWindow().GetWindow();
+        if (!window.isOpen()) {
+            isRunning = 0;
+        }
+        return isRunning;
+    }
     
     //
     void SystemManager::Init() {
         visualSystem.Init();
+    }
+    
+    //
+    void SystemManager::Update() {
+        visualSystem.Update();
     }
 }

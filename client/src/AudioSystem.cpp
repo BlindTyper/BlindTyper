@@ -20,4 +20,9 @@ namespace tppo {
     void AudioSystem::Init() {
         
     }
+    
+    //
+    void AudioSystem::Update() {
+        
+    }
 }

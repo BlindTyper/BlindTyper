@@ -2,7 +2,7 @@
 
 */
 
-#include <VisualComponent.hpp>
+#include "VisualComponent.hpp"
 
 namespace tppo {
     //
@@ -12,5 +12,10 @@ namespace tppo {
         , sprite(texture)
     {
         
+    }
+        
+    //
+    sf::Sprite &VisualComponent::GetSprite() {
+        return sprite;
     }
 }

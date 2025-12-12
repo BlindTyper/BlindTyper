@@ -20,4 +20,9 @@ namespace tppo {
     void MovementSystem::Init() {
         
     }
+    
+    //
+    void MovementSystem::Update() {
+        
+    }
 }

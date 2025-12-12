@@ -9,17 +9,36 @@
 
 #include "Entity.hpp"
 
+#include "ApplicationSettingsComponent.hpp"
+#include "WindowComponent.hpp"
 #include "VisualResourcesComponent.hpp"
 
 namespace tppo {
     class SystemResources : Entity {
         
     protected:
+        //
+        std::shared_ptr<ApplicationSettingsComponent> settings;
+        
+        //
+        std::shared_ptr<WindowComponent> window;
+    
+        //
         std::shared_ptr<VisualResourcesComponent> visualResources;
         
     public:
         //
-        SystemResources(std::shared_ptr<VisualResourcesComponent> &visualResources);
+        SystemResources(
+            std::shared_ptr<ApplicationSettingsComponent> &settings,
+            std::shared_ptr<WindowComponent> &window,
+            std::shared_ptr<VisualResourcesComponent> &visualResources
+        );
+        
+        //
+        ApplicationSettingsComponent &GetSettings();
+        
+        //
+        WindowComponent &GetWindow();
         
         //
         VisualResourcesComponent &GetVisualResources();

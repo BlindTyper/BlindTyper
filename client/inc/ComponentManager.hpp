@@ -14,6 +14,8 @@
 
 #include "Manager.hpp"
 
+#include "ApplicationSettingsComponent.hpp"
+#include "WindowComponent.hpp"
 #include "VisualResourcesComponent.hpp"
 #include "VisualComponent.hpp"
 #include "TransformComponent.hpp"
@@ -28,6 +30,12 @@ namespace tppo{
     class ComponentManager : Manager {
         
     protected:
+        //
+        std::shared_ptr<ApplicationSettingsComponent> applicationSettingsComponent;
+        
+        //
+        std::shared_ptr<WindowComponent> windowComponent;
+        
         //
         std::shared_ptr<VisualResourcesComponent> visualResourcesComponent;
         
@@ -64,6 +72,12 @@ namespace tppo{
         
         //
         void Init();
+        
+        //
+        std::shared_ptr<ApplicationSettingsComponent> &GetApplicationSettingsComponent();
+        
+        //
+        std::shared_ptr<WindowComponent> &GetWindowComponent();
         
         //
         std::shared_ptr<VisualResourcesComponent> &GetVisualResourcesComponent();

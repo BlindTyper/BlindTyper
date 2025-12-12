@@ -21,6 +21,15 @@ namespace tppo{
         
     protected:
         //
+        bool isRunning;
+        
+        //
+        ComponentManager &componentManager;
+        
+        //
+        EntityManager &entityManager;
+        
+        //
         InputSystem inputSystem;
         
         //
@@ -49,7 +58,13 @@ namespace tppo{
         ~SystemManager();
         
         //
+        bool IsRunning();
+        
+        //
         void Init();
+        
+        //
+        void Update();
         
     };
 }

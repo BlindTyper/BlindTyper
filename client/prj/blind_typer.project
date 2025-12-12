@@ -20,7 +20,9 @@
         <File Name="../src/Entity.cpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="inc">
-        <File Name="../inc/AppState.hpp"/>
+        <File Name="../inc/Button.hpp"/>
+        <File Name="../inc/MainMenuStateComponent.hpp"/>
+        <File Name="../inc/ApplicationStates.hpp"/>
         <File Name="../inc/SystemResources.hpp"/>
         <File Name="../inc/Background.hpp"/>
         <File Name="../inc/Entity.hpp"/>
@@ -54,6 +56,8 @@
     </VirtualDirectory>
     <VirtualDirectory Name="Components">
       <VirtualDirectory Name="src">
+        <File Name="../src/MainMenuStateComponent.cpp"/>
+        <File Name="../src/ApplicationSettingsComponent.cpp"/>
         <File Name="../src/WindowComponent.cpp"/>
         <File Name="../src/VisualComponent.cpp"/>
         <File Name="../src/VisualResourcesComponent.cpp"/>

@@ -20,4 +20,9 @@ namespace tppo {
     void LifetimeSystem::Init() {
         
     }
+    
+    //
+    void LifetimeSystem::Update() {
+        
+    }
 }

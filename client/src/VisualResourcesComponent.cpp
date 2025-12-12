@@ -2,7 +2,7 @@
 
 */
 
-#include <VisualResourcesComponent.hpp>
+#include "VisualResourcesComponent.hpp"
 
 namespace tppo {
     //
@@ -36,5 +36,10 @@ namespace tppo {
             std::cerr << "Error:\nGetting from VisualResourcesComponent sf::Texture with pathName: " << pathToFile << std::endl;
             exit(1);
         }
+    }
+        
+    //
+    ImFontConfig &VisualResourcesComponent::GetFontConfig() {
+        return fontConfig;
     }
 }

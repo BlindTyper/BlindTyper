@@ -13,12 +13,18 @@ namespace tppo {
     class VisualComponent : Component {
 
     protected:
+        //
         sf::Texture &texture;
+        
+        //
         sf::Sprite sprite;
         
     public:
         //
         VisualComponent(uint64_t ownerId, sf::Texture &texture);
+        
+        //
+        sf::Sprite &GetSprite();
     };
 }
 

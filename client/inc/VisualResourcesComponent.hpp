@@ -16,7 +16,11 @@ namespace tppo {
     class VisualResourcesComponent : Component {
 
     protected:
+        //
         std::unordered_map<std::string, sf::Texture> textures;
+        
+        //
+        ImFontConfig fontConfig;
         
     public:
         //
@@ -30,6 +34,9 @@ namespace tppo {
         
         //
         sf::Texture &GetTexture(std::string &&pathToFile);
+        
+        //
+        ImFontConfig &GetFontConfig();
         
     };
 }

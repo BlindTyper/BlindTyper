@@ -12,17 +12,17 @@ namespace tppo {
         
     protected:
         //
-        static uint64_t counter;
+        static std::uint64_t counter;
         
         //
-        uint64_t entityId;
+        std::uint64_t entityId;
         
     public:
         //
-        static uint64_t UseCounter();
+        static std::uint64_t UseCounter();
         
         //
-        static uint64_t GetCounter();
+        static std::uint64_t GetCounter();
     
         //
         Entity();

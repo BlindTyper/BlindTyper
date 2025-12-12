@@ -25,7 +25,11 @@ namespace tppo {
     //
     SystemResources &EntityManager::GetSystemResources() {
         if (systemResources == nullptr) {
-            systemResources = std::make_shared<SystemResources>(componentManager.GetVisualResourcesComponent());
+            systemResources = std::make_shared<SystemResources>(
+                componentManager.GetApplicationSettingsComponent(),
+                componentManager.GetWindowComponent(),
+                componentManager.GetVisualResourcesComponent()
+            );
             //std::cout << "systemResources == nullptr" << std::endl;
         }
         return *systemResources;

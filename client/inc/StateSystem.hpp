@@ -22,6 +22,9 @@ namespace tppo {
     
         //
         void Init();
+    
+        //
+        void Update();
         
     };
 }

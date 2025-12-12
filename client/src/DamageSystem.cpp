@@ -20,4 +20,9 @@ namespace tppo {
     void DamageSystem::Init() {
         
     }
+    
+    //
+    void DamageSystem::Update() {
+        
+    }
 }

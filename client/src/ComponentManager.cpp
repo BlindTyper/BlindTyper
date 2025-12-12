@@ -21,6 +21,22 @@ namespace tppo {
     }
         
     //
+    std::shared_ptr<ApplicationSettingsComponent> &ComponentManager::GetApplicationSettingsComponent() {
+        if (applicationSettingsComponent == nullptr) {
+            applicationSettingsComponent = std::make_shared<ApplicationSettingsComponent>(Component::GetCounter());
+        }
+        return applicationSettingsComponent;
+    }
+        
+    //
+    std::shared_ptr<WindowComponent> &ComponentManager::GetWindowComponent() {
+        if (windowComponent == nullptr) {
+            windowComponent = std::make_shared<WindowComponent>(Component::GetCounter());
+        }
+        return windowComponent;
+    }
+        
+    //
     std::shared_ptr<VisualResourcesComponent> &ComponentManager::GetVisualResourcesComponent() {
         //return &(*visualResourcesComponents.emplace(Component::GetCounter(), VisualResourcesComponent(ownerId)).first).second;
         if (visualResourcesComponent == nullptr) {

@@ -20,4 +20,9 @@ namespace tppo {
     void CollisionSystem::Init() {
         
     }
+    
+    //
+    void CollisionSystem::Update() {
+        
+    }
 }

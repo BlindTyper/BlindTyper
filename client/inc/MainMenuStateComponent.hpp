@@ -10,7 +10,7 @@
 #include "Component.hpp"
 
 namespace tppo {
-    class MainMenuStateComponent : Component {
+    class MainMenuStateComponent : public Component {
 
     protected:
         //

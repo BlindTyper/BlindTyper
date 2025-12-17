@@ -5,9 +5,9 @@
 # Имя исполняемого файла
 ifeq ($(OS),Windows_NT)
 	TARGET      = blind_typer.exe
-	CXXDEPFLAGS = -I"E:/mingw64/SFML/include"
-	LDDEPFLAGS  = -L"E:/mingw64/SFML/bin" -L"E:/mingw64/SFML/lib"
-	LDFLAGS     = $(LDDEPFLAGS) -lsfml-window -lsfml-graphics -lsfml-system -lopengl32 -lgdi32 -lwinmm -mwindows -lfreetypeL
+	CXXDEPFLAGS = -I"$(MinGW-w64)/SFML/include"
+	LDDEPFLAGS  = -L"$(MinGW-w64)/SFML/bin" -L"$(MinGW-w64)/SFML/lib"
+	LDFLAGS     = $(LDDEPFLAGS) -lsfml-window -lsfml-graphics -lsfml-system -lopengl32 -lgdi32 -lwinmm -lfreetypeL
 	GCHS        = Main.pch
 else
 	TARGET      = blind_typer
@@ -33,9 +33,9 @@ CXXFLAGS  = -I$(INC_DIR) $(CXXDEPFLAGS) -Wall -Wextra -std=c++17
 # ============================================================================
 
 # Рекурсивный поиск всех .cpp файлов
-SRCS      = $(shell find $(SRC_DIR) -name "*.cpp")
-# Преобразуем пути .cpp в пути .obj
-OBJS      = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRCS))
+SRCS      = $(wildcard $(SRC_DIR)/*.cpp)
+# Преобразуем пути .cpp в пути .o
+OBJS      = $(SRCS:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 PCHS      = Main.hpp
 
 # ============================================================================
@@ -43,6 +43,9 @@ PCHS      = Main.hpp
 # ============================================================================
 
 all: $(INC_DIR)/$(GCHS) $(BIN_DIR)/$(TARGET)
+
+print:
+	@echo "$(OBJS)"
 
 clean:
 	rm -rf $(OBJ_DIR)/* $(BIN_DIR)/$(TARGET) $(INC_DIR)/$(GCHS)
@@ -75,23 +78,26 @@ check:
 
 # Основная цель - сборка исполняемого файла
 $(BIN_DIR)/$(TARGET): $(OBJS)
-	@mkdir -p $(BIN_DIR)
+	@echo "Сборка цели: $(@)"
+#	@mkdir -p $(BIN_DIR)
 	$(CXX) -o $@ $^ $(LDFLAGS)
 	@echo "Сборка завершена: $(BIN_DIR)/$(TARGET)"
 
 # Правило для компиляции main.hpp
 $(INC_DIR)/$(GCHS): $(INC_DIR)/$(PCHS)
-	@mkdir -p $(dir $@)
+#	@mkdir -p $(dir $@)
+	@echo "Сборка цели: $<"
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 	@echo "Скомпилирован: $<"
 
-# Правило для компиляции .cpp в .obj
+# Правило для компиляции .cpp в .o
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	@mkdir -p $(dir $@)
+#	@mkdir -p $(dir $@)
+	@echo "Сборка цели: $<"
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 	@echo "Скомпилирован: $<"
 
-.PHONY: all clean rebuild run debug release check
+.PHONY: all clean rebuild run debug release check print
 
 # SRC = $(wildcard ../src/*.cpp)
 # O = $(SRC:.cpp=.o)

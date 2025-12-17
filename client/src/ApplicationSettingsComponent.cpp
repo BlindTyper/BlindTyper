@@ -9,6 +9,7 @@ namespace tppo {
     ApplicationSettingsComponent::ApplicationSettingsComponent(uint64_t ownerId) 
         : Component(ownerId)
         , isUpdated(0)
+        , isOpen(0)
         , isFullscreen(0)
         , windowFlags(0)
         , windowTitle()
@@ -17,6 +18,11 @@ namespace tppo {
         , windowState()
     {
         
+    }
+    
+    //
+    bool &ApplicationSettingsComponent::GetOpenFlag() {
+        return isOpen;
     }
     
     //

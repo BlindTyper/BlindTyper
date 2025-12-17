@@ -24,4 +24,9 @@ namespace tppo {
     {
         
     }
+        
+    //
+    std::uint64_t Entity::GetId() {
+        return entityId;
+    }
 }

@@ -15,6 +15,13 @@ namespace tppo {
             long double w;
         };
         
+    public:
+        Vec3d(
+            long double x = 0, 
+            long double y = 0,
+            long double zw = 0
+        ) : x(x), y(y), z(zw) {}
+        
     };
 }
 

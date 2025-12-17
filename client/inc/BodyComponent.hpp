@@ -10,7 +10,7 @@
 #include "Component.hpp"
 
 namespace tppo{
-    class BodyComponent : Component {
+    class BodyComponent : public Component {
         
     protected:
         //

@@ -8,7 +8,7 @@
 #include "Component.hpp"
 
 namespace tppo{
-    class SoundComponent : Component {
+    class SoundComponent : public Component {
     
     protected:
         

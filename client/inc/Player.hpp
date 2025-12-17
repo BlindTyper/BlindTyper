@@ -10,7 +10,7 @@
 #include "Entity.hpp"
 
 namespace tppo {
-    class Player : Entity {
+    class Player : public Entity {
         
     protected:
         

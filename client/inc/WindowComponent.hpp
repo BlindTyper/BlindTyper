@@ -13,10 +13,14 @@
 #include <unordered_map>
 
 namespace tppo {
-    class WindowComponent : Component {
+    class WindowComponent : public Component {
 
     protected:
+        //
         sf::RenderWindow window;
+        
+        //
+        sf::Clock deltaClock;
         
     public:
         //
@@ -33,6 +37,9 @@ namespace tppo {
         
         //
         sf::RenderWindow &GetWindow();
+        
+        //
+        sf::Clock &GetClock();
         
         //
         void CreateWindow(

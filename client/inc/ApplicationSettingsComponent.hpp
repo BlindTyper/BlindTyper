@@ -10,11 +10,14 @@
 #include "Component.hpp"
 
 namespace tppo{
-    class ApplicationSettingsComponent : Component {
+    class ApplicationSettingsComponent : public Component {
         
     protected:
         //
         bool isUpdated;
+        
+        //
+        bool isOpen;
         
         //
         bool isFullscreen;
@@ -37,6 +40,9 @@ namespace tppo{
     public:
         //
         ApplicationSettingsComponent(std::uint64_t ownerId);
+        
+        //
+        bool &GetOpenFlag();
         
         //
         void SetWindowFlags(ImGuiWindowFlags newWindowFlags);

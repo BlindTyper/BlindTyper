@@ -15,9 +15,10 @@
 #include "LifetimeSystem.hpp"
 #include "CollisionSystem.hpp"
 #include "AudioSystem.hpp"
+#include "StateSystem.hpp"
 
 namespace tppo{
-    class SystemManager : Manager {
+    class SystemManager : public Manager {
         
     protected:
         //
@@ -49,6 +50,9 @@ namespace tppo{
         
         //
         AudioSystem audioSystem;
+        
+        //
+        StateSystem stateSystem;
         
     public:
         //

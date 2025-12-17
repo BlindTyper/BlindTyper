@@ -7,8 +7,11 @@
 
 #include "System.hpp"
 
+#include "ComponentManager.hpp"
+#include "EntityManager.hpp"
+
 namespace tppo {
-    class MovementSystem : System {
+    class MovementSystem : public System {
         
     protected:
         

@@ -8,7 +8,7 @@
 #include "Component.hpp"
 
 namespace tppo{
-    class LifetimeComponent : Component {
+    class LifetimeComponent : public Component {
         
     protected:
         bool isAlive;

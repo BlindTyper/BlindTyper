@@ -16,12 +16,16 @@
     </VirtualDirectory>
     <VirtualDirectory Name="Entities">
       <VirtualDirectory Name="src">
+        <File Name="../src/Label.cpp"/>
+        <File Name="../src/Button.cpp"/>
+        <File Name="../src/ApplicationStates.cpp"/>
+        <File Name="../src/Background.cpp"/>
         <File Name="../src/SystemResources.cpp"/>
         <File Name="../src/Entity.cpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="inc">
+        <File Name="../inc/Label.hpp"/>
         <File Name="../inc/Button.hpp"/>
-        <File Name="../inc/MainMenuStateComponent.hpp"/>
         <File Name="../inc/ApplicationStates.hpp"/>
         <File Name="../inc/SystemResources.hpp"/>
         <File Name="../inc/Background.hpp"/>
@@ -33,6 +37,7 @@
     </VirtualDirectory>
     <VirtualDirectory Name="Systems">
       <VirtualDirectory Name="src">
+        <File Name="../src/StateSystem.cpp"/>
         <File Name="../src/MovementSystem.cpp"/>
         <File Name="../src/LifetimeSystem.cpp"/>
         <File Name="../src/DamageSystem.cpp"/>
@@ -56,6 +61,10 @@
     </VirtualDirectory>
     <VirtualDirectory Name="Components">
       <VirtualDirectory Name="src">
+        <File Name="../src/TransformComponent.cpp"/>
+        <File Name="../src/UIComponent.cpp"/>
+        <File Name="../src/ApplicationStateComponent.cpp"/>
+        <File Name="../src/InteractComponent.cpp"/>
         <File Name="../src/MainMenuStateComponent.cpp"/>
         <File Name="../src/ApplicationSettingsComponent.cpp"/>
         <File Name="../src/WindowComponent.cpp"/>
@@ -64,6 +73,10 @@
         <File Name="../src/Component.cpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="inc">
+        <File Name="../inc/UIComponent.hpp"/>
+        <File Name="../inc/ApplicationStateComponent.hpp"/>
+        <File Name="../inc/MainMenuStateComponent.hpp"/>
+        <File Name="../inc/InteractComponent.hpp"/>
         <File Name="../inc/WindowComponent.hpp"/>
         <File Name="../inc/VisualResourcesComponent.hpp"/>
         <File Name="../inc/TransformComponent.hpp"/>
@@ -128,7 +141,7 @@
       <CustomBuild Enabled="yes">
         <RebuildCommand>make rebuild</RebuildCommand>
         <CleanCommand>make clean</CleanCommand>
-        <BuildCommand>make debug</BuildCommand>
+        <BuildCommand>make -j8 debug</BuildCommand>
         <PreprocessFileCommand/>
         <SingleFileCommand/>
         <MakefileGenerationCommand/>

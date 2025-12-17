@@ -1,9 +1,8 @@
-#include <Main.hpp>
+#include "Main.hpp"
 
 #include "Application.hpp"
 
-tppo::Application application;
-
 int main() {
+    tppo::Application application;
     application.Run();
 }

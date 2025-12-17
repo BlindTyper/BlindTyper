@@ -10,14 +10,32 @@
 #include "Component.hpp"
 
 namespace tppo{
-    class TransformComponent : Component {
+    class TransformComponent : public Component {
         
     protected:
+        //
         Vec3d position;
+        
+        //
         Vec3d size;
+        
+        //
         Vec3d rotation;
         
     public:
+        //
+        TransformComponent(
+            std::uint64_t ownerId,
+            Vec3d position = Vec3d(), 
+            Vec3d size = Vec3d(), 
+            Vec3d rotation = Vec3d()
+        );
+        
+        //
+        Vec3d &GetPosition();
+        
+        //
+        Vec3d &GetSize();
         
     };
 }

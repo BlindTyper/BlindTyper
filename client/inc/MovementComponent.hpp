@@ -8,7 +8,7 @@
 #include "Component.hpp"
 
 namespace tppo{
-    class MovementComponent : Component {
+    class MovementComponent : public Component {
     
     protected:
         Vec3d velocity;

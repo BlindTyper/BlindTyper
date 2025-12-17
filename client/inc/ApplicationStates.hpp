@@ -5,14 +5,18 @@
 #ifndef APPLICATION_STATES_TYPE_HEADER
 #define APPLICATION_STATES_TYPE_HEADER
 
+#include <memory>
+
 #include "Entity.hpp"
 
-#include "VisualResourcesComponent.hpp"
+#include "ApplicationStateComponent.hpp"
 
 namespace tppo {
-    class ApplicationStates : Entity {
+    class ApplicationStates : public Entity {
         
     protected:
+        //
+        std::shared_ptr<ApplicationStateComponent> currentState;
         
         
     public:
@@ -20,7 +24,10 @@ namespace tppo {
         ApplicationStates();
         
         //
-        //VisualResourcesComponent &GetVisualResources();
+        void SetCurrentState(std::shared_ptr<ApplicationStateComponent> &newState);
+        
+        //
+        std::shared_ptr<ApplicationStateComponent> &GetCurrentState();
         
     };
 }

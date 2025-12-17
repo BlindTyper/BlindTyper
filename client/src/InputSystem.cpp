@@ -2,7 +2,7 @@
 
 */
 
-#include <InputSystem.hpp>
+#include "InputSystem.hpp"
 
 namespace tppo {
     //

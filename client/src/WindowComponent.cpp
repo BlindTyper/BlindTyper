@@ -9,6 +9,7 @@ namespace tppo {
     WindowComponent::WindowComponent(uint64_t ownerId) 
         : Component(ownerId)
         , window()
+        , deltaClock()
     {
         
     }
@@ -23,6 +24,7 @@ namespace tppo {
     )
         : Component(ownerId)
         , window(mode, title, style, state)
+        , deltaClock()
     {
         
     }
@@ -30,6 +32,11 @@ namespace tppo {
     //
     sf::RenderWindow &WindowComponent::GetWindow() {
         return window;
+    }
+    
+    //
+    sf::Clock &WindowComponent::GetClock() {
+        return deltaClock;
     }
         
     //

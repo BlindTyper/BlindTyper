@@ -7,9 +7,12 @@
 
 #include "System.hpp"
 
+#include "ComponentManager.hpp"
+#include "EntityManager.hpp"
+
 namespace tppo {
-    class StateSystem : System {
-        
+    class StateSystem : public System {
+
     protected:
         
         
@@ -25,6 +28,18 @@ namespace tppo {
     
         //
         void Update();
+    
+        //
+        void MainMenuInit();
+    
+        //
+        void SoloGameMenuInit();
+    
+        //
+        void MainMenuState();
+    
+        //
+        void SoloGameMenuState();
         
     };
 }

@@ -25,4 +25,9 @@ namespace tppo {
     {
         
     }
+    
+    //
+    std::uint64_t Component::GetId() {
+        return componentId;
+    }
 }

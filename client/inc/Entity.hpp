@@ -27,6 +27,9 @@ namespace tppo {
         //
         Entity();
         
+        //
+        std::uint64_t GetId();
+        
     };
 }
 #endif //ENTITY_TYPE_HEADER

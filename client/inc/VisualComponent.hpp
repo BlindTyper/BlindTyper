@@ -10,7 +10,7 @@
 #include "Component.hpp"
 
 namespace tppo {
-    class VisualComponent : Component {
+    class VisualComponent : public Component {
 
     protected:
         //
@@ -22,6 +22,9 @@ namespace tppo {
     public:
         //
         VisualComponent(uint64_t ownerId, sf::Texture &texture);
+        
+        //
+        sf::Texture &GetTexture();
         
         //
         sf::Sprite &GetSprite();

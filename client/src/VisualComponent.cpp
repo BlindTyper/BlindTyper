@@ -15,6 +15,11 @@ namespace tppo {
     }
         
     //
+    sf::Texture &VisualComponent::GetTexture() {
+        return texture;
+    }
+        
+    //
     sf::Sprite &VisualComponent::GetSprite() {
         return sprite;
     }

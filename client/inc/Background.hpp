@@ -10,17 +10,21 @@
 #include "Entity.hpp"
 
 #include "VisualComponent.hpp"
-#include "SoundComponent.hpp"
+#include "ApplicationSettingsComponent.hpp"
 
 namespace tppo {
-    class Background : Entity {
+    class Background : public Entity {
         
     protected:
-        VisualComponent *visual;
-        SoundComponent *sound;
+        //
+        std::shared_ptr<VisualComponent> visual;
         
     public:
-        
+        //
+        Background(
+            std::shared_ptr<VisualComponent> &visual,
+            std::shared_ptr<ApplicationSettingsComponent> &settings
+        );
     };
 }
 #endif //BACKGROUND_TYPE_HEADER

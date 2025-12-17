@@ -13,7 +13,7 @@
 #include <unordered_map>
 
 namespace tppo {
-    class VisualResourcesComponent : Component {
+    class VisualResourcesComponent : public Component {
 
     protected:
         //

@@ -17,7 +17,7 @@
 #include "SoundComponent.hpp"
 
 namespace tppo{
-    class Letter : Entity {
+    class Letter : public Entity {
         
     protected:
         //

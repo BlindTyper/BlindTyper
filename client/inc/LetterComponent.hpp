@@ -8,7 +8,7 @@
 #include "Component.hpp"
 
 namespace tppo{
-    class LetterComponent : Component {
+    class LetterComponent : public Component {
         
     protected:
         char letter;

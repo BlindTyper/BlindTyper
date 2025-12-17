@@ -2,7 +2,7 @@
 
 */
 
-#include <SystemManager.hpp>
+#include "SystemManager.hpp"
 
 namespace tppo {
     //
@@ -17,6 +17,7 @@ namespace tppo {
         , lifetimeSystem(componentManager, entityManager)
         , collisionSystem(componentManager, entityManager)
         , audioSystem(componentManager, entityManager)
+        , stateSystem(componentManager, entityManager)
     {
         
     }
@@ -28,7 +29,7 @@ namespace tppo {
         
     //
     bool SystemManager::IsRunning() {
-        auto &window = entityManager.GetSystemResources().GetWindow().GetWindow();
+        auto &window = entityManager.GetSystemResources()->GetWindow().GetWindow();
         if (!window.isOpen()) {
             isRunning = 0;
         }
@@ -38,6 +39,7 @@ namespace tppo {
     //
     void SystemManager::Init() {
         visualSystem.Init();
+        stateSystem.Init();
     }
     
     //

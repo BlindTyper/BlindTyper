@@ -2,8 +2,8 @@
 
 */
 
-#ifndef BUTTON_TYPE_HEADER
-#define BUTTON_TYPE_HEADER
+#ifndef LABEL_TYPE_HEADER
+#define LABEL_TYPE_HEADER
 
 #include <memory>
 
@@ -13,7 +13,7 @@
 #include "TransformComponent.hpp"
 
 namespace tppo {
-    class Button : public Entity {
+    class Label : public Entity {
         
     protected:
         //
@@ -24,7 +24,7 @@ namespace tppo {
         
     public:
         //
-        Button(
+        Label(
             std::shared_ptr<UIComponent> &ui,
             std::shared_ptr<TransformComponent> &transform
         );
@@ -38,4 +38,4 @@ namespace tppo {
         
     };
 }
-#endif //BUTTON_TYPE_HEADER
+#endif //LABEL_TYPE_HEADER

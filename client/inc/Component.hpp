@@ -15,10 +15,10 @@ namespace tppo {
         static uint64_t counter;
         
         //
-        uint64_t componentId;
+        std::uint64_t componentId;
         
         //
-        uint64_t ownerId;
+        std::uint64_t ownerId;
         
     public:
         //
@@ -29,6 +29,9 @@ namespace tppo {
         
         //
         Component(uint64_t ownerId);
+        
+        //
+        std::uint64_t GetId();
         
     };
 }

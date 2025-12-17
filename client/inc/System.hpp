@@ -5,8 +5,8 @@
 #ifndef SYSTEM_TYPE_HEADER
 #define SYSTEM_TYPE_HEADER
 
-#include <ComponentManager.hpp>
-#include <EntityManager.hpp>
+#include "ComponentManager.hpp"
+#include "EntityManager.hpp"
 
 namespace tppo {
     class System {

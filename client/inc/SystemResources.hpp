@@ -14,7 +14,7 @@
 #include "VisualResourcesComponent.hpp"
 
 namespace tppo {
-    class SystemResources : Entity {
+    class SystemResources : public Entity {
         
     protected:
         //

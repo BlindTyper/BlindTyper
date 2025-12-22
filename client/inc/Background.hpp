@@ -25,6 +25,9 @@ namespace tppo {
             std::shared_ptr<VisualComponent> &visual,
             std::shared_ptr<ApplicationSettingsComponent> &settings
         );
+        
+        //
+        std::shared_ptr<VisualComponent> &GetVisual();
     };
 }
 #endif //BACKGROUND_TYPE_HEADER

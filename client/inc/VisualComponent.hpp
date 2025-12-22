@@ -19,15 +19,31 @@ namespace tppo {
         //
         sf::Sprite sprite;
         
+        //
+        bool isVisible;
+        
     public:
         //
-        VisualComponent(uint64_t ownerId, sf::Texture &texture);
+        VisualComponent(
+            std::uint64_t ownerId, 
+            sf::Texture &texture,
+            bool isVisible = true
+        );
         
         //
         sf::Texture &GetTexture();
         
         //
         sf::Sprite &GetSprite();
+        
+        //
+        void Show();
+        
+        //
+        void Hide();
+        
+        //
+        bool &IsVisible();
     };
 }
 

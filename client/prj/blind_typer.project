@@ -16,6 +16,10 @@
     </VirtualDirectory>
     <VirtualDirectory Name="Entities">
       <VirtualDirectory Name="src">
+        <File Name="../src/HealthBar.cpp"/>
+        <File Name="../src/Floor.cpp"/>
+        <File Name="../src/GameMode.cpp"/>
+        <File Name="../src/Letter.cpp"/>
         <File Name="../src/Label.cpp"/>
         <File Name="../src/Button.cpp"/>
         <File Name="../src/ApplicationStates.cpp"/>
@@ -24,6 +28,8 @@
         <File Name="../src/Entity.cpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="inc">
+        <File Name="../inc/HealthBar.hpp"/>
+        <File Name="../inc/GameMode.hpp"/>
         <File Name="../inc/Label.hpp"/>
         <File Name="../inc/Button.hpp"/>
         <File Name="../inc/ApplicationStates.hpp"/>
@@ -37,12 +43,11 @@
     </VirtualDirectory>
     <VirtualDirectory Name="Systems">
       <VirtualDirectory Name="src">
+        <File Name="../src/AudioSystem.cpp"/>
         <File Name="../src/StateSystem.cpp"/>
         <File Name="../src/MovementSystem.cpp"/>
         <File Name="../src/LifetimeSystem.cpp"/>
         <File Name="../src/DamageSystem.cpp"/>
-        <File Name="../src/CollisionSystem.cpp"/>
-        <File Name="../src/AudioSystem.cpp"/>
         <File Name="../src/InputSystem.cpp"/>
         <File Name="../src/System.cpp"/>
         <File Name="../src/VisualSystem.cpp"/>
@@ -51,7 +56,6 @@
         <File Name="../inc/StateSystem.hpp"/>
         <File Name="../inc/System.hpp"/>
         <File Name="../inc/AudioSystem.hpp"/>
-        <File Name="../inc/CollisionSystem.hpp"/>
         <File Name="../inc/DamageSystem.hpp"/>
         <File Name="../inc/InputSystem.hpp"/>
         <File Name="../inc/LifetimeSystem.hpp"/>
@@ -61,11 +65,16 @@
     </VirtualDirectory>
     <VirtualDirectory Name="Components">
       <VirtualDirectory Name="src">
+        <File Name="../src/HealthComponent.cpp"/>
+        <File Name="../src/DamageComponent.cpp"/>
+        <File Name="../src/GlyphComponent.cpp"/>
+        <File Name="../src/BodyComponent.cpp"/>
+        <File Name="../src/MovementComponent.cpp"/>
+        <File Name="../src/GameModeComponent.cpp"/>
         <File Name="../src/TransformComponent.cpp"/>
         <File Name="../src/UIComponent.cpp"/>
         <File Name="../src/ApplicationStateComponent.cpp"/>
         <File Name="../src/InteractComponent.cpp"/>
-        <File Name="../src/MainMenuStateComponent.cpp"/>
         <File Name="../src/ApplicationSettingsComponent.cpp"/>
         <File Name="../src/WindowComponent.cpp"/>
         <File Name="../src/VisualComponent.cpp"/>
@@ -73,9 +82,12 @@
         <File Name="../src/Component.cpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="inc">
+        <File Name="../inc/HealthComponent.hpp"/>
+        <File Name="../inc/DamageComponent.hpp"/>
+        <File Name="../inc/GlyphComponent.hpp"/>
+        <File Name="../inc/GameModeComponent.hpp"/>
         <File Name="../inc/UIComponent.hpp"/>
         <File Name="../inc/ApplicationStateComponent.hpp"/>
-        <File Name="../inc/MainMenuStateComponent.hpp"/>
         <File Name="../inc/InteractComponent.hpp"/>
         <File Name="../inc/WindowComponent.hpp"/>
         <File Name="../inc/VisualResourcesComponent.hpp"/>
@@ -84,8 +96,6 @@
         <File Name="../inc/Component.hpp"/>
         <File Name="../inc/ApplicationSettingsComponent.hpp"/>
         <File Name="../inc/BodyComponent.hpp"/>
-        <File Name="../inc/LetterComponent.hpp"/>
-        <File Name="../inc/LifetimeComponent.hpp"/>
         <File Name="../inc/MovementComponent.hpp"/>
         <File Name="../inc/VisualComponent.hpp"/>
       </VirtualDirectory>

@@ -15,7 +15,6 @@ namespace tppo {
         , damageSystem(componentManager, entityManager)
         , movementSystem(componentManager, entityManager)
         , lifetimeSystem(componentManager, entityManager)
-        , collisionSystem(componentManager, entityManager)
         , audioSystem(componentManager, entityManager)
         , stateSystem(componentManager, entityManager)
     {
@@ -39,11 +38,20 @@ namespace tppo {
     //
     void SystemManager::Init() {
         visualSystem.Init();
+        inputSystem.Init();
+        movementSystem.Init();
+        lifetimeSystem.Init();
+        damageSystem.Init();
         stateSystem.Init();
     }
     
     //
     void SystemManager::Update() {
+        inputSystem.Update();
+        movementSystem.Update();
+        lifetimeSystem.Update();
+        damageSystem.Update();
+        stateSystem.Update();
         visualSystem.Update();
     }
 }

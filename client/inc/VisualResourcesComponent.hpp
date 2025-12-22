@@ -20,6 +20,9 @@ namespace tppo {
         std::unordered_map<std::string, sf::Texture> textures;
         
         //
+        std::unordered_map<char, std::string> charToTextureName;
+        
+        //
         ImFontConfig fontConfig;
         
     public:
@@ -37,6 +40,12 @@ namespace tppo {
         
         //
         ImFontConfig &GetFontConfig();
+        
+        //
+        void AddCharToTextureName(char letter, std::string &pathToFile);
+        
+        //
+        std::string &CharToTextureName(char letter);
         
     };
 }

@@ -5,6 +5,8 @@
 #ifndef LIFETIME_SYSTEM_TYPE_HEADER
 #define LIFETIME_SYSTEM_TYPE_HEADER
 
+#include <random>
+
 #include "System.hpp"
 
 #include "ComponentManager.hpp"

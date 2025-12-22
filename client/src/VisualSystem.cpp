@@ -49,12 +49,42 @@ namespace tppo {
         
         
         // Загрузка текстур
-        std::vector<std::string> textureFileNames = {
-            "../data/mainMenuBackground.png"
+        std::vector<std::pair<char, std::string>> textureFileNames = {
+            {0, "../data/mainMenuBackground.png"},
+            {0, "../data/floor.png"},
+            {'a', "../data/a_glyph.png"},
+            {'b', "../data/b_glyph.png"},
+            {'c', "../data/c_glyph.png"},
+            {'d', "../data/d_glyph.png"},
+            {'e', "../data/e_glyph.png"},
+            {'f', "../data/f_glyph.png"},
+            {'g', "../data/g_glyph.png"},
+            {'h', "../data/h_glyph.png"},
+            {'i', "../data/i_glyph.png"},
+            {'j', "../data/j_glyph.png"},
+            {'k', "../data/k_glyph.png"},
+            {'l', "../data/l_glyph.png"},
+            {'m', "../data/m_glyph.png"},
+            {'n', "../data/n_glyph.png"},
+            {'o', "../data/o_glyph.png"},
+            {'p', "../data/p_glyph.png"},
+            {'q', "../data/q_glyph.png"},
+            {'r', "../data/r_glyph.png"},
+            {'s', "../data/s_glyph.png"},
+            {'t', "../data/t_glyph.png"},
+            {'u', "../data/u_glyph.png"},
+            {'v', "../data/v_glyph.png"},
+            {'w', "../data/w_glyph.png"},
+            {'x', "../data/x_glyph.png"},
+            {'y', "../data/y_glyph.png"},
+            {'z', "../data/z_glyph.png"},
         };
         
-        for (auto &it : textureFileNames) {
-            visualResources.AddTexture(it);
+        for (auto &[key, str] : textureFileNames) {
+            visualResources.AddTexture(str);
+            if (key != 0) {
+                visualResources.AddCharToTextureName(key, str);
+            }
         }
         
         
@@ -63,8 +93,9 @@ namespace tppo {
         static const ImWchar CyrillicRanges[] = {
             0x0010, 0x04FF,
             0x0500, 0x052F,
-            0x2DE0, 0x2DFF,
-            0xA640, 0xA69F,
+            0x2000, 0x2500,
+//            0x2DE0, 0x2DFF,
+//            0xA640, 0xA69F,
             0
         };
         ImGuiIO &io = ImGui::GetIO();
@@ -94,162 +125,128 @@ namespace tppo {
             if (event->is<sf::Event::Closed>()) {
                 window.Close();
             }
+            if (const auto *resized = event->getIf<sf::Event::Resized>()) {
+                sf::FloatRect visibleArea({0.f, 0.f}, sf::Vector2f(resized->size));
+                window.GetWindow().setView(sf::View(visibleArea));
+            }
         }
 
         ImGui::SFML::Update(window.GetWindow(), window.GetClock().restart());
 
         window.Clear();
         
-        auto visualComponents = componentManager.GetVisualComponents();
-        for (auto &it : visualComponents) {
-            window.Draw(it.second->GetSprite());
-        }
+        
         
         const ImGuiViewport &viewport = *ImGui::GetMainViewport();
         ImGui::SetNextWindowPos(viewport.WorkPos);
         ImGui::SetNextWindowSize(viewport.WorkSize);
-        ImVec2 next_pos = viewport.WorkSize;
-        ImVec2 next_scale = viewport.WorkSize;
+        ImVec2 workSize = viewport.WorkSize;
         
         ImGui::Begin("Blind Typer", &settings.GetOpenFlag(), settings.GetWindowFlags());
         
-        auto labels = entityManager.GetLabels();
-        for (auto &it : labels) {
-            if (!it.second->GetUI()->IsVisible()) {
+        //
+        auto &displayOrder = componentManager.GetDisplayOrder();
+        for (auto &[order, id] : displayOrder) {
+            auto &visual = componentManager.GetVisualComponent(id);
+            if (visual->IsVisible()) {
+                sf::RenderStates states;
+                if (componentManager.HasTransformComponent(id)) {
+                    auto &transform = componentManager.GetTransformComponent(id);
+                    
+                    
+                    states.transform.translate(
+                        sf::Vector2f(
+                            transform->GetPosition().x * workSize.x, 
+                            transform->GetPosition().y * workSize.y
+                        )
+                    );
+                    
+                    states.transform.scale(
+                        sf::Vector2f(
+                            transform->GetSize().x * (workSize.x
+                                / static_cast<long double>(visual->GetSprite().getTextureRect().size.x)), 
+                            transform->GetSize().y * (workSize.y 
+                                / static_cast<long double>(visual->GetSprite().getTextureRect().size.y))
+                        )
+                    );
+                }
+//                auto &sprite = visual->GetSprite();
+//                if (componentManager.HasTransformComponent(id)) {
+//                    auto &transform = componentManager.GetTransformComponent(id);
+//                    
+//                    sprite.setScale(
+//                        sf::Vector2f(
+//                            transform->GetSize().x * , 
+//                            transform->GetSize().y
+//                        )
+//                    );
+//                    sprite.setPosition(
+//                        sf::Vector2f(
+//                            transform->GetPosition().x * workSize.x, 
+//                            transform->GetPosition().y * workSize.y
+//                        )
+//                    );
+//                }
+                
+                //std::cout << id << std::endl;
+                window.Draw(visual->GetSprite(), states);
+            }
+        }
+        //std::cout << "viewport: " << viewport.WorkSize.x << " x " << viewport.WorkSize.y << std::endl;
+        //std::cout << "new tick: " << std::endl;
+        
+        
+        
+        //
+        auto uis = componentManager.GetUIComponents();
+        for (auto &[key, ui] : uis) {
+            if (!ui->IsVisible()) {
                 continue;
             }
+            auto &transform = componentManager.GetTransformComponent(key);
             ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 3.0f);
-            ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, std::min(next_scale.y / 3.0f, next_scale.x / 3.0f));
+            ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, std::min(workSize.y / 3.0f, workSize.x / 3.0f));
             ImGui::PushFont(io.Fonts->Fonts[1]);
             ImGui::PushStyleColor(
                 ImGuiCol_Text, 
                 ImVec4(
-                    it.second->GetUI()->GetTextColor().x,
-                    it.second->GetUI()->GetTextColor().y,
-                    it.second->GetUI()->GetTextColor().z,
+                    ui->GetTextColor().x,
+                    ui->GetTextColor().y,
+                    ui->GetTextColor().z,
                     1.0f
                 )
             );
             ImVec2 size = ImVec2(
-                it.second->GetTransform()->GetSize().x * next_scale.x, 
-                it.second->GetTransform()->GetSize().y * next_scale.y
+                transform->GetSize().x * workSize.x, 
+                transform->GetSize().y * workSize.y
             );
             ImVec2 pos = ImVec2(
-                it.second->GetTransform()->GetPosition().x * next_pos.x, 
-                it.second->GetTransform()->GetPosition().y * next_pos.y
+                transform->GetPosition().x * workSize.x, 
+                transform->GetPosition().y * workSize.y
             );
-            const char *text = it.second->GetUI()->GetText().c_str();
+            const char *text = ui->GetText().c_str();
             ImGui::SetCursorPos(pos);
-            ImGui::Text(text, size);
-            ImGui::PopStyleColor();
-            ImGui::PopFont();
-            ImGui::PopStyleVar(2);
-        }
-        
-        auto buttons = entityManager.GetButtons();
-        for (auto &it : buttons) {
-            if (!it.second->GetUI()->IsVisible()) {
-                continue;
-            }
-            ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 3.0f);
-            ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, std::min(next_scale.y / 3.0f, next_scale.x / 3.0f));
-            ImGui::PushFont(io.Fonts->Fonts[1]);
-            ImGui::PushStyleColor(
-                ImGuiCol_Text, 
-                ImVec4(
-                    it.second->GetUI()->GetTextColor().x,
-                    it.second->GetUI()->GetTextColor().y,
-                    it.second->GetUI()->GetTextColor().z,
-                    1.0f
-                )
-            );
-            ImVec2 size = ImVec2(
-                it.second->GetTransform()->GetSize().x * next_scale.x, 
-                it.second->GetTransform()->GetSize().y * next_scale.y
-            );
-            ImVec2 pos = ImVec2(
-                it.second->GetTransform()->GetPosition().x * next_pos.x, 
-                it.second->GetTransform()->GetPosition().y * next_pos.y
-            );
-            const char *text = it.second->GetUI()->GetText().c_str();
-            ImGui::SetCursorPos(pos);
-            if (ImGui::Button(text, size)) {
-                std::function<void()> call = it.second->GetUI()->GetOnClick();
-                call();
+            if (ui->GetType() == UIComponent::Type::label) {
+                ImGui::Text(text, size);
+            } else if (ui->GetType() == UIComponent::Type::button) {
+                if (ImGui::Button(text, size)) {
+                    std::function<void()> call = ui->GetOnClick();
+                    call();
+                }
+            } else if (ui->GetType() == UIComponent::Type::progressBar) {
+                if (ui->GetTrackedData1() != nullptr && ui->GetTrackedData2() != nullptr) {
+                    long double data1 = static_cast<long double>(*(static_cast<std::uint64_t *>(ui->GetTrackedData1())));
+                    long double data2 = static_cast<long double>(*(static_cast<std::uint64_t *>(ui->GetTrackedData2())));
+                    ImGui::ProgressBar(data1 / data2, size, text);
+                }
+                else {
+                    ImGui::ProgressBar(1.0f, size, text);
+                }
             }
             ImGui::PopStyleColor();
             ImGui::PopFont();
             ImGui::PopStyleVar(2);
         }
-        
-//        switch (currentScreen) {
-//            case mainMenu: {
-//                break;
-//            }
-//            case campaignMenu: {
-//                //showCampaignMenu(io->Fonts, viewport, imageBackground);
-//                ImVec2 next_pos = viewport->WorkSize;
-//                ImVec2 next_scale = viewport->WorkSize;
-//                ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 3.0f);
-//                ImGui::PushFont(io.Fonts->Fonts[1]);
-//        //        ImTextureID my_tex_id = backgroundImage.getNativeHandle();
-//        //        float my_tex_w = (float)Fonts->TexWidth;
-//        //        float my_tex_h = (float)Fonts->TexHeight;
-//
-//                ImGui::PushFont(io.Fonts->Fonts[2]);
-//                ImVec2 size = ImGui::CalcTextSize("Кампания");
-//                ImVec2 pos = ImVec2(next_pos.x / 2.0f - size.x * 0.5f, next_pos.y / 4.0f - size.y / 2.0f);
-//                ImGui::SetCursorPos(pos);
-//                ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.0f, 0.0f, 0.0f, 1.0f));
-//                ImGui::Text("Кампания");
-//                ImGui::PopStyleColor();
-//                ImGui::PopFont();
-//
-//                size = ImGui::CalcTextSize("Назад");
-//                pos = ImVec2(size.x / 3.0f, size.y);
-//                ImGui::SetCursorPos(pos);
-//                ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, std::min(size.y / 3.0f, size.x / 3.0f));
-//                if (ImGui::Button("Назад")) {
-//                    currentScreen = mainMenu;
-//                }
-//                ImGui::PopStyleVar();
-//                
-//                size = ImVec2(next_scale.x / 4 * 1.5f, next_scale.y / 2);
-//                pos = ImVec2(next_scale.x / 4 - size.x / 2.0f, next_scale.y / 4.0f * 2.5f - size.y / 2.0f);
-//                ImGui::SetCursorPos(pos);
-//                ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, std::min(size.y / 3.0f, size.x / 3.0f));
-//                ImGui::Button("Глава I\n\"Обучение\"", size);
-//                ImGui::PopStyleVar();
-//
-//                size = ImVec2(next_scale.x / 4 * 1.5f, next_scale.y / 2);
-//                pos = ImVec2(next_scale.x / 4 * 3 - size.x / 2.0f, next_scale.y / 4.0f * 2.5f - size.y / 2.0f);
-//                ImGui::SetCursorPos(pos);
-//                ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, std::min(size.y / 3.0f, size.x / 3.0f));
-//                ImGui::Button("Глава II\n\"as df\"", size);
-//                ImGui::PopStyleVar();
-//                
-//                ImGui::PopFont();
-//                ImGui::PopStyleVar();
-//                break;
-//            }
-//            case endlessModeMenu: {}
-//            case onlineGameMenu: {}
-//            case lobbyMenuPlayer: {}
-//            case lobbyMenuHost: {}
-//            case lobbyMenuHostLobbySettings: {}
-//            case applicationSettingsMenu: {}
-//            case profileMenu: {}
-//            case profileRegistrationMenu: {}
-//            case profileAuthorizationMenu: {}
-//            case gameMenu: {}
-//            case pauseMenu: {}
-//            default: {
-//                if (ImGui::Button("Назад")) {
-//                    currentScreen = mainMenu;
-//                }
-//                break;
-//            }
-//        }
 
         ImGui::End();
         ImGui::SFML::Render(window.GetWindow());

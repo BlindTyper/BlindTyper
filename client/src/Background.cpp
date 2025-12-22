@@ -19,4 +19,9 @@ namespace tppo {
         
         sprite.setScale({x, y});
     }
+    
+    //
+    std::shared_ptr<VisualComponent> &Background::GetVisual() {
+        return visual;
+    }
 }

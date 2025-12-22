@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <memory>
+#include <set>
 #include <stdexcept>
 #include <unordered_map>
 
@@ -18,17 +19,18 @@
 #include "ApplicationStateComponent.hpp"
 #include "WindowComponent.hpp"
 #include "VisualResourcesComponent.hpp"
+#include "GameModeComponent.hpp"
 #include "UIComponent.hpp"
 #include "VisualComponent.hpp"
 #include "TransformComponent.hpp"
 #include "BodyComponent.hpp"
 #include "HealthComponent.hpp"
-#include "LifetimeComponent.hpp"
-#include "SoundComponent.hpp"
+#include "DamageComponent.hpp"
 #include "MovementComponent.hpp"
-#include "LetterComponent.hpp"
+#include "GlyphComponent.hpp"
+#include "SoundComponent.hpp"
 
-namespace tppo{
+namespace tppo {
     class ComponentManager : public Manager {
         
     protected:
@@ -45,10 +47,16 @@ namespace tppo{
         std::shared_ptr<VisualResourcesComponent> visualResourcesComponent;
         
         //
+        std::unordered_map<std::uint64_t, std::shared_ptr<GameModeComponent>> gameModeComponents;
+        
+        //
         std::unordered_map<std::uint64_t, std::shared_ptr<UIComponent>> uiComponents;
         
         //
         std::unordered_map<std::uint64_t, std::shared_ptr<VisualComponent>> visualComponents;
+        
+        //
+        std::set<std::pair<std::uint64_t, std::uint64_t>> displayOrder;
         
         //
         std::unordered_map<std::uint64_t, std::shared_ptr<TransformComponent>> transformComponents;
@@ -57,19 +65,19 @@ namespace tppo{
         std::unordered_map<std::uint64_t, std::shared_ptr<BodyComponent>> bodyComponents;
         
         //
-        std::unordered_map<std::uint64_t, std::shared_ptr<SoundComponent>> soundComponents;
-        
-        //
-        std::unordered_map<std::uint64_t, std::shared_ptr<LifetimeComponent>> lifetimeComponents;
-        
-        //
         std::unordered_map<std::uint64_t, std::shared_ptr<HealthComponent>> healthComponents;
+        
+        //
+        std::unordered_map<std::uint64_t, std::shared_ptr<DamageComponent>> damageComponents;
         
         //
         std::unordered_map<std::uint64_t, std::shared_ptr<MovementComponent>> movementComponents;
         
         //
-        std::unordered_map<std::uint64_t, std::shared_ptr<LetterComponent>> letterComponents;
+        std::unordered_map<std::uint64_t, std::shared_ptr<GlyphComponent>> glyphComponents;
+        
+        //
+        std::unordered_map<std::uint64_t, std::shared_ptr<SoundComponent>> soundComponents;
         
     public:
         //
@@ -100,12 +108,41 @@ namespace tppo{
         std::shared_ptr<VisualResourcesComponent> &GetVisualResourcesComponent();
         
         //
-        std::unordered_map<size_t, std::shared_ptr<UIComponent>> &GetUIComponents();
+        std::shared_ptr<GameModeComponent> &AddGameModeComponent(
+            std::uint64_t ownerId,
+            bool isActive,
+            std::function<void()> resultState,
+            std::pair<long double, long double> &respawnSpace,
+            std::pair<sf::Time, sf::Time> &respawnPeriodRange,
+            std::uint64_t defaultLetterDamage = 1
+        );
+        
+        //
+        std::shared_ptr<GameModeComponent> &AddGameModeComponent(
+            std::uint64_t ownerId,
+            bool isActive,
+            std::function<void()> resultState,
+            std::pair<long double, long double> &&respawnSpace,
+            std::pair<sf::Time, sf::Time> &&respawnPeriodRange,
+            std::uint64_t defaultLetterDamage = 1
+        );
+        
+        //
+        bool HasGameModeComponent(std::uint64_t id);
+        
+        //
+        std::shared_ptr<GameModeComponent> &GetGameModeComponent(std::uint64_t id);
+        
+        //
+        std::unordered_map<size_t, std::shared_ptr<GameModeComponent>> &GetGameModeComponents();
         
         //
         std::shared_ptr<UIComponent> &AddUIComponent(
             std::uint64_t ownerId, 
+            UIComponent::Type type,
             std::string &text,
+            void *trackedData1,
+            void *trackedData2,
             Vec3d textColor, 
             bool isVisible,
             std::function<void()> onClick
@@ -114,7 +151,10 @@ namespace tppo{
         //
         std::shared_ptr<UIComponent> &AddUIComponent(
             std::uint64_t ownerId, 
+            UIComponent::Type type,
             std::string &&text,
+            void *trackedData1,
+            void *trackedData2,
             Vec3d textColor, 
             bool isVisible,
             std::function<void()> onClick
@@ -127,16 +167,30 @@ namespace tppo{
         std::shared_ptr<UIComponent> &GetUIComponent(std::uint64_t id);
         
         //
-        std::unordered_map<size_t, std::shared_ptr<VisualComponent>> &GetVisualComponents();
+        std::unordered_map<size_t, std::shared_ptr<UIComponent>> &GetUIComponents();
         
         //
-        std::shared_ptr<VisualComponent> &AddVisualComponent(std::uint64_t ownerId, sf::Texture &texture);
+        std::shared_ptr<VisualComponent> &AddVisualComponent(
+            std::uint64_t ownerId, 
+            sf::Texture &texture,
+            bool isVisible,
+            std::uint64_t displayOrder
+        );
+        
+        //
+        void RemoveVisualComponent(std::uint64_t id, std::uint64_t displayOrder);
+        
+        //
+        bool HasVisualComponent(std::uint64_t id);
         
         //
         std::shared_ptr<VisualComponent> &GetVisualComponent(std::uint64_t id);
         
         //
-        std::unordered_map<size_t, std::shared_ptr<TransformComponent>> &GetTransformComponents();
+        std::unordered_map<std::uint64_t, std::shared_ptr<VisualComponent>> &GetVisualComponents();
+        
+        //
+        std::set<std::pair<std::uint64_t, std::uint64_t>> &GetDisplayOrder();
         
         //
         std::shared_ptr<TransformComponent> &AddTransformComponent(
@@ -146,7 +200,109 @@ namespace tppo{
         );
         
         //
+        void RemoveTransformComponent(std::uint64_t id);
+        
+        //
+        bool HasTransformComponent(std::uint64_t id);
+        
+        //
         std::shared_ptr<TransformComponent> &GetTransformComponent(std::uint64_t id);
+        
+        //
+        std::unordered_map<std::uint64_t, std::shared_ptr<TransformComponent>> &GetTransformComponents();
+        
+        //
+        std::shared_ptr<MovementComponent> &AddMovementComponent(
+            std::uint64_t ownerId,
+            Vec3d velocity,
+            Vec3d acceleration
+        );
+        
+        //
+        void RemoveMovementComponent(std::uint64_t id);
+        
+        //
+        bool HasMovementComponent(std::uint64_t id);
+        
+        //
+        std::shared_ptr<MovementComponent> &GetMovementComponent(std::uint64_t id);
+        
+        //
+        std::unordered_map<std::uint64_t, std::shared_ptr<MovementComponent>> &GetMovementComponents();
+        
+        //
+        std::shared_ptr<BodyComponent> &AddBodyComponent(
+            std::uint64_t ownerId,
+            Vec3d size
+        );
+        
+        //
+        void RemoveBodyComponent(std::uint64_t id);
+        
+        //
+        bool HasBodyComponent(std::uint64_t id);
+        
+        //
+        std::shared_ptr<BodyComponent> &GetBodyComponent(std::uint64_t id);
+        
+        //
+        std::unordered_map<std::uint64_t, std::shared_ptr<BodyComponent>> &GetBodyComponents();
+        
+        
+        //
+        std::shared_ptr<GlyphComponent> &AddGlyphComponent(
+            std::uint64_t ownerId,
+            char letter
+        );
+        
+        //
+        void RemoveGlyphComponent(std::uint64_t id);
+        
+        //
+        bool HasGlyphComponent(std::uint64_t id);
+        
+        //
+        std::shared_ptr<GlyphComponent> &GetGlyphComponent(std::uint64_t id);
+        
+        //
+        std::unordered_map<std::uint64_t, std::shared_ptr<GlyphComponent>> &GetGlyphComponents();
+        
+        //
+        std::shared_ptr<HealthComponent> &AddHealthComponent(
+            std::uint64_t ownerId,
+            std::uint64_t currentHealth,
+            std::uint64_t maxHealth
+        );
+        
+        //
+        void RemoveHealthComponent(std::uint64_t id);
+        
+        //
+        bool HasHealthComponent(std::uint64_t id);
+        
+        //
+        std::shared_ptr<HealthComponent> &GetHealthComponent(std::uint64_t id);
+        
+        //
+        std::unordered_map<std::uint64_t, std::shared_ptr<HealthComponent>> &GetHealthComponents();
+        
+        //
+        std::shared_ptr<DamageComponent> &AddDamageComponent(
+            std::uint64_t ownerId,
+            std::uint64_t damageSize
+        );
+        
+        //
+        void RemoveDamageComponent(std::uint64_t id);
+        
+        //
+        bool HasDamageComponent(std::uint64_t id);
+        
+        //
+        std::shared_ptr<DamageComponent> &GetDamageComponent(std::uint64_t id);
+        
+        //
+        std::unordered_map<std::uint64_t, std::shared_ptr<DamageComponent>> &GetDamageComponents();
         
     };
 }

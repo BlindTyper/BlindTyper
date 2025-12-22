@@ -5,8 +5,6 @@
 #ifndef HEALTH_COMPONENT_TYPE_HEADER
 #define HEALTH_COMPONENT_TYPE_HEADER
 
-#include "Rect.hpp"
-
 #include "Component.hpp"
 
 namespace tppo{
@@ -14,9 +12,24 @@ namespace tppo{
         
     protected:
         //
-        int64_t body;
+        std::uint64_t currentHealth;
+        
+        //
+        std::uint64_t maxHealth;
         
     public:
+        //
+        HealthComponent(
+            std::uint64_t ownerId,
+            std::uint64_t currentHealth,
+            std::uint64_t maxHealth
+        );
+        
+        //
+        std::uint64_t &GetCurrentHealth();
+        
+        //
+        std::uint64_t &GetMaxHealth();
         
     };
 }

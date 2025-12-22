@@ -7,11 +7,14 @@
 
 #include <Vec3d.hpp>
 
-namespace tppo{
+namespace tppo {
     class Rect {
  
     public:
+        //
         Vec3d position;
+        
+        //
         Vec3d size;
         
     };

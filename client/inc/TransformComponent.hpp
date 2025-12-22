@@ -9,7 +9,7 @@
 
 #include "Component.hpp"
 
-namespace tppo{
+namespace tppo {
     class TransformComponent : public Component {
         
     protected:

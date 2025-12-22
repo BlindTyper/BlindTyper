@@ -42,4 +42,20 @@ namespace tppo {
     ImFontConfig &VisualResourcesComponent::GetFontConfig() {
         return fontConfig;
     }
+        
+    //
+    void VisualResourcesComponent::AddCharToTextureName(char letter, std::string &pathToFile) {
+        charToTextureName.emplace(letter, pathToFile);
+    }
+    
+    //
+    std::string &VisualResourcesComponent::CharToTextureName(char letter) {
+        try {
+            return charToTextureName.at(letter);
+        }
+        catch (std::out_of_range &e) {
+            std::cerr << "Error:\nGetting from VisualResourcesComponent std::string with letter: " << letter << std::endl;
+            exit(1);
+        } 
+    }
 }

@@ -9,7 +9,7 @@
 
 #include "Component.hpp"
 
-namespace tppo{
+namespace tppo {
     class ApplicationSettingsComponent : public Component {
         
     protected:

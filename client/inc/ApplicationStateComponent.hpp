@@ -12,7 +12,7 @@
 
 #include "Component.hpp"
 
-namespace tppo{
+namespace tppo {
     class ApplicationStateComponent : public Component {
         
     protected:

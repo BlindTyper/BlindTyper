@@ -13,10 +13,11 @@
 #include "TransformComponent.hpp"
 #include "BodyComponent.hpp"
 #include "MovementComponent.hpp"
-#include "LifetimeComponent.hpp"
+#include "GlyphComponent.hpp"
+#include "DamageComponent.hpp"
 #include "SoundComponent.hpp"
 
-namespace tppo{
+namespace tppo {
     class Letter : public Entity {
         
     protected:
@@ -33,12 +34,42 @@ namespace tppo{
         std::shared_ptr<MovementComponent> movement;
         
         //
-        std::shared_ptr<LifetimeComponent> lifetime;
+        std::shared_ptr<GlyphComponent> glyph;
+        
+        //
+        std::shared_ptr<DamageComponent> damage;
         
         //
         std::shared_ptr<SoundComponent> sound;
         
     public:
+        //
+        Letter(
+            std::shared_ptr<VisualComponent> &visual,
+            std::shared_ptr<TransformComponent> &transform,
+            std::shared_ptr<BodyComponent> &body,
+            std::shared_ptr<MovementComponent> &movement,
+            std::shared_ptr<GlyphComponent> &glyph,
+            std::shared_ptr<DamageComponent> &damage
+        );
+        
+        //
+        std::shared_ptr<VisualComponent> &GetVisual();
+        
+        //
+        std::shared_ptr<TransformComponent> &GetTransform();
+        
+        //
+        std::shared_ptr<BodyComponent> &GetBody();
+        
+        //
+        std::shared_ptr<MovementComponent> &GetMovement();
+        
+        //
+        std::shared_ptr<GlyphComponent> &GetGlyph();
+        
+        //
+        std::shared_ptr<DamageComponent> &GetDamage();
         
     };
 }

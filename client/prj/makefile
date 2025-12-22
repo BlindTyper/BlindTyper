@@ -26,7 +26,7 @@ BIN_DIR   = $(PRJ_DIR)/../bin
 
 # Компилятор и флаги
 CXX       = g++
-CXXFLAGS  = -I$(INC_DIR) $(CXXDEPFLAGS) -Wall -Wextra -std=c++17
+CXXFLAGS  = -I$(INC_DIR) $(CXXDEPFLAGS) -Wall -Wextra -std=c++20
 
 # ============================================================================
 # Автоматическое определение файлов (с поддержкой поддиректорий)

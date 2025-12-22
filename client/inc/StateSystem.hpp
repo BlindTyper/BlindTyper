@@ -36,10 +36,22 @@ namespace tppo {
         void SoloGameMenuInit();
     
         //
+        void InSoloGameInit();
+    
+        //
+        void SoloGameResultsInit();
+    
+        //
         void MainMenuState();
     
         //
         void SoloGameMenuState();
+    
+        //
+        void InSoloGameState();
+    
+        //
+        void SoloGameResultsState();
         
     };
 }

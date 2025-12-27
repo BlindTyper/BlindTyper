@@ -102,13 +102,12 @@ namespace tppo {
         fontConfig.GlyphRanges = CyrillicRanges;
         io.Fonts->Clear();
         // io->Fonts->AddFontDefault();
-        io.Fonts->AddFontFromFileTTF("../data/arial.ttf", 24.0f, &fontConfig);
-        io.Fonts->AddFontFromFileTTF("../data/arial.ttf", 80.0f, &fontConfig);
-        io.Fonts->AddFontFromFileTTF("../data/arial.ttf", 120.0f, &fontConfig);
-        io.Fonts->AddFontFromFileTTF("../data/arial.ttf", 64.0f, &fontConfig);
-        io.Fonts->AddFontFromFileTTF("../data/arial.ttf", 48.0f, &fontConfig);
-        io.Fonts->AddFontFromFileTTF("../data/arial.ttf", 32.0f, &fontConfig);
-        io.Fonts->AddFontFromFileTTF("../data/arial.ttf", 16.0f, &fontConfig);
+        std::string arialFontName = "../data/arial.ttf";
+        const std::uint64_t fontSizesCount = 6;
+        std::array<std::uint64_t, fontSizesCount> fontSizes = {16, 24, 32, 48, 64, 80};
+        for (std::uint64_t i = 0; i < fontSizesCount; i++) {
+            visualResources.AddFont(arialFontName, fontSizes[i]);
+        }
         (void) ImGui::SFML::UpdateFontTexture();
     }
     
@@ -116,6 +115,7 @@ namespace tppo {
     void VisualSystem::Update() {
         auto &settings = entityManager.GetSystemResources()->GetSettings();
         auto &window = entityManager.GetSystemResources()->GetWindow();
+        auto &visualResources = entityManager.GetSystemResources()->GetVisualResources();
         
         ImGuiIO &io = ImGui::GetIO();
         
@@ -206,7 +206,8 @@ namespace tppo {
             auto &transform = componentManager.GetTransformComponent(key);
             ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 3.0f);
             ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, std::min(workSize.y / 3.0f, workSize.x / 3.0f));
-            ImGui::PushFont(io.Fonts->Fonts[1]);
+            std::uint64_t fontNum = visualResources.GetFontNum(ui->GetFontSize());
+            ImGui::PushFont(io.Fonts->Fonts[fontNum]);
             ImGui::PushStyleColor(
                 ImGuiCol_Text, 
                 ImVec4(
@@ -224,23 +225,27 @@ namespace tppo {
                 transform->GetPosition().x * workSize.x, 
                 transform->GetPosition().y * workSize.y
             );
-            const char *text = ui->GetText().c_str();
+            std::string text = ui->GetText();
             ImGui::SetCursorPos(pos);
             if (ui->GetType() == UIComponent::Type::label) {
-                ImGui::Text(text, size);
+//                if (ui->GetTrackedData1() != nullptr)
+//                    text += std::format("{:.0f}", static_cast<long double>(*(static_cast<std::uint64_t *>(ui->GetTrackedData1()))));
+                ImGui::Text(text.c_str(), size);
             } else if (ui->GetType() == UIComponent::Type::button) {
-                if (ImGui::Button(text, size)) {
+                if (ui->GetTrackedData() != nullptr)
+                    text += (ui->GetTrackedData())();
+                if (ImGui::Button(text.c_str(), size)) {
                     std::function<void()> call = ui->GetOnClick();
                     call();
                 }
             } else if (ui->GetType() == UIComponent::Type::progressBar) {
-                if (ui->GetTrackedData1() != nullptr && ui->GetTrackedData2() != nullptr) {
-                    long double data1 = static_cast<long double>(*(static_cast<std::uint64_t *>(ui->GetTrackedData1())));
-                    long double data2 = static_cast<long double>(*(static_cast<std::uint64_t *>(ui->GetTrackedData2())));
-                    ImGui::ProgressBar(data1 / data2, size, text);
+                if (ui->GetTrackedData() != nullptr) {
+                    long double progress = std::stold((ui->GetTrackedData())());
+                    //text += (ui->GetTrackedData())();
+                    ImGui::ProgressBar(progress, size, text.c_str());
                 }
                 else {
-                    ImGui::ProgressBar(1.0f, size, text);
+                    ImGui::ProgressBar(1.0f, size, text.c_str());
                 }
             }
             ImGui::PopStyleColor();

@@ -110,6 +110,11 @@ namespace tppo {
             componentManager.RemoveHealthComponent(id);
         }
         floors.clear();
+        for (auto &[id, player] : players) {
+            player->GetPlayerStatComponent()->GetTotalLettersDestroyed() = 0;
+            player->GetPlayerStatComponent()->GetLettersDestroyedPerMinute() = 0;
+            player->GetPlayerStatComponent()->GetTimePassed() = 0;
+        }
     }
         
     //
@@ -165,10 +170,9 @@ namespace tppo {
         
     //
     std::shared_ptr<Button> &EntityManager::AddButton(
-        UIComponent::Type type, 
-        std::string &text, 
-        void *trackedData1,
-        void *trackedData2,
+        std::string &text,
+        std::function<std::string()> trackedData,
+        std::uint64_t fontSize,
         Vec3d textColor,
         bool isVisible,
         std::function<void()> onClick,
@@ -176,7 +180,7 @@ namespace tppo {
         Vec3d size
     ) {
         std::uint64_t id = Entity::GetCounter();
-        std::shared_ptr<UIComponent> &uiComponent = componentManager.AddUIComponent(id, type, text, trackedData1, trackedData2, textColor, isVisible, onClick);
+        std::shared_ptr<UIComponent> &uiComponent = componentManager.AddUIComponent(id, UIComponent::Type::button, text, trackedData, fontSize, textColor, isVisible, onClick);
         id = Entity::GetCounter();
         std::shared_ptr<TransformComponent> &transform = componentManager.AddTransformComponent(id, pos, size);
         return (*buttons.try_emplace(id, std::make_shared<Button>(uiComponent, transform)).first).second;
@@ -184,10 +188,9 @@ namespace tppo {
         
     //
     std::shared_ptr<Button> &EntityManager::AddButton(
-        UIComponent::Type type, 
-        std::string &&text, 
-        void *trackedData1,
-        void *trackedData2,
+        std::string &&text,
+        std::function<std::string()> trackedData,
+        std::uint64_t fontSize,
         Vec3d textColor, 
         bool isVisible,
         std::function<void()> onClick,
@@ -195,7 +198,7 @@ namespace tppo {
         Vec3d size
     ) {
         std::uint64_t id = Entity::GetCounter();
-        std::shared_ptr<UIComponent> &uiComponent = componentManager.AddUIComponent(id, type, text, trackedData1, trackedData2, textColor, isVisible, onClick);
+        std::shared_ptr<UIComponent> &uiComponent = componentManager.AddUIComponent(id, UIComponent::Type::button, text, trackedData, fontSize, textColor, isVisible, onClick);
         id = Entity::GetCounter();
         std::shared_ptr<TransformComponent> &transform = componentManager.AddTransformComponent(id, pos, size);
         return (*buttons.try_emplace(id, std::make_shared<Button>(uiComponent, transform)).first).second;
@@ -230,10 +233,9 @@ namespace tppo {
         
     //
     std::shared_ptr<Label> &EntityManager::AddLabel(
-        UIComponent::Type type, 
-        std::string &text, 
-        void *trackedData1,
-        void *trackedData2,
+        std::string &text,
+        std::function<std::string()> trackedData,
+        std::uint64_t fontSize,
         Vec3d textColor,
         bool isVisible,
         std::function<void()> onClick,
@@ -241,7 +243,7 @@ namespace tppo {
         Vec3d size
     ) {
         std::uint64_t id = Entity::GetCounter();
-        std::shared_ptr<UIComponent> &uiComponent = componentManager.AddUIComponent(id, type, text, trackedData1, trackedData2, textColor, isVisible, onClick);
+        std::shared_ptr<UIComponent> &uiComponent = componentManager.AddUIComponent(id, UIComponent::Type::label, text, trackedData, fontSize, textColor, isVisible, onClick);
         id = Entity::GetCounter();
         std::shared_ptr<TransformComponent> &transform = componentManager.AddTransformComponent(id, pos, size);
         return (*labels.try_emplace(id, std::make_shared<Label>(uiComponent, transform)).first).second;
@@ -249,10 +251,9 @@ namespace tppo {
         
     //
     std::shared_ptr<Label> &EntityManager::AddLabel(
-        UIComponent::Type type, 
-        std::string &&text, 
-        void *trackedData1,
-        void *trackedData2,
+        std::string &&text,
+        std::function<std::string()> trackedData,
+        std::uint64_t fontSize,
         Vec3d textColor, 
         bool isVisible,
         std::function<void()> onClick,
@@ -260,7 +261,7 @@ namespace tppo {
         Vec3d size
     ) {
         std::uint64_t id = Entity::GetCounter();
-        std::shared_ptr<UIComponent> &uiComponent = componentManager.AddUIComponent(id, type, text, trackedData1, trackedData2, textColor, isVisible, onClick);
+        std::shared_ptr<UIComponent> &uiComponent = componentManager.AddUIComponent(id, UIComponent::Type::label, text, trackedData, fontSize, textColor, isVisible, onClick);
         id = Entity::GetCounter();
         std::shared_ptr<TransformComponent> &transform = componentManager.AddTransformComponent(id, pos, size);
         return (*labels.try_emplace(id, std::make_shared<Label>(uiComponent, transform)).first).second;
@@ -295,10 +296,8 @@ namespace tppo {
         
     //
     std::shared_ptr<HealthBar> &EntityManager::AddHealthBar(
-        UIComponent::Type type, 
-        std::string &text, 
-        void *trackedData1,
-        void *trackedData2,
+        std::string &text,
+        std::function<std::string()> trackedData,
         Vec3d textColor,
         bool isVisible,
         std::function<void()> onClick,
@@ -306,7 +305,7 @@ namespace tppo {
         Vec3d size
     ) {
         std::uint64_t id = Entity::GetCounter();
-        std::shared_ptr<UIComponent> &uiComponent = componentManager.AddUIComponent(id, type, text, trackedData1, trackedData2, textColor, isVisible, onClick);
+        std::shared_ptr<UIComponent> &uiComponent = componentManager.AddUIComponent(id, UIComponent::Type::progressBar, text, trackedData, 16, textColor, isVisible, onClick);
         id = Entity::GetCounter();
         std::shared_ptr<TransformComponent> &transform = componentManager.AddTransformComponent(id, pos, size);
         return (*healthBars.try_emplace(id, std::make_shared<HealthBar>(uiComponent, transform)).first).second;
@@ -314,10 +313,8 @@ namespace tppo {
         
     //
     std::shared_ptr<HealthBar> &EntityManager::AddHealthBar(
-        UIComponent::Type type, 
-        std::string &&text, 
-        void *trackedData1,
-        void *trackedData2,
+        std::string &&text,
+        std::function<std::string()> trackedData,
         Vec3d textColor, 
         bool isVisible,
         std::function<void()> onClick,
@@ -325,7 +322,7 @@ namespace tppo {
         Vec3d size
     ) {
         std::uint64_t id = Entity::GetCounter();
-        std::shared_ptr<UIComponent> &uiComponent = componentManager.AddUIComponent(id, type, text, trackedData1, trackedData2, textColor, isVisible, onClick);
+        std::shared_ptr<UIComponent> &uiComponent = componentManager.AddUIComponent(id, UIComponent::Type::progressBar, text, trackedData, 16, textColor, isVisible, onClick);
         id = Entity::GetCounter();
         std::shared_ptr<TransformComponent> &transform = componentManager.AddTransformComponent(id, pos, size);
         return (*healthBars.try_emplace(id, std::make_shared<HealthBar>(uiComponent, transform)).first).second;
@@ -363,7 +360,41 @@ namespace tppo {
             it.second->IsVisible() = false;
         }
     }
+    
+    //
+    std::shared_ptr<Player> &EntityManager::AddPlayer() {
+        std::uint64_t id = Entity::GetCounter();
+        std::shared_ptr<PlayerStatComponent> &playerStat = componentManager.AddPlayerStatComponent(id);
+        return (*players.try_emplace(id, std::make_shared<Player>(playerStat)).first).second;
+    }
         
+    //
+    void EntityManager::RemovePlayer(std::uint64_t id) {
+        componentManager.RemovePlayerStatComponent(id);
+        players.erase(id);
+    }
+        
+    //
+    bool EntityManager::HasPlayer(std::uint64_t id) {
+        return players.contains(id);
+    }
+    
+    //
+    std::shared_ptr<Player> &EntityManager::GetPlayer(std::uint64_t id) {
+        try {
+            return players.at(id);
+        }
+        catch (std::out_of_range &e) {
+            std::cerr << "Error:\nGetting from EntityManager Button with id: " << id << std::endl;
+            exit(1);
+        }
+    }
+    
+    //
+    std::unordered_map<std::uint64_t, std::shared_ptr<Player>> &EntityManager::GetPlayers() {
+        return players;
+    }
+    
     //
     std::shared_ptr<Letter> &EntityManager::AddLetter(
         bool isVisible,

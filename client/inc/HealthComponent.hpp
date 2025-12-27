@@ -8,7 +8,7 @@
 #include "Component.hpp"
 
 namespace tppo{
-    class HealthComponent : Component {
+    class HealthComponent : public Component {
         
     protected:
         //

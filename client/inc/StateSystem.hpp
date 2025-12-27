@@ -33,25 +33,61 @@ namespace tppo {
         void MainMenuInit();
     
         //
-        void SoloGameMenuInit();
+        void CampanyGameMenuInit();
     
         //
-        void InSoloGameInit();
+        void InChapter1GameInit();
     
         //
-        void SoloGameResultsInit();
+        void Chapter1GameResultsInit();
+    
+        //
+        void InChapter2GameInit();
+    
+        //
+        void Chapter2GameResultsInit();
+    
+        //
+        void InChapter3GameInit();
+    
+        //
+        void Chapter3GameResultsInit();
+    
+        //
+        void InEndlessGameInit();
+    
+        //
+        void EndlessGameResultsInit();
     
         //
         void MainMenuState();
     
         //
-        void SoloGameMenuState();
+        void CampanyGameMenuState();
     
         //
-        void InSoloGameState();
+        void InChapter1GameState();
     
         //
-        void SoloGameResultsState();
+        void Chapter1GameResultsState();
+    
+        //
+        void InChapter2GameState();
+    
+        //
+        void Chapter2GameResultsState();
+    
+        //
+        void InChapter3GameState();
+    
+        //
+        void Chapter3GameResultsState();
+    
+        //
+        void InEndlessGameState();
+    
+        //
+        void EndlessGameResultsState();
         
     };
 }

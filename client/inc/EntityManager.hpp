@@ -131,26 +131,24 @@ namespace tppo {
         
         //
         std::shared_ptr<Button> &AddButton(
-            UIComponent::Type type, 
             std::string &text, 
-            void *trackedData1 = nullptr,
-            void *trackedData2 = nullptr,
+            std::function<std::string()> trackedData = nullptr,
+            std::uint64_t fontSize = 16,
             Vec3d textColor = Vec3d(),
             bool isVisible = true,
-            std::function<void()> onClick = [](){},
+            std::function<void()> onClick = nullptr,
             Vec3d pos = Vec3d(), 
             Vec3d size = Vec3d()
         );
         
         //
         std::shared_ptr<Button> &AddButton(
-            UIComponent::Type type, 
             std::string &&text, 
-            void *trackedData1 = nullptr,
-            void *trackedData2 = nullptr,
+            std::function<std::string()> trackedData = nullptr,
+            std::uint64_t fontSize = 16,
             Vec3d textColor = Vec3d(),
             bool isVisble = true,
-            std::function<void()> onClick = [](){},
+            std::function<void()> onClick = nullptr,
             Vec3d pos = Vec3d(), 
             Vec3d size = Vec3d()
         );
@@ -166,26 +164,24 @@ namespace tppo {
         
         //
         std::shared_ptr<Label> &AddLabel(
-            UIComponent::Type type, 
             std::string &text,
-            void *trackedData1 = nullptr,
-            void *trackedData2 = nullptr,
+            std::function<std::string()> trackedData = nullptr,
+            std::uint64_t fontSize = 16,
             Vec3d textColor = Vec3d(),
             bool isVisible = true,
-            std::function<void()> onClick = [](){},
+            std::function<void()> onClick = nullptr,
             Vec3d pos = Vec3d(), 
             Vec3d size = Vec3d()
         );
         
         //
         std::shared_ptr<Label> &AddLabel(
-            UIComponent::Type type, 
             std::string &&text, 
-            void *trackedData1 = nullptr,
-            void *trackedData2 = nullptr,
+            std::function<std::string()> trackedData = nullptr,
+            std::uint64_t fontSize = 16,
             Vec3d textColor = Vec3d(),
             bool isVisible = true,
-            std::function<void()> onClick = [](){}, 
+            std::function<void()> onClick = nullptr, 
             Vec3d pos = Vec3d(), 
             Vec3d size = Vec3d()
         );
@@ -201,26 +197,22 @@ namespace tppo {
         
         //
         std::shared_ptr<HealthBar> &AddHealthBar(
-            UIComponent::Type type, 
             std::string &text,
-            void *trackedData1 = nullptr,
-            void *trackedData2 = nullptr,
+            std::function<std::string()> trackedData = nullptr,
             Vec3d textColor = Vec3d(),
             bool isVisible = true,
-            std::function<void()> onClick = [](){},
+            std::function<void()> onClick = nullptr,
             Vec3d pos = Vec3d(), 
             Vec3d size = Vec3d()
         );
         
         //
         std::shared_ptr<HealthBar> &AddHealthBar(
-            UIComponent::Type type, 
-            std::string &&text, 
-            void *trackedData1 = nullptr,
-            void *trackedData2 = nullptr,
+            std::string &&text,
+            std::function<std::string()> trackedData = nullptr,
             Vec3d textColor = Vec3d(),
             bool isVisible = true,
-            std::function<void()> onClick = [](){}, 
+            std::function<void()> onClick = nullptr, 
             Vec3d pos = Vec3d(), 
             Vec3d size = Vec3d()
         );
@@ -236,6 +228,21 @@ namespace tppo {
         
         //
         void HideUI();
+        
+        //
+        std::shared_ptr<Player> &AddPlayer();
+        
+        //
+        void RemovePlayer(std::uint64_t id);
+        
+        //
+        bool HasPlayer(std::uint64_t id);
+        
+        //
+        std::shared_ptr<Player> &GetPlayer(std::uint64_t id);
+        
+        //
+        std::unordered_map<std::uint64_t, std::shared_ptr<Player>> &GetPlayers();
         
         //
         std::shared_ptr<Letter> &AddLetter(

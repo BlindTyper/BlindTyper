@@ -119,17 +119,55 @@ namespace tppo {
     }
         
     //
+    std::shared_ptr<PlayerStatComponent> &ComponentManager::AddPlayerStatComponent(
+        std::uint64_t ownerId
+    ) {
+        return (*playerStatComponents.try_emplace(ownerId, std::make_shared<PlayerStatComponent>(
+            ownerId)).first).second;
+    }
+        
+    bool ComponentManager::HasPlayerStatComponent(std::uint64_t id) {
+        try {
+            playerStatComponents.at(id);
+            return true;
+        }
+        catch (std::out_of_range &e) {
+            return false;
+        }
+    }
+        
+    std::shared_ptr<PlayerStatComponent> &ComponentManager::GetPlayerStatComponent(std::uint64_t id) {
+        try {
+            return playerStatComponents.at(id);
+        }
+        catch (std::out_of_range &e) {
+            std::cerr << "Error:\nGetting from ComponentManager PlayerStatComponent with id: " << id << std::endl;
+            exit(1);
+        }
+    }
+        
+    //
+    std::unordered_map<size_t, std::shared_ptr<PlayerStatComponent>> &ComponentManager::GetPlayerStatComponents() {
+        return playerStatComponents;
+    }
+        
+    //
+    void ComponentManager::RemovePlayerStatComponent(std::uint64_t id) {
+        playerStatComponents.erase(id);
+    }
+        
+    //
     std::shared_ptr<UIComponent> &ComponentManager::AddUIComponent(
         std::uint64_t ownerId,
         UIComponent::Type type,
-        std::string &text, 
-        void *trackedData1,
-        void *trackedData2,
+        std::string &text,
+        std::function<std::string()> trackedData,
+        std::uint64_t fontSize,
         Vec3d textColor, 
         bool isVisible,
         std::function<void()> onClick
     ) {
-        return (*uiComponents.try_emplace(ownerId, std::make_shared<UIComponent>(ownerId, type, text, trackedData1, trackedData2, textColor, isVisible, onClick)).first).second;
+        return (*uiComponents.try_emplace(ownerId, std::make_shared<UIComponent>(ownerId, type, text, trackedData, fontSize, textColor, isVisible, onClick)).first).second;
     }
         
     //
@@ -137,13 +175,13 @@ namespace tppo {
         std::uint64_t ownerId, 
         UIComponent::Type type,
         std::string &&text,
-        void *trackedData1,
-        void *trackedData2,
+        std::function<std::string()> trackedData,
+        std::uint64_t fontSize,
         Vec3d textColor, 
         bool isVisible,
         std::function<void()> onClick
     ) {
-        return (*uiComponents.try_emplace(ownerId, std::make_shared<UIComponent>(ownerId, type, text, trackedData1, trackedData2, textColor, isVisible, onClick)).first).second;
+        return (*uiComponents.try_emplace(ownerId, std::make_shared<UIComponent>(ownerId, type, text, trackedData, fontSize, textColor, isVisible, onClick)).first).second;
     }
         
     bool ComponentManager::HasUIComponent(std::uint64_t id) {

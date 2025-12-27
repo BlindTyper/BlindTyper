@@ -10,8 +10,8 @@ namespace tppo {
         std::uint64_t ownerId, 
         Type type, 
         std::string &text,
-        void *trackedData1,
-        void *trackedData2,
+        std::function<std::string()> trackedData,
+        std::uint64_t fontSize,
         Vec3d textColor, 
         bool isVisible, 
         std::function<void()> onClick
@@ -19,8 +19,8 @@ namespace tppo {
         : Component(ownerId)
         , type(type)
         , text(text)
-        , trackedData1(trackedData1)
-        , trackedData2(trackedData2)
+        , trackedData(trackedData)
+        , fontSize(fontSize)
         , textColor(textColor)
         , isVisible(isVisible)
         , onClick(onClick)
@@ -33,8 +33,8 @@ namespace tppo {
         std::uint64_t ownerId, 
         Type type, 
         std::string &&text,
-        void *trackedData1,
-        void *trackedData2,
+        std::function<std::string()> trackedData,
+        std::uint64_t fontSize,
         Vec3d textColor, 
         bool isVisible, 
         std::function<void()> onClick
@@ -42,8 +42,8 @@ namespace tppo {
         : Component(ownerId)
         , type(type)
         , text(text)
-        , trackedData1(trackedData1)
-        , trackedData2(trackedData2)
+        , trackedData(trackedData)
+        , fontSize(fontSize)
         , textColor(textColor)
         , isVisible(isVisible)
         , onClick(onClick)
@@ -62,23 +62,18 @@ namespace tppo {
     }
         
     //
-    void UIComponent::SetTrackedData1(void *trackedData) {
-        this->trackedData1 = trackedData;
+    void UIComponent::SetTrackedData(std::function<std::string()> trackedData) {
+        this->trackedData = trackedData;
     }
         
     //
-    void *UIComponent::GetTrackedData1() {
-        return trackedData1;
+    std::function<std::string()> UIComponent::GetTrackedData() {
+        return trackedData;
     }
         
     //
-    void UIComponent::SetTrackedData2(void *trackedData) {
-        this->trackedData2 = trackedData;
-    }
-        
-    //
-    void *UIComponent::GetTrackedData2() {
-        return trackedData2;
+    std::uint64_t &UIComponent::GetFontSize() {
+        return fontSize;
     }
         
     //

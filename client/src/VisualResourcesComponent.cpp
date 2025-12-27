@@ -37,6 +37,32 @@ namespace tppo {
             exit(1);
         }
     }
+    
+    //
+    void VisualResourcesComponent::AddFont(std::string &pathToFile, std::uint64_t fontSize) {
+        ImGuiIO &io = ImGui::GetIO();
+        fontSizeToFontNumber.emplace(fontSize, io.Fonts->Fonts.size());
+        io.Fonts->AddFontFromFileTTF(pathToFile.c_str(), fontSize, &fontConfig);
+    }
+    
+    //
+    void VisualResourcesComponent::AddFont(std::string &&pathToFile, std::uint64_t fontSize) {
+        ImGuiIO &io = ImGui::GetIO();
+        io.Fonts->Clear();
+        fontSizeToFontNumber.emplace(fontSize, io.Fonts->Fonts.size());
+        io.Fonts->AddFontFromFileTTF(pathToFile.c_str(), fontSize, &fontConfig);
+    }
+        
+    //
+    std::uint64_t VisualResourcesComponent::GetFontNum(std::uint64_t fontSize) {
+        try {
+            return fontSizeToFontNumber.at(fontSize);
+        }
+        catch (std::out_of_range &e) {
+            std::cerr << "Error:\nGetting from VisualResourcesComponent std::uint64_t with fontSize: " << fontSize << std::endl;
+            exit(1);
+        } 
+    }
         
     //
     ImFontConfig &VisualResourcesComponent::GetFontConfig() {

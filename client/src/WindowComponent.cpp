@@ -11,7 +11,7 @@ namespace tppo {
         , window()
         , deltaClock()
     {
-        
+        deltaClock.start();
     }
     
     //
@@ -26,7 +26,7 @@ namespace tppo {
         , window(mode, title, style, state)
         , deltaClock()
     {
-        
+        deltaClock.start();
     }
     
     //

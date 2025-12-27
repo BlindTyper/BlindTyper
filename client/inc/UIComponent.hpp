@@ -31,10 +31,10 @@ namespace tppo {
         std::string text;
         
         //
-        void *trackedData1;
+        std::function<std::string()> trackedData;
         
         //
-        void *trackedData2;
+        std::uint64_t fontSize;
         
         //
         Vec3d textColor;
@@ -51,8 +51,8 @@ namespace tppo {
             std::uint64_t ownerId,
             Type type,
             std::string &text,
-            void *trackedData1 = nullptr,
-            void *trackedData2 = nullptr,
+            std::function<std::string()> trackedData = nullptr,
+            std::uint64_t fontSize = 16,
             Vec3d textColor = Vec3d(),
             bool isVisible = true,
             std::function<void()> onClick = [](){}
@@ -63,8 +63,8 @@ namespace tppo {
             std::uint64_t ownerId, 
             Type type,
             std::string &&text,
-            void *trackedData1 = nullptr,
-            void *trackedData2 = nullptr,
+            std::function<std::string()> trackedData = nullptr,
+            std::uint64_t fontSize = 16,
             Vec3d textColor = Vec3d(),
             bool isVisible = true,
             std::function<void()> onClick = [](){}
@@ -77,16 +77,13 @@ namespace tppo {
         std::string &GetText();
         
         //
-        void SetTrackedData1(void *trackedData);
+        void SetTrackedData(std::function<std::string()> trackedData);
         
         //
-        void *GetTrackedData1();
+        std::function<std::string()> GetTrackedData();
         
         //
-        void SetTrackedData2(void *trackedData);
-        
-        //
-        void *GetTrackedData2();
+        std::uint64_t &GetFontSize();
         
         //
         Vec3d &GetTextColor();

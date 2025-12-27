@@ -28,6 +28,7 @@ namespace tppo {
             if (!gameMode->IsActive()) {
                 continue;
             }
+            
             char key = 0;
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
                 key = 'a';
@@ -107,15 +108,25 @@ namespace tppo {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Z)) {
                 key = 'z';
             }
-            if (!key) {
-                return;
-            }
+            
             auto &glyphs = componentManager.GetGlyphComponents();
-            for (auto &[id, glyph] : glyphs) {
-                if (key == glyph->GetGlyph()) {
-                    entityManager.RemoveLetter(id);
-                    break;
+            auto &playerStats = componentManager.GetPlayerStatComponents();
+            auto &window = componentManager.GetWindowComponent();
+            for (auto &[i, playerStat] : playerStats) {
+                playerStat->GetTimePassed() += window->GetClock().getElapsedTime().asMilliseconds();
+                if (!key) {
+                    return;
                 }
+                for (auto &[id, glyph] : glyphs) {
+                    if (key == glyph->GetGlyph()) {
+                        if (playerStat) {
+                            playerStat->GetTotalLettersDestroyed()++;
+                        }
+                        entityManager.RemoveLetter(id);
+                        break;
+                    }
+                }
+                break;
             }
             
             

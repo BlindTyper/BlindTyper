@@ -20,6 +20,7 @@
 #include "WindowComponent.hpp"
 #include "VisualResourcesComponent.hpp"
 #include "GameModeComponent.hpp"
+#include "PlayerStatComponent.hpp"
 #include "UIComponent.hpp"
 #include "VisualComponent.hpp"
 #include "TransformComponent.hpp"
@@ -48,6 +49,9 @@ namespace tppo {
         
         //
         std::unordered_map<std::uint64_t, std::shared_ptr<GameModeComponent>> gameModeComponents;
+        
+        //
+        std::unordered_map<std::uint64_t, std::shared_ptr<PlayerStatComponent>> playerStatComponents;
         
         //
         std::unordered_map<std::uint64_t, std::shared_ptr<UIComponent>> uiComponents;
@@ -137,12 +141,29 @@ namespace tppo {
         std::unordered_map<size_t, std::shared_ptr<GameModeComponent>> &GetGameModeComponents();
         
         //
+        std::shared_ptr<PlayerStatComponent> &AddPlayerStatComponent(
+            std::uint64_t ownerId
+        );
+        
+        //
+        bool HasPlayerStatComponent(std::uint64_t id);
+        
+        //
+        std::shared_ptr<PlayerStatComponent> &GetPlayerStatComponent(std::uint64_t id);
+        
+        //
+        std::unordered_map<size_t, std::shared_ptr<PlayerStatComponent>> &GetPlayerStatComponents();
+        
+        //
+        void RemovePlayerStatComponent(std::uint64_t id);
+        
+        //
         std::shared_ptr<UIComponent> &AddUIComponent(
             std::uint64_t ownerId, 
             UIComponent::Type type,
             std::string &text,
-            void *trackedData1,
-            void *trackedData2,
+            std::function<std::string()> trackedData,
+            std::uint64_t fontSize,
             Vec3d textColor, 
             bool isVisible,
             std::function<void()> onClick
@@ -153,8 +174,8 @@ namespace tppo {
             std::uint64_t ownerId, 
             UIComponent::Type type,
             std::string &&text,
-            void *trackedData1,
-            void *trackedData2,
+            std::function<std::string()> trackedData,
+            std::uint64_t fontSize,
             Vec3d textColor, 
             bool isVisible,
             std::function<void()> onClick

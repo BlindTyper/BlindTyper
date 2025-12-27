@@ -9,12 +9,24 @@
 
 #include "Entity.hpp"
 
+#include "PlayerStatComponent.hpp"
+
 namespace tppo {
     class Player : public Entity {
         
     protected:
+        //
+        std::shared_ptr<PlayerStatComponent> playerStatComponent;
         
     public:
+        //
+        Player(
+            std::shared_ptr<PlayerStatComponent> &playerStatComponent
+        );
+        
+        //
+        std::shared_ptr<PlayerStatComponent> &GetPlayerStatComponent();
+        
         
     };
 }
